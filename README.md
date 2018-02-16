@@ -15,6 +15,6 @@ Original Paper : [Simplified SMO](http://cs229.stanford.edu/materials/smo.pdf)
 ## Code Implementation
 Vibhatha Lakmal Abeykoon
 
-## Advior
+## Advisor
 
 Geoffrey C. Fox
