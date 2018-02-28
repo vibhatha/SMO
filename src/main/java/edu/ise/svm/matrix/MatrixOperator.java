@@ -1,9 +1,12 @@
 package edu.ise.svm.matrix;
 
+import java.util.logging.Logger;
+
 /**
  * Created by vlabeyko on 9/28/2016.
  */
 public class MatrixOperator implements IMatrix {
+    public final static Logger LOG = Logger.getLogger(MatrixOperator.class.getName());
 
     private enum PRODUCT {
         DOT, CROSS
@@ -259,7 +262,7 @@ public class MatrixOperator implements IMatrix {
                     m.getMatDouble()[i][j] = b.getMatDouble()[i][j] * a.getMatDouble()[i][0];
 
                 }
-                //System.out.println();
+                //LOG.info();
             }
 
 
@@ -413,7 +416,7 @@ public class MatrixOperator implements IMatrix {
         String bType = b.getType().toString();
 
         if (aType.equals(bType)) {
-            System.out.println("Type matches");
+            LOG.info("Type matches");
             m = new Matrix(1, 1, aType);
 
             int aRow = a.getRows();
@@ -485,7 +488,7 @@ public class MatrixOperator implements IMatrix {
             }
 
 
-            //System.out.println();
+            //LOG.info();
         } else {
 
             m = null;
@@ -505,7 +508,7 @@ public class MatrixOperator implements IMatrix {
 
             rows = a.getRows();
             columns = a.getColumns();
-            //System.out.println(rows + "," + columns);
+            //LOG.info(rows + "," + columns);
         }
 
         //swap rows and columns
@@ -514,7 +517,7 @@ public class MatrixOperator implements IMatrix {
         rows = rows - columns;
 
         Matrix tMat = new Matrix(rows, columns, a.getType().toString());
-        //System.out.println(rows + "," + columns);
+        //LOG.info(rows + "," + columns);
         //swap again
         rows = rows + columns;
         columns = rows - columns;
@@ -556,14 +559,14 @@ public class MatrixOperator implements IMatrix {
                 for (int j = 0; j < cols; j++) {
                     if (m.getMatDouble() != null) {
 
-                        System.out.print(m.getMatDouble()[i][j] + " ");
+                        LOG.info(m.getMatDouble()[i][j] + " ");
 
                     } else if (m.getMatInt() != null) {
-                        System.out.print(m.getMatInt()[i][j] + " ");
+                        LOG.info(m.getMatInt()[i][j] + " ");
                     }
 
                 }
-                System.out.println();
+                LOG.info("");
             }
 
 

@@ -5,6 +5,8 @@ import edu.ise.svm.entities.Model;
 import edu.ise.svm.matrix.Matrix;
 import edu.ise.svm.matrix.MatrixOperator;
 
+import java.util.logging.Logger;
+
 /**
  * Created by vlabeyko on 10/21/2016.
  */
@@ -17,6 +19,7 @@ import edu.ise.svm.matrix.MatrixOperator;
 
 public class Predict {
 
+    public final static Logger LOG = Logger.getLogger(Predict.class.getName());
     private Model model;
     private Matrix x;
 
@@ -96,7 +99,7 @@ public class Predict {
         //the y=mx+C relation ship for a given coordinates is considered here
         //the m*X multiplication is done and assigned to op1 matrix
         Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
-        System.out.println("op1");
+        LOG.info("op1");
         matrixOperator.disp(op1);
         //the matrix addition is done based on the definitions in the matrix package
         Matrix b = new Matrix(m,1,"DOUBLE");
@@ -105,12 +108,12 @@ public class Predict {
             b.getMatDouble()[i][0]= model.getB();
         }
 
-        System.out.println("b");
+        LOG.info("b");
         matrixOperator.disp(b);
         //mx+C addition is done in this stage
         Matrix op2 = matrixOperator.add(op1,b);
 
-        System.out.println("op2");
+        LOG.info("op2");
         matrixOperator.disp(op2);
 
         //the classes identification is done here
@@ -176,7 +179,7 @@ public class Predict {
 
     public double getAccuracy(Double [] testData, double [] predictData){
         int matchcount = 0;
-        int totalCount = testData.length;
+        int totalCount = predictData.length;
         for (int i = 0; i < testData.length; i++) {
             if(testData[i].doubleValue()==predictData[i]){
                 matchcount++;

@@ -10,6 +10,7 @@ import edu.ise.svm.matrix.MatrixOperator;
 import edu.ise.svm.smo.SMO;
 import edu.ise.svm.smo.Predict;
 import edu.ise.svm.util.Util;
+import java.util.logging.Logger;
 
 import java.util.ArrayList;
 
@@ -18,13 +19,15 @@ import java.util.ArrayList;
  */
 public class Main {
 
+    public final static Logger LOG = Logger.getLogger(Main.class.getName());
+
     private enum DATATYPE {
         DOUBLE, INT
     }
 
     public static void main(String[] args) {
 
-        System.out.println("Support Vector Machines Library v1.0");
+        LOG.info("Support Vector Machines Library v1.0");
 
         long read_start = System.currentTimeMillis();
 
@@ -77,7 +80,7 @@ public class Main {
                 System.out.print(matA.getMatInt()[i][j]+ " ");
 
             }
-            System.out.println();
+            LOG.info();
         }
 
         for(int i=0; i < matA.getRows();i++){
@@ -86,12 +89,12 @@ public class Main {
                 System.out.print( matB.getMatInt()[i][j]+ " ");
 
             }
-            System.out.println();
+            LOG.info();
         }*/
 
 
         //get dot product
-      /*  System.out.println("Matrix Dot Product");
+      /*  LOG.info("Matrix Dot Product");
 
         MatrixOperator matrixOperator = new MatrixOperator();
         Matrix matDot = matrixOperator.product(matA,matB,"DOT");
@@ -99,8 +102,8 @@ public class Main {
         LinearKernel linearKernel = new LinearKernel(matA,matB);
         int value = linearKernel.getLinearKernelOutput().getMatInt()[0][0];
         int value1 = matDot.getMatInt()[0][0];
-        System.out.println("Dot Product : "+value1);
-        System.out.println("Linear Kernel : "+value);
+        LOG.info("Dot Product : "+value1);
+        LOG.info("Linear Kernel : "+value);
 
 
         Matrix sub = matrixOperator.subtract(matB,matA);
@@ -108,13 +111,13 @@ public class Main {
 
         double matANorm = matrixOperator.norm(matA).getMatDouble()[0][0];
         double matBNorm = matrixOperator.norm(matB).getMatDouble()[0][0];
-        System.out.println("Matrix A norm "+matANorm);
-        System.out.println("Matrix B norm "+matBNorm);
+        LOG.info("Matrix A norm "+matANorm);
+        LOG.info("Matrix B norm "+matBNorm);
 
         double sigma = 0.25;
         GaussianKernel gaussianKernel = new GaussianKernel(matA,matB,sigma);
         double gaussianKernelValue = gaussianKernel.getGaussianKernelOutput().getMatDouble()[0][0];
-        System.out.println("Gaussian Kernel Output :"+gaussianKernelValue);
+        LOG.info("Gaussian Kernel Output :"+gaussianKernelValue);
 
         Matrix alpha; Matrix b; Matrix w; Matrix x; Matrix y; Matrix lpd;
 
@@ -196,16 +199,16 @@ public class Main {
         //check the model output
 
         MatrixOperator matrixOperator = new MatrixOperator();
-        //System.out.println("Alphas from Model");
+        //LOG.info("Alphas from Model");
         //matrixOperator.disp(model.getAlphas());
 
-        //System.out.println("X from Model");
+        //LOG.info("X from Model");
         //matrixOperator.disp(model.getX());
 
-        //System.out.println("Y from Model");
+        //LOG.info("Y from Model");
         //matrixOperator.disp(model.getY());
 
-        //System.out.println("W from Model");
+        //LOG.info("W from Model");
         //matrixOperator.disp(model.getW());
 
         //x_test = [[1.34, 0.23], [2.2, 0.35], [1.1, 0.1], [0.08, 2.1]]
@@ -226,8 +229,8 @@ public class Main {
         int testArrRows = testArr.length;
         int testArrCols = testArr[0].length;
 
-        System.out.println("Test Array Rows : " + testArrRows);
-        System.out.println("Test Array Cols : " + testArrCols);
+        LOG.info("Test Array Rows : " + testArrRows);
+        LOG.info("Test Array Cols : " + testArrCols);
 
 
         Matrix test1 = new Matrix(testArrRows, testArrCols,"DOUBLE");
@@ -236,17 +239,20 @@ public class Main {
         Predict predict = new Predict(model,test1);
 
         Matrix prediction1 = predict.predict();
-        System.out.println("Prediction of test 1");
-        matrixOperator.disp(prediction1);
-        double accuracy = predict.getAccuracy(testArrRes ,prediction1.getMatDouble()[0]);
 
-        System.out.println("-----------------------");
-        System.out.println("I/O Time : " + read_time_d + " s");
-        System.out.println("Training Time : " + train_time + " s");
-        System.out.println("Accuracy : " + accuracy);
+
+        double [] predictionArr = new MatrixOperator().transpose(prediction1).getMatDouble()[0];
+        double accuracy = predict.getAccuracy(testArrRes , predictionArr);
+
+        LOG.info("Prediction of test 1");
+        LOG.info("-----------------------------------------");
+        LOG.info("I/O Time : " + read_time_d + " s");
+        LOG.info("Training Time : " + train_time + " s");
+        LOG.info("Accuracy : " + accuracy);
+        LOG.info("----------------------------------------");
 
         double b_cal = model.getB();
-        System.out.println("b : "+b_cal);
+        LOG.info("b : "+b_cal);
 
 
     }

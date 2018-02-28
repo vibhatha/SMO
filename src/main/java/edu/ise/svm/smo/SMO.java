@@ -8,11 +8,13 @@ import edu.ise.svm.matrix.MatrixOperator;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * Created by vibhatha on 10/1/16.
  */
 public class SMO {
+    public final static Logger LOG = Logger.getLogger(SMO.class.getName());
 
     private Matrix alpha;
     private Matrix b;
@@ -45,7 +47,7 @@ public class SMO {
 
 
         } catch (Exception ex) {
-            System.out.println("Error in calculation " + ex.getMessage());
+            LOG.info("Error in calculation " + ex.getMessage());
         }
 
         return w_square;
@@ -70,33 +72,33 @@ public class SMO {
         x = matrixOperator.transpose(x);
         //y = matrixOperator.transpose(y);
 
-        System.out.println("X " + x.getRows() + "," + x.getColumns());
-        System.out.println("W " + w.getRows() + "," + w.getColumns());
-        System.out.println("X :");
+        LOG.info("X " + x.getRows() + "," + x.getColumns());
+        LOG.info("W " + w.getRows() + "," + w.getColumns());
+        LOG.info("X :");
         matrixOperator.disp(x);
-        System.out.println("W :");
+        LOG.info("W :");
         matrixOperator.disp(w);
 
         //W_t * X operation
-        System.out.println("W_t * X operation");
+        LOG.info("W_t * X operation");
         Matrix wx = matrixOperator.product(w, x, "CROSS");
         matrixOperator.disp(wx);
 
         //+b operation
-        System.out.println("Wx + b operation");
+        LOG.info("Wx + b operation");
         Matrix wx_b = matrixOperator.add(wx, b);
         matrixOperator.disp(wx_b);
         //y * wx_b
 
-        System.out.println("Y ");
+        LOG.info("Y ");
         matrixOperator.disp(y);
 
         Matrix y_wx_b = matrixOperator.product(wx_b, y, "CROSS");
-        System.out.println("y(Wt*X+b)");
+        LOG.info("y(Wt*X+b)");
         matrixOperator.disp(y_wx_b);
 
-        System.out.println("y(wx+b)");
-        System.out.println(y_wx_b.getRows() + "," + y_wx_b.getColumns());
+        LOG.info("y(wx+b)");
+        LOG.info(y_wx_b.getRows() + "," + y_wx_b.getColumns());
 
 
         double val = y_wx_b.getMatDouble()[0][0];
@@ -143,9 +145,9 @@ public class SMO {
         MatrixOperator matrixOperator = new MatrixOperator();
         Matrix x_dash = matrixOperator.transpose(x);
         k = matrixOperator.product(x, x_dash, "CROSS");
-        //System.out.println("X");
+        //LOG.info("X");
         //matrixOperator.disp(x);
-        //System.out.println("Y");
+        //LOG.info("Y");
         //matrixOperator.disp(y);
 
 
@@ -163,8 +165,8 @@ public class SMO {
                 double itr_value = b + sum.getMatDouble()[0][0] - y.getMatDouble()[i][0];
                 e.getMatDouble()[i][0] = itr_value;
 
-                //System.out.println("Debug Mode");
-                //System.out.println(itr_value);
+                //LOG.info("Debug Mode");
+                //LOG.info(itr_value);
                 //Scanner input = new Scanner(System.in);
                 //input.hasNext();
                 //Y(i) * E(i) multiplication
@@ -195,7 +197,7 @@ public class SMO {
                     //old alpha values
                     double alpha_i_old = alphas.getMatDouble()[i][0];
                     double alpha_j_old = alphas.getMatDouble()[j][0];
-                    //System.out.println(alpha_i_old+" / "+alpha_j_old);
+                    //LOG.info(alpha_i_old+" / "+alpha_j_old);
 
                     //compute L and H
                     if (y.getMatDouble()[i][0] == y.getMatDouble()[j][0]) {
@@ -270,15 +272,15 @@ public class SMO {
 
         }//end big while
 
-        //System.out.println("Training Completed...");
+        //LOG.info("Training Completed...");
         //matrixOperator.disp(alphas);
         Matrix alphaPositive = matrixOperator.setValueByBoundry(alphas, ">", 0);
         Matrix cleanAlphas = matrixOperator.getValueMatchingBoundary(alphas, alphaPositive);
-        //System.out.println("Clean ALPHA START");
+        //LOG.info("Clean ALPHA START");
         //matrixOperator.disp(cleanAlphas);
-        System.out.println("CLEAN ALPHA END");
-        //System.out.println("b1,b2 : " + b1 + "," + b2);
-        //System.out.println("b :" + b);
+        LOG.info("CLEAN ALPHA END");
+        //LOG.info("b1,b2 : " + b1 + "," + b2);
+        //LOG.info("b :" + b);
 
         //((alphas.*Y)'*X)'
         Matrix alphas_y = matrixOperator.dotMultiply(alphas, y);
