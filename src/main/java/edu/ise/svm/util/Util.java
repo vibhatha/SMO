@@ -7,6 +7,11 @@ import java.util.ArrayList;
  */
 public class Util {
 
+    static{
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+                "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+    }
+
     public static double [][] converToArray (ArrayList<double []> drlst){
 
         if(drlst!=null){

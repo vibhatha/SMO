@@ -14,6 +14,10 @@ import java.util.logging.Logger;
  * Created by vibhatha on 10/1/16.
  */
 public class SMO {
+    static{
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+                "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+    }
     public final static Logger LOG = Logger.getLogger(SMO.class.getName());
 
     private Matrix alpha;

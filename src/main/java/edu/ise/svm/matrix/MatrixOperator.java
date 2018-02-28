@@ -6,6 +6,10 @@ import java.util.logging.Logger;
  * Created by vlabeyko on 9/28/2016.
  */
 public class MatrixOperator implements IMatrix {
+    static{
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+                "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+    }
     public final static Logger LOG = Logger.getLogger(MatrixOperator.class.getName());
 
     private enum PRODUCT {

@@ -19,6 +19,11 @@ import java.util.logging.Logger;
 
 public class Predict {
 
+    static{
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+                "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+    }
+
     public final static Logger LOG = Logger.getLogger(Predict.class.getName());
     private Model model;
     private Matrix x;
@@ -100,7 +105,7 @@ public class Predict {
         //the m*X multiplication is done and assigned to op1 matrix
         Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
         LOG.info("op1");
-        matrixOperator.disp(op1);
+        //matrixOperator.disp(op1);
         //the matrix addition is done based on the definitions in the matrix package
         Matrix b = new Matrix(m,1,"DOUBLE");
 
@@ -109,12 +114,12 @@ public class Predict {
         }
 
         LOG.info("b");
-        matrixOperator.disp(b);
+        //matrixOperator.disp(b);
         //mx+C addition is done in this stage
         Matrix op2 = matrixOperator.add(op1,b);
 
         LOG.info("op2");
-        matrixOperator.disp(op2);
+        //matrixOperator.disp(op2);
 
         //the classes identification is done here
         linearPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());

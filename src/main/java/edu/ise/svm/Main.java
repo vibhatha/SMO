@@ -19,6 +19,11 @@ import java.util.ArrayList;
  */
 public class Main {
 
+    static{
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+                "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+    }
+
     public final static Logger LOG = Logger.getLogger(Main.class.getName());
 
     private enum DATATYPE {
@@ -214,13 +219,6 @@ public class Main {
         //x_test = [[1.34, 0.23], [2.2, 0.35], [1.1, 0.1], [0.08, 2.1]]
 
         //x_test_1 = [[3.49, 4.02], [1.59, 2.03], [1.53, 2.63], [1.89, 2.93]];
-
-        double [] [] test_data_1 = new double[][]{
-
-            new double[]{0.208333,1,0.333333,-0.283019,-0.552511,-1,1,0.557252,-1,0.0322581,-1,0.333333},
-                new double[]{-0.5,-1,-0.333333,-0.396226,-0.178082,-1,-1,0.40458,-1,-1,-1,-1}
-
-        };
 
         double [][] testArr = Util.converToArray(testXValues);
         Double [] testRes = new Double[testArr.length];
