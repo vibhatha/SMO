@@ -12,7 +12,7 @@ import java.util.Scanner;
 /**
  * Created by vibhatha on 10/1/16.
  */
-public class ConstraintFunctions {
+public class SMO {
 
     private Matrix alpha;
     private Matrix b;
@@ -22,7 +22,7 @@ public class ConstraintFunctions {
     private Matrix lpd;
     MatrixOperator operator = new MatrixOperator();
 
-    public ConstraintFunctions(Matrix alpha, Matrix b, Matrix w, Matrix x, Matrix y, Matrix lpd) {
+    public SMO(Matrix alpha, Matrix b, Matrix w, Matrix x, Matrix y, Matrix lpd) {
         this.alpha = alpha;
         this.b = b;
         this.w = w;
@@ -135,7 +135,7 @@ public class ConstraintFunctions {
         double l = 0;
         double h = 0;
         double C = 1;
-        int max_passes = 20;
+        int max_passes = 12;
 
         //moving on with the linear kernel
         Matrix k = new Matrix(m, m, "DOUBLE");
@@ -270,22 +270,22 @@ public class ConstraintFunctions {
 
         }//end big while
 
-        System.out.println("Training Completed...");
+        //System.out.println("Training Completed...");
         //matrixOperator.disp(alphas);
         Matrix alphaPositive = matrixOperator.setValueByBoundry(alphas, ">", 0);
         Matrix cleanAlphas = matrixOperator.getValueMatchingBoundary(alphas, alphaPositive);
-        System.out.println("Clean ALPHA START");
+        //System.out.println("Clean ALPHA START");
         //matrixOperator.disp(cleanAlphas);
         System.out.println("CLEAN ALPHA END");
-        System.out.println("b1,b2 : " + b1 + "," + b2);
-        System.out.println("b :" + b);
+        //System.out.println("b1,b2 : " + b1 + "," + b2);
+        //System.out.println("b :" + b);
 
         //((alphas.*Y)'*X)'
         Matrix alphas_y = matrixOperator.dotMultiply(alphas, y);
         Matrix alphas_y_trans = matrixOperator.transpose(alphas_y);
         Matrix wt = matrixOperator.product(alphas_y_trans, x, "CROSS");
         Matrix w = matrixOperator.transpose(wt);
-        matrixOperator.disp(w);
+        //matrixOperator.disp(w);
 
         //Matrix idx = matrixOperator.setValueByBoundry(alphas,">",0.0);
         //Scanner input = new Scanner(System.in);

@@ -485,7 +485,7 @@ public class MatrixOperator implements IMatrix {
             }
 
 
-            System.out.println();
+            //System.out.println();
         } else {
 
             m = null;

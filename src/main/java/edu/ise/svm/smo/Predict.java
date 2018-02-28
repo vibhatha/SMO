@@ -174,6 +174,21 @@ public class Predict {
     }
 
 
+    public double getAccuracy(Double [] testData, double [] predictData){
+        int matchcount = 0;
+        int totalCount = testData.length;
+        for (int i = 0; i < testData.length; i++) {
+            if(testData[i].doubleValue()==predictData[i]){
+                matchcount++;
+            }
+        }
+
+        double accuracy = (double) matchcount/totalCount*100.0;
+
+        return accuracy;
+    }
+
+
     //this class converts the predictions scores into classes
     //this class is only relevant for the two class classification
     public Matrix getClassesForMultiClass(Matrix predictions){
