@@ -36,26 +36,26 @@ public class Main {
 
         long read_start = System.currentTimeMillis();
 
-        String trainFilePathX = "data/heart_scale_train_x.csv";
+        String trainFilePathX = "data/heart_scale_train_1_x";
         String trainFileType = "csv";
         CsvFile trainCsvFileX = new CsvFile(trainFilePathX, trainFileType);
         ReadCSV trainReadCSVX = new ReadCSV(trainCsvFileX);
         trainReadCSVX.readX();
 
-        String trainFilePathY = "data/heart_scale_train_y.csv";
+        String trainFilePathY = "data/heart_scale_train_1_y";
         String trainFileTypeY = "csv";
         CsvFile trainCsvFileY = new CsvFile(trainFilePathY, trainFileTypeY);
         ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
         trainReadCSVY.readY();
 
 
-        String testFilePathX = "data/heart_scale_test_x.csv";
+        String testFilePathX = "data/heart_scale_test_1_x";
         String testFileType = "csv";
         CsvFile testCsvFileX = new CsvFile(testFilePathX, testFileType);
         ReadCSV testReadCSVX = new ReadCSV(testCsvFileX);
         testReadCSVX.readX();
 
-        String testFilePathY = "data/heart_scale_test_y.csv";
+        String testFilePathY = "data/heart_scale_test_1_y";
         String testFileTypeY = "csv";
         CsvFile testCsvFileY = new CsvFile(testFilePathY, testFileTypeY);
         ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
