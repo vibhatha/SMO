@@ -9,9 +9,6 @@ Independent Study task to understand the parallelism in Support Vector Machines 
 In this project the code describes a Simplified Sequential Minimal Optimization
 for Support Vector Machines.
 
-## References
-Original Paper : [Simplified SMO](http://cs229.stanford.edu/materials/smo.pdf)
-
 ## Code Implementation
 Vibhatha Lakmal Abeykoon
 
@@ -28,3 +25,8 @@ Geoffrey C. Fox
 5. http://www.robots.ox.ac.uk/~az/lectures/ml/lect2.pdf
 6. https://arxiv.org/pdf/1304.6383.pdf
 7. http://svivek.com/teaching/machine-learning/fall2017/slides/svm/svm-sgd.pdf
+
+## References
+Original Paper : [Simplified SMO](http://cs229.stanford.edu/materials/smo.pdf)
+FileSplitter : [File Splitter Code Reference](https://gist.github.com/msharp/8571150)
+

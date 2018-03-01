@@ -14,9 +14,6 @@ import java.util.logging.Logger;
 
 import java.util.ArrayList;
 
-/**
- * Created by vlabeyko on 9/28/2016.
- */
 public class Main {
 
     static{
@@ -36,26 +33,26 @@ public class Main {
 
         long read_start = System.currentTimeMillis();
 
-        String trainFilePathX = "data/covtype/covtype.libsvm.ise_train_x";
+        String trainFilePathX = "data/covtype/covtype_libsvm_ise_train_x.1";
         String trainFileType = "csv";
         CsvFile trainCsvFileX = new CsvFile(trainFilePathX, trainFileType);
         ReadCSV trainReadCSVX = new ReadCSV(trainCsvFileX);
         trainReadCSVX.readX();
 
-        String trainFilePathY = "data/covtype/covtype.libsvm.ise_train_y";
+        String trainFilePathY = "data/covtype/covtype_libsvm_ise_train_y.1";
         String trainFileTypeY = "csv";
         CsvFile trainCsvFileY = new CsvFile(trainFilePathY, trainFileTypeY);
         ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
         trainReadCSVY.readY();
 
 
-        String testFilePathX = "data/covtype/covtype.libsvm.ise_test_x";
+        String testFilePathX = "data/covtype/covtype_libsvm_ise_test_x.1";
         String testFileType = "csv";
         CsvFile testCsvFileX = new CsvFile(testFilePathX, testFileType);
         ReadCSV testReadCSVX = new ReadCSV(testCsvFileX);
         testReadCSVX.readX();
 
-        String testFilePathY = "data/covtype/covtype.libsvm.ise_test_y";
+        String testFilePathY = "data/covtype/covtype_libsvm_ise_test_y.1";
         String testFileTypeY = "csv";
         CsvFile testCsvFileY = new CsvFile(testFilePathY, testFileTypeY);
         ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
