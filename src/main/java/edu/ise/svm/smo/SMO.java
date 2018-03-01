@@ -144,7 +144,13 @@ public class SMO {
         int max_passes = 12;
 
         //moving on with the linear kernel
-        Matrix k = new Matrix(m, m, "DOUBLE");
+        Matrix k = null;
+        try{
+            LOG.info("Matrix Dimension : "+m+","+m);
+            k = new Matrix(m, m, "DOUBLE");
+        }catch (OutOfMemoryError ex){
+            LOG.info("Exception " + ex.getMessage());
+        }
 
         MatrixOperator matrixOperator = new MatrixOperator();
         Matrix x_dash = matrixOperator.transpose(x);

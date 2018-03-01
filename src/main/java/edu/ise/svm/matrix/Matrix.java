@@ -64,7 +64,7 @@ public class Matrix {
         this.type = type;
     }
 
-    public Matrix(int rows, int columns, String dataType) {
+    public Matrix(int rows, int columns, String dataType) throws OutOfMemoryError {
         this.rows = rows;
         this.columns = columns;
         this.dataType = dataType;

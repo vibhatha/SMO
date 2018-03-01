@@ -30,7 +30,7 @@ public class Main {
         DOUBLE, INT
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws OutOfMemoryError {
 
         LOG.info("Support Vector Machines Library v1.0");
 
