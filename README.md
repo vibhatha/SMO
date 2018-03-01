@@ -18,3 +18,13 @@ Vibhatha Lakmal Abeykoon
 ## Advisor
 
 Geoffrey C. Fox
+
+## Inspiring Research
+
+1. https://github.com/barrykui/MiniBatchSVM/blob/master/MiniBatchSVM.py
+2. https://arxiv.org/pdf/1303.2314.pdf
+3. https://arxiv.org/pdf/1412.2485.pdf
+4. http://sacj.cs.uct.ac.za/index.php/sacj/article/viewFile/414/206
+5. http://www.robots.ox.ac.uk/~az/lectures/ml/lect2.pdf
+6. https://arxiv.org/pdf/1304.6383.pdf
+7. http://svivek.com/teaching/machine-learning/fall2017/slides/svm/svm-sgd.pdf
