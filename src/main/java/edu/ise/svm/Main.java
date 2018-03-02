@@ -39,7 +39,7 @@ public class Main {
         ReadCSV trainReadCSVX = new ReadCSV(trainCsvFileX);
         trainReadCSVX.readX();
 
-        String trainFilePathY = "data/covtype/covtype_libsvm_ise_train_y.1";
+        String trainFilePathY = "data/covtype/multifiles/covtype_libsvm_ise_train_y.1.bin";
         String trainFileTypeY = "csv";
         CsvFile trainCsvFileY = new CsvFile(trainFilePathY, trainFileTypeY);
         ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
@@ -52,7 +52,7 @@ public class Main {
         ReadCSV testReadCSVX = new ReadCSV(testCsvFileX);
         testReadCSVX.readX();
 
-        String testFilePathY = "data/covtype/covtype_libsvm_ise_test_y.1";
+        String testFilePathY = "data/covtype/multifiles/covtype_libsvm_ise_test_y.1.bin";
         String testFileTypeY = "csv";
         CsvFile testCsvFileY = new CsvFile(testFilePathY, testFileTypeY);
         ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);

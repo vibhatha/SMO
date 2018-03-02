@@ -57,7 +57,7 @@ class FileSplitter:
         try:
             self.num_files = 10
             if len(argv) > 2:
-                self.split_size = int(argv[2])
+                self.num_files = int(argv[2])
             self.file_name = argv[1]
             self.split_size = self.get_lines(self.file_name)/self.num_files
             self.in_file = open(self.file_name, "r")
