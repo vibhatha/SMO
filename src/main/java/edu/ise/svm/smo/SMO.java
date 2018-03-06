@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 /**
  * Created by vibhatha on 10/1/16.
  */
+
 public class SMO {
     static{
         System.setProperty("java.util.logging.SimpleFormatter.format",
@@ -109,8 +110,6 @@ public class SMO {
         val = val - 1; // y(wx+b)-1 operation
 
         //Matrix alpha_y_wx_b_1 = matrixOperator.product(alpha,)
-
-
         return lagrange;
 
     }
@@ -141,7 +140,7 @@ public class SMO {
         double l = 0;
         double h = 0;
         double C = 1;
-        int max_passes = 12;
+        int max_passes = 20;
 
         //moving on with the linear kernel
         Matrix k = null;
@@ -246,16 +245,11 @@ public class SMO {
                         alphas.getMatDouble()[j][0] = alpha_j_old;
                         continue;
                     }
-
-
                     //values of alpha using i'
-
                     alphas.getMatDouble()[i][0] = alphas.getMatDouble()[i][0] + y.getMatDouble()[i][0] * y.getMatDouble()[j][0] * (alpha_j_old - alphas.getMatDouble()[j][0]);
-
                     //b1 and b2 value computing
                     b1 = b - e.getMatDouble()[i][0] - y.getMatDouble()[i][0] * (alphas.getMatDouble()[i][0] - alpha_i_old) * k.getMatDouble()[i][j] - y.getMatDouble()[j][0] * (alphas.getMatDouble()[j][0] - alpha_j_old) * k.getMatDouble()[i][j];
                     b2 = b - e.getMatDouble()[j][0] - y.getMatDouble()[i][0] * (alphas.getMatDouble()[i][0] - alpha_i_old) * k.getMatDouble()[i][j] - y.getMatDouble()[j][0] * (alphas.getMatDouble()[j][0] - alpha_j_old) * k.getMatDouble()[i][j];
-
 
                     if (0 < alphas.getMatDouble()[i][0] && alphas.getMatDouble()[i][0] < C) {
 
@@ -265,10 +259,7 @@ public class SMO {
                     } else {
                         b = (b1 + b2) / 2.00;
                     }
-
                     num_changed_alphas = num_changed_alphas + 1;
-
-
                 }
 
 
