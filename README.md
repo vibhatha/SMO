@@ -29,4 +29,4 @@ Geoffrey C. Fox
 ## References
 Original Paper : [Simplified SMO](http://cs229.stanford.edu/materials/smo.pdf)
 FileSplitter : [File Splitter Code Reference](https://gist.github.com/msharp/8571150)
-
+Normalizer : [Normalizing Data Code Reference](https://machinelearningmastery.com/scale-machine-learning-data-scratch-python/)
