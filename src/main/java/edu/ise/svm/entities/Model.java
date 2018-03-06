@@ -91,6 +91,7 @@ public class Model {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             if(this.getKernel().equals(Constant.LINEAR)){
                 writer.write("<model>");
+                writer.newLine();
                 writer.write(this.getKernel());
                 writer.newLine();
                 writer.write("</model>");
