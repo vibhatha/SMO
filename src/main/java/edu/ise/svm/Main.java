@@ -10,6 +10,8 @@ import edu.ise.svm.matrix.MatrixOperator;
 import edu.ise.svm.smo.SMO;
 import edu.ise.svm.smo.Predict;
 import edu.ise.svm.util.Util;
+
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import java.util.ArrayList;
@@ -27,32 +29,38 @@ public class Main {
         DOUBLE, INT
     }
 
-    public static void main(String[] args) throws OutOfMemoryError {
+    public static void main(String[] args) throws OutOfMemoryError, IOException {
 
         LOG.info("Support Vector Machines Library v1.0");
 
         long read_start = System.currentTimeMillis();
 
-        String trainFilePathX = "data/covtype/covtype_libsvm_ise_train_x.1";
+        String baseX = "data/covtype/";
+        String baseY = "data/covtype/multifiles/";
+
+        String trainX = "covtype_libsvm_ise_train_x.1";
+        String trainFilePathX = baseX + trainX;
         String trainFileType = "csv";
         CsvFile trainCsvFileX = new CsvFile(trainFilePathX, trainFileType);
         ReadCSV trainReadCSVX = new ReadCSV(trainCsvFileX);
         trainReadCSVX.readX();
 
-        String trainFilePathY = "data/covtype/multifiles/covtype_libsvm_ise_train_y.1.bin";
+        String trainY = "covtype_libsvm_ise_train_y.1.bin";
+        String trainFilePathY = baseY + trainY;
         String trainFileTypeY = "csv";
         CsvFile trainCsvFileY = new CsvFile(trainFilePathY, trainFileTypeY);
         ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
         trainReadCSVY.readY();
 
-
-        String testFilePathX = "data/covtype/covtype_libsvm_ise_test_x.1";
+        String testX = "covtype_libsvm_ise_test_x.1";
+        String testFilePathX = baseX + testX;
         String testFileType = "csv";
         CsvFile testCsvFileX = new CsvFile(testFilePathX, testFileType);
         ReadCSV testReadCSVX = new ReadCSV(testCsvFileX);
         testReadCSVX.readX();
 
-        String testFilePathY = "data/covtype/multifiles/covtype_libsvm_ise_test_y.1.bin";
+        String testY = "covtype_libsvm_ise_test_y.1.bin";
+        String testFilePathY = baseY + testY;
         String testFileTypeY = "csv";
         CsvFile testCsvFileY = new CsvFile(testFilePathY, testFileTypeY);
         ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
@@ -195,6 +203,7 @@ public class Main {
         String kernel = Constant.LINEAR;
         long train_start = System.currentTimeMillis();
         Model model = SMO.svmTrain(X,Y,Constant.LINEAR);
+        model.saveModel("model/model_"+trainX);
         long train_end = System.currentTimeMillis();
         double train_time = (train_end-train_start)/1000.0;
 
@@ -247,7 +256,7 @@ public class Main {
         LOG.info("----------------------------------------");
 
         double b_cal = model.getB();
-        LOG.info("b : "+b_cal);
+        LOG.info("b : " + b_cal);
 
 
     }
