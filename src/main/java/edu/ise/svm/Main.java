@@ -37,28 +37,28 @@ public class Main {
         String baseX = "data/covtype/";
         String baseY = "data/covtype/multifiles/";
 
-        String trainX = "covtype_libsvm_ise_train_x.2";
+        String trainX = "covtype_libsvm_ise_train_x_bin.1";
         String trainFilePathX = baseX + trainX;
         String trainFileType = "csv";
         CsvFile trainCsvFileX = new CsvFile(trainFilePathX, trainFileType);
         ReadCSV trainReadCSVX = new ReadCSV(trainCsvFileX);
         trainReadCSVX.readX();
 
-        String trainY = "covtype_libsvm_ise_train_y.2.bin";
+        String trainY = "covtype_libsvm_ise_train_y.1.bin";
         String trainFilePathY = baseY + trainY;
         String trainFileTypeY = "csv";
         CsvFile trainCsvFileY = new CsvFile(trainFilePathY, trainFileTypeY);
         ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
         trainReadCSVY.readY();
 
-        String testX = "covtype_libsvm_ise_test_x.2";
+        String testX = "covtype_libsvm_ise_train_x_bin.1";
         String testFilePathX = baseX + testX;
         String testFileType = "csv";
         CsvFile testCsvFileX = new CsvFile(testFilePathX, testFileType);
         ReadCSV testReadCSVX = new ReadCSV(testCsvFileX);
         testReadCSVX.readX();
 
-        String testY = "covtype_libsvm_ise_test_y.2.bin";
+        String testY = "covtype_libsvm_ise_test_y.1.bin";
         String testFilePathY = baseY + testY;
         String testFileTypeY = "csv";
         CsvFile testCsvFileY = new CsvFile(testFilePathY, testFileTypeY);
