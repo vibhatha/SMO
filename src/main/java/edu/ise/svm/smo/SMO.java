@@ -185,7 +185,7 @@ public class SMO {
                 double itr_value = b + sum.getMatDouble()[0][0] - y.getMatDouble()[i][0];
                 e.getMatDouble()[i][0] = itr_value;
 
-                debug = true;
+                debug = false;
                 if(debug){
                     LOG.info("Debug Mode");
                     LOG.info("Itr value : " + itr_value);
