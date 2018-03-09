@@ -33,40 +33,41 @@ public class Main {
         LOG.info("Support Vector Machines Library v1.0");
 
         long read_start = System.currentTimeMillis();
+        String [] argv = Util.optArgs(args);
+        String baseX = argv[0];
+        String baseY = baseX;
 
-        String baseX = "data/covtype/";
-        String baseY = "data/covtype/multifiles/";
+        String trainX = argv[1];
+        String trainY = argv[2];
+        String testX = argv[3];
+        String testY = argv[4];
 
-        String trainX = "covtype_libsvm_ise_train_x_bin.1";
         String trainFilePathX = baseX + trainX;
         String trainFileType = "csv";
         CsvFile trainCsvFileX = new CsvFile(trainFilePathX, trainFileType);
         ReadCSV trainReadCSVX = new ReadCSV(trainCsvFileX);
         trainReadCSVX.readX();
 
-        String trainY = "covtype_libsvm_ise_train_y.1.bin";
+
         String trainFilePathY = baseY + trainY;
         String trainFileTypeY = "csv";
         CsvFile trainCsvFileY = new CsvFile(trainFilePathY, trainFileTypeY);
         ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
         trainReadCSVY.readY();
 
-        String testX = "covtype_libsvm_ise_train_x_bin.1";
+
         String testFilePathX = baseX + testX;
         String testFileType = "csv";
         CsvFile testCsvFileX = new CsvFile(testFilePathX, testFileType);
         ReadCSV testReadCSVX = new ReadCSV(testCsvFileX);
         testReadCSVX.readX();
 
-        String testY = "covtype_libsvm_ise_test_y.1.bin";
+
         String testFilePathY = baseY + testY;
         String testFileTypeY = "csv";
         CsvFile testCsvFileY = new CsvFile(testFilePathY, testFileTypeY);
         ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
         testReadCSVY.readY();
-
-
-
 
         long read_end = System.currentTimeMillis();
         long read_time = read_end - read_start;
@@ -242,20 +243,15 @@ public class Main {
 
         Matrix prediction1 = predict.predict();
 
-
         double [] predictionArr = new MatrixOperator().transpose(prediction1).getMatDouble()[0];
         double accuracy = predict.getAccuracy(testArrRes , predictionArr);
-
         LOG.info("Prediction of test 1");
         LOG.info("-----------------------------------------");
         LOG.info("I/O Time : " + read_time_d + " s");
         LOG.info("Training Time : " + train_time + " s");
         LOG.info("Accuracy : " + accuracy);
         LOG.info("----------------------------------------");
-
         double b_cal = model.getB();
         LOG.info("b : " + b_cal);
-
-
     }
 }

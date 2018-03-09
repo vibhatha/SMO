@@ -20,7 +20,7 @@ public class SMO {
                 "[%1$tF %1$tT] [%4$-7s] %5$s %n");
     }
     public final static Logger LOG = Logger.getLogger(SMO.class.getName());
-
+    private boolean debug = false;
     private Matrix alpha;
     private Matrix b;
     private Matrix w;
@@ -140,7 +140,7 @@ public class SMO {
         double l = 0;
         double h = 0;
         double C = 1;
-        int max_passes = 20;
+        int max_passes = 12;
 
         //moving on with the linear kernel
         Matrix k = null;
@@ -153,20 +153,31 @@ public class SMO {
 
         MatrixOperator matrixOperator = new MatrixOperator();
         Matrix x_dash = matrixOperator.transpose(x);
+        long time_kernel_start = System.currentTimeMillis();
         k = matrixOperator.product(x, x_dash, "CROSS");
+        long time_kernel_end = System.currentTimeMillis();
+        LOG.info("====================================================");
+        LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start)/1000.0);
+        LOG.info("====================================================");
         //LOG.info("X");
         //matrixOperator.disp(x);
         //LOG.info("Y");
         //matrixOperator.disp(y);
-
+        //debug = true;
+        if(debug){
+            LOG.info("Kernel Matrix");
+            matrixOperator.disp(k);
+        }
 
         while (passes < max_passes) { //start while
 
             int num_changed_alphas = 0;
+            debug = true;
+            if(debug){
+                LOG.info("Passes : " + passes + "/" + max_passes);
+            }
 
             for (int i = 0; i < m; i++) {
-
-
                 Matrix k_i = matrixOperator.getColumnData(k, i);
                 Matrix op1 = matrixOperator.dotMultiply(alphas, y);
                 Matrix op2 = matrixOperator.dotMultiply(op1, k_i);
@@ -174,9 +185,13 @@ public class SMO {
                 double itr_value = b + sum.getMatDouble()[0][0] - y.getMatDouble()[i][0];
                 e.getMatDouble()[i][0] = itr_value;
 
-                //LOG.info("Debug Mode");
-                //LOG.info(itr_value);
-                //Scanner input = new Scanner(System.in);
+                debug = true;
+                if(debug){
+                    LOG.info("Debug Mode");
+                    LOG.info("Itr value : " + itr_value);
+
+                }
+
                 //input.hasNext();
                 //Y(i) * E(i) multiplication
 
@@ -230,6 +245,10 @@ public class SMO {
                     eta = 2.00 * k.getMatDouble()[i][j] - k.getMatDouble()[i][i] - k.getMatDouble()[j][j];
 
                     if (eta >= 0) {
+                        debug = true;
+                        if(debug){
+                            LOG.info("Eta : " + eta);
+                        }
                         continue;
                     }
 
@@ -241,7 +260,9 @@ public class SMO {
 
                     double diff = Math.abs(alphas.getMatDouble()[j][0] - alpha_j_old);
                     if (diff < tol) {
-
+                        if(debug){
+                            LOG.info("Diff : " + diff + ", tol : " +tol);
+                        }
                         alphas.getMatDouble()[j][0] = alpha_j_old;
                         continue;
                     }
@@ -270,16 +291,15 @@ public class SMO {
                 passes = 0;
             }
 
-
         }//end big while
 
         //LOG.info("Training Completed...");
         //matrixOperator.disp(alphas);
         Matrix alphaPositive = matrixOperator.setValueByBoundry(alphas, ">", 0);
         Matrix cleanAlphas = matrixOperator.getValueMatchingBoundary(alphas, alphaPositive);
-        //LOG.info("Clean ALPHA START");
-        //matrixOperator.disp(cleanAlphas);
-        LOG.info("CLEAN ALPHA END");
+        //LOG.info("Clean ALPHA POSITIVE");
+        //matrixOperator.disp(alphaPositive);
+        //LOG.info("CLEAN ALPHA POSITIVE");
         //LOG.info("b1,b2 : " + b1 + "," + b2);
         //LOG.info("b :" + b);
 
