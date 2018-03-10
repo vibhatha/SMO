@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class Model {
 
-    static{
+    static {
         System.setProperty(Constant.LOG_TYPE, Constant.LOG_FORMAT);
     }
 
@@ -27,6 +27,7 @@ public class Model {
     private Matrix alphas;
     private Matrix w;
     private String kernel;
+    private String info;
 
     public Model(Matrix x, Matrix y, double b, Matrix alphas, Matrix w, String kernel) {
         this.x = x;
@@ -35,6 +36,16 @@ public class Model {
         this.alphas = alphas;
         this.w = w;
         this.kernel = kernel;
+    }
+
+    public Model(Matrix x, Matrix y, double b, Matrix alphas, Matrix w, String kernel, String info) {
+        this.x = x;
+        this.y = y;
+        this.b = b;
+        this.alphas = alphas;
+        this.w = w;
+        this.kernel = kernel;
+        this.info = info;
     }
 
     public Matrix getX() {
@@ -85,11 +96,15 @@ public class Model {
         this.kernel = kernel;
     }
 
-    public void saveModel(String filepath) throws IOException{
+    public String getInfo() { return info;}
+
+    public void setInfo(String info) { this.info = info; }
+
+    public void saveModel(String filepath) throws IOException {
 
         Path path = Paths.get(filepath);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            if(this.getKernel().equals(Constant.LINEAR)){
+            if (this.getKernel().equals(Constant.LINEAR)) {
                 writer.write("<model>");
                 writer.newLine();
                 writer.write(this.getKernel());
@@ -99,24 +114,23 @@ public class Model {
                 writer.write("<W>");
                 writer.newLine();
                 Matrix w = this.getW();
-                if(w!=null && w.getRows()>0){
-                    double [][] wArr = w.getMatDouble();
+                if (w != null && w.getRows() > 0) {
+                    double[][] wArr = w.getMatDouble();
                     int rowWArr = wArr.length;
                     int colWarr = wArr[0].length;
                     for (int i = 0; i < rowWArr; i++) {
                         for (int j = 0; j < colWarr; j++) {
-                            if(colWarr>1){
-                                if(j<colWarr-1){
-                                    writer.write(String.valueOf(wArr[i][j])+",");
+                            if (colWarr > 1) {
+                                if (j < colWarr - 1) {
+                                    writer.write(String.valueOf(wArr[i][j]) + ",");
                                 }
                                 writer.write(String.valueOf(wArr[i][j]));
                             }
-                            writer.write(String.valueOf(wArr[i][j])+"");
+                            writer.write(String.valueOf(wArr[i][j]) + "");
                         }
                         writer.newLine();
                     }
-                }
-                else{
+                } else {
                     writer.write("</W>");
                     writer.newLine();
                 }
@@ -126,6 +140,12 @@ public class Model {
                 writer.write(String.valueOf(b));
                 writer.newLine();
                 writer.write("</b>");
+                writer.newLine();
+                writer.write("<info>");
+                writer.newLine();
+                writer.write(info);
+                writer.newLine();
+                writer.write("</info>");
                 writer.newLine();
                 LOG.info("Model saved : " + filepath);
             }

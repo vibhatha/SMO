@@ -27,6 +27,7 @@ public class SMO {
     private Matrix x;
     private Matrix y;
     private Matrix lpd;
+    private String info;
     MatrixOperator operator = new MatrixOperator();
 
     public SMO(Matrix alpha, Matrix b, Matrix w, Matrix x, Matrix y, Matrix lpd) {
@@ -37,6 +38,17 @@ public class SMO {
         this.y = y;
         this.lpd = lpd;
     }
+
+    public SMO(Matrix alpha, Matrix b, Matrix w, Matrix x, Matrix y, Matrix lpd, String info) {
+        this.alpha = alpha;
+        this.b = b;
+        this.w = w;
+        this.x = x;
+        this.y = y;
+        this.lpd = lpd;
+        this.info = info;
+    }
+
 
     public Matrix wSquare() {
 
@@ -159,6 +171,7 @@ public class SMO {
         LOG.info("====================================================");
         LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start)/1000.0);
         LOG.info("====================================================");
+        this.info += "Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start)/1000.0 + " s";
         //LOG.info("X");
         //matrixOperator.disp(x);
         //LOG.info("Y");
@@ -317,7 +330,7 @@ public class SMO {
         //setting up the model
         Model model = null;
         if (x != null && y != null && alphas != null && w != null) {
-            model = new Model(x, y, b, alphas, w,kernel);
+            model = new Model(x, y, b, alphas, w,kernel, info);
         }
 
 

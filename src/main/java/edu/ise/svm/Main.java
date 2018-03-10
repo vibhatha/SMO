@@ -32,6 +32,8 @@ public class Main {
 
         LOG.info("Support Vector Machines Library v1.0");
 
+        String info="";
+
         long read_start = System.currentTimeMillis();
         String [] argv = Util.optArgs(args);
         String baseX = argv[0];
@@ -55,7 +57,6 @@ public class Main {
         ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
         trainReadCSVY.readY();
 
-
         String testFilePathX = baseX + testX;
         String testFileType = "csv";
         CsvFile testCsvFileX = new CsvFile(testFilePathX, testFileType);
@@ -69,9 +70,16 @@ public class Main {
         ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
         testReadCSVY.readY();
 
+        info += "Training (X) File : "+trainFilePathX+" \n";
+        info += "Training (Y) File : "+trainFilePathY+" \n";
+        info += "Testing (X) File : "+testFilePathX+" \n";
+        info += "Testing (Y) File : "+testFilePathY+" \n";
+
         long read_end = System.currentTimeMillis();
         long read_time = read_end - read_start;
         double read_time_d = (read_time/1000.0);
+
+        info += "I/O Time : " + read_time;
 
         ArrayList<double[]> trainXValues = trainReadCSVX.getxVals();
         ArrayList<Double> trainYValues = trainReadCSVY.getyVals();
