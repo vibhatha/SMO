@@ -3,12 +3,17 @@ package edu.ise.svm.entities;
 import edu.ise.svm.Constants.Constant;
 import edu.ise.svm.matrix.Matrix;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 /**
  * Created by vlabeyko on 9/28/2016.
@@ -130,10 +135,9 @@ public class Model {
                         }
                         writer.newLine();
                     }
-                } else {
-                    writer.write("</W>");
-                    writer.newLine();
                 }
+                writer.write("</W>");
+                writer.newLine();
                 writer.write("<b>");
                 writer.newLine();
                 double b = this.getB();
@@ -151,6 +155,40 @@ public class Model {
             }
         }
 
+    }
+
+    public static Model loadModel(String modelpath) throws IOException{
+        Model model = null;
+        ArrayList<String> lines = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(modelpath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+
+        }
+        LOG.info("Processing Model ");
+        int listSize = lines.size();
+        if(listSize>0){
+        int wStart = -1;
+        int wEnd = -1;
+            for (int i = 0; i < listSize; i++) {
+                if(lines.get(i).equals("<model>")){
+                    model.setKernel(lines.get(i+1));
+                }
+                if(lines.get(i).equals("<W>")){
+                    wStart = i+1;
+                }
+                if(lines.get(i).equals("</W>")){
+                    wEnd = i-1;
+                }
+
+
+            }
+
+        }
+
+        return model;
     }
 
 }
