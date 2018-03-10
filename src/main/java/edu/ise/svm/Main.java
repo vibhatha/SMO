@@ -266,7 +266,7 @@ public class Main {
         logdata += "Training (Y) File : "+trainFilePathY+" \n";
         logdata += "Testing (X) File : "+testFilePathX+" \n";
         logdata += "Testing (Y) File : "+testFilePathY+" \n";
-        logdata += "I/O Time : " + read_time + " s\n";
+        logdata += "I/O Time : " + read_time_d + " s\n";
         logdata += "Training Time : " + train_time + " s\n";
         logdata += "Accuracy : " + accuracy;
 
