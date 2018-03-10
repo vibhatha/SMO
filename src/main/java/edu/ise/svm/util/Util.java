@@ -1,6 +1,14 @@
 package edu.ise.svm.util;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Logger;
 
 
@@ -49,5 +57,26 @@ public class Util {
         return args;
     }
 
+    public static void createLog (String filepath, String data)throws IOException {
+        String getDateTime = getDataTime();
+        Path path = Paths.get(filepath);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            writer.write("=====================================================================================\n");
+            writer.write("Training Log : " +getDateTime+ " \n");
+            writer.write("=====================================================================================\n");
+            writer.write(data);
+            writer.newLine();
+        }
+
+    }
+
+    public static String getDataTime(){
+        String datatime="";
+        // Reference : https://www.mkyong.com/java/java-how-to-get-current-date-time-date-and-calender/
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        datatime = (dateFormat.format(date)); //2016/11/16 12:08:43
+        return datatime;
+    }
 
 }

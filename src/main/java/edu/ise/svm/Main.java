@@ -79,7 +79,7 @@ public class Main {
         long read_time = read_end - read_start;
         double read_time_d = (read_time/1000.0);
 
-        info += "I/O Time : " + read_time;
+        info += "I/O Time : " + read_time + "\n";
 
         ArrayList<double[]> trainXValues = trainReadCSVX.getxVals();
         ArrayList<Double> trainYValues = trainReadCSVY.getyVals();
@@ -205,7 +205,7 @@ public class Main {
             }
         }
 
-        SMO SMO = new SMO(alpha,b,w,X,Y,lpd);
+        SMO SMO = new SMO(alpha,b,w,X,Y,lpd,info);
         //SMO.lagrangeCalculation(alpha,matX,matY,b,w);
         String kernel = Constant.LINEAR;
         long train_start = System.currentTimeMillis();
@@ -261,5 +261,15 @@ public class Main {
         LOG.info("----------------------------------------");
         double b_cal = model.getB();
         LOG.info("b : " + b_cal);
+        String logdata = "";
+        logdata += "Training (X) File : "+trainFilePathX+" \n";
+        logdata += "Training (Y) File : "+trainFilePathY+" \n";
+        logdata += "Testing (X) File : "+testFilePathX+" \n";
+        logdata += "Testing (Y) File : "+testFilePathY+" \n";
+        logdata += "I/O Time : " + read_time + " s\n";
+        logdata += "Training Time : " + train_time + " s\n";
+        logdata += "Accuracy : " + accuracy;
+
+        Util.createLog("logs/log_"+trainX+"", logdata);
     }
 }
