@@ -1,7 +1,9 @@
 package edu.ise.svm.entities;
 
+import com.sun.javafx.sg.prism.NGShape;
 import edu.ise.svm.Constants.Constant;
 import edu.ise.svm.matrix.Matrix;
+import edu.ise.svm.matrix.MatrixOperator;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
@@ -33,6 +36,10 @@ public class Model {
     private Matrix w;
     private String kernel;
     private String info;
+
+    public Model(){
+
+    }
 
     public Model(Matrix x, Matrix y, double b, Matrix alphas, Matrix w, String kernel) {
         this.x = x;
@@ -158,7 +165,7 @@ public class Model {
     }
 
     public static Model loadModel(String modelpath) throws IOException{
-        Model model = null;
+        Model model = new Model();
         ArrayList<String> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(modelpath))) {
             String line;
@@ -170,8 +177,11 @@ public class Model {
         LOG.info("Processing Model ");
         int listSize = lines.size();
         if(listSize>0){
+            LOG.info("List Size : " + listSize);
         int wStart = -1;
         int wEnd = -1;
+        int infoStart = -1;
+        int infoEnd = -1;
             for (int i = 0; i < listSize; i++) {
                 if(lines.get(i).equals("<model>")){
                     model.setKernel(lines.get(i+1));
@@ -182,12 +192,53 @@ public class Model {
                 if(lines.get(i).equals("</W>")){
                     wEnd = i-1;
                 }
+                if(lines.get(i).equals("<b>")){
+                    double b = Double.parseDouble(lines.get(i+1));
+                    model.setB(b) ;
+                }
+                if(lines.get(i).equals("<info>")){
+                    infoStart = i+1;
+                }
+                if(lines.get(i).equals("</info>")){
+                    infoEnd = i-1;
+                }
+            }
+            if(wStart != -1 && wEnd != -1){
+                List<String> wList =  lines.subList(wStart, wEnd+1);
+                int wlistSize = wList.size();
+                double [][] wArr = new double[1][wlistSize];
+                LOG.info("wArr size : " + wlistSize);
+                for (int j = 0; j < wlistSize; j++) {
+                    wArr[0][j] = Double.parseDouble(wList.get(j));
+                    LOG.info(""+wArr[0][j]);
+                }
+                Matrix w = new Matrix(1, wArr[0].length, "DOUBLE");
+                w.setMatDouble(wArr);
+                MatrixOperator op = new MatrixOperator();
+                w = op.transpose(w);
+                model.setW(w);
 
+            }
 
+            if(infoStart != -1 && infoEnd != -1){
+                List<String> infoList =  lines.subList(infoStart, infoEnd+1);
+                String info = "";
+                int infoListSize = infoList.size();
+                int j=0;
+                for (String s : infoList) {
+                    if(j==infoListSize-1){
+                        info+=s;
+                    }else{
+                        info += s+"\n";
+                    }
+                    j++;
+                }
+                model.setInfo(info);
             }
 
         }
 
+        model.saveModel("model/dummy");
         return model;
     }
 
