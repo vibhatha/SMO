@@ -40,47 +40,59 @@ public class BulkModelTesting {
         long read_end = System.currentTimeMillis();
         long read_time = read_end - read_start;
         double read_time_d = (read_time/1000.0);
-
+        logdata += "I/O Time : " + read_time_d + " s\n";
         info += "I/O Time : " + read_time + "\n";
 
+        // generates the TestMatrix
         Matrix testData = generateTestMatrix(testReadCSVX, testReadCSVY);
+        // generate the testArr in the Double format
         Double testArrRes [] = getTestArray(testReadCSVX, testReadCSVY);
-
-        Model model = models.get(0);
-
-        long start_testing = System.currentTimeMillis();
-
-        Predict predict = new Predict(model, testData);
-
-        long end_testing = System.currentTimeMillis();
-
-        long testing_time = end_testing - start_testing;
-
-        Matrix prediction1 = predict.predict();
-
-        double [] predictionArr = new MatrixOperator().transpose(prediction1).getMatDouble()[0];
-
-        double accuracy = predict.getAccuracy(testArrRes , predictionArr);
-        LOG.info("Prediction of test 1");
-        LOG.info("-----------------------------------------");
-        LOG.info("Accuracy : " + accuracy);
-        LOG.info("----------------------------------------");
-        double b_cal = model.getB();
-        LOG.info("b : " + b_cal);
-
-        logdata += "I/O Time : " + read_time_d + " s\n";
-        logdata += "Testing Time : " + testing_time + " s\n";
-        logdata += "Accuracy : " + accuracy;
+        // get the accuracy array for each model
+        double [] accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes);
 
         Util.createLog("logs/log_bulk_model_testing_"+Util.optArgs(args, Constant.TESTING)[1]+"", logdata, Constant.TESTING);
 
     }
 
-    public double [] getModelWeights(ArrayList<Model> models, Matrix testData ){
+    public static double [] getModelTrainingAccuracies(ArrayList<Model> models, Matrix testData, Double [] testArrRes ){
 
-        double [] predictionArr = null;
+        double [] accuracyArray = new double[models.size()];
+        int modelId = 0;
+        for (Model model: models) {
 
-        return predictionArr;
+            long start_testing = System.currentTimeMillis();
+
+            Predict predict = new Predict(model, testData);
+
+            long end_testing = System.currentTimeMillis();
+
+            long testing_time = end_testing - start_testing;
+
+            Matrix prediction1 = predict.predict();
+
+            double [] predictionArr = new MatrixOperator().transpose(prediction1).getMatDouble()[0];
+
+            double accuracy = predict.getAccuracy(testArrRes , predictionArr);
+
+            LOG.info("Prediction of test 1");
+            LOG.info("-----------------------------------------");
+            LOG.info("Accuracy : " + accuracy);
+            LOG.info("----------------------------------------");
+
+            double b_cal = model.getB();
+            LOG.info("b : " + b_cal);
+            logdata += "Testing Time : " + testing_time + " s\n";
+            logdata += "Accuracy : " + accuracy;
+
+            accuracyArray[modelId] = accuracy;
+            modelId++;
+
+        }
+
+
+
+
+        return accuracyArray;
     }
 
     public static Matrix generateTestMatrix(ReadCSV testReadCSVX, ReadCSV testReadCSVY){
