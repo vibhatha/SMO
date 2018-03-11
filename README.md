@@ -36,6 +36,6 @@ Geoffrey C. Fox
 7. http://svivek.com/teaching/machine-learning/fall2017/slides/svm/svm-sgd.pdf
 
 ## References
-Simplified SMO : [Simplified SMO](http://cs229.stanford.edu/materials/smo.pdf)
-FileSplitter : [File Splitter Code Reference](https://gist.github.com/msharp/8571150)
-Normalizer : [Normalizing Data Code Reference](https://machinelearningmastery.com/scale-machine-learning-data-scratch-python/)
+1. Simplified SMO : [Simplified SMO](http://cs229.stanford.edu/materials/smo.pdf)
+2. FileSplitter : [File Splitter Code Reference](https://gist.github.com/msharp/8571150)
+3. Normalizer : [Normalizing Data Code Reference](https://machinelearningmastery.com/scale-machine-learning-data-scratch-python/)
