@@ -83,14 +83,10 @@ public class BulkModelTesting {
             LOG.info("b : " + b_cal);
             logdata += "Testing Time : " + testing_time + " s\n";
             logdata += "Accuracy : " + accuracy;
-
             accuracyArray[modelId] = accuracy;
             modelId++;
 
         }
-
-
-
 
         return accuracyArray;
     }
