@@ -1,6 +1,7 @@
 package edu.ise.svm.util;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,7 +10,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -77,6 +81,42 @@ public class Util {
         Date date = new Date();
         datatime = (dateFormat.format(date)); //2016/11/16 12:08:43
         return datatime;
+    }
+
+    public static Stream<Path> loadStreams(String path) throws IOException {
+       Stream<Path> stream =  Files.list(Paths.get(path));
+       //LOG.info("Stream Count : " + stream.count());
+       return stream;
+    }
+
+    public static List<Path> loadFromStream(Stream<Path> stream){
+
+        List<Path> listPath = null;
+
+        if(stream.count()>0){
+            listPath = stream.collect(Collectors.toList());
+        }
+        System.out.println(listPath.get(0));
+
+        return  listPath;
+
+    }
+
+    public static ArrayList<String> loadPaths(String path) throws IOException {
+
+        ArrayList<String> pathList  = null;
+        File directory = new File(path);
+        File[] fList = directory.listFiles();
+        LOG.info("List Size : " + fList.length);
+        if(fList.length>0){
+            pathList = new ArrayList<>();
+            for (File file: fList) {
+                pathList.add(file.getPath());
+            }
+        }
+        LOG.info("Loading Paths : ");
+        pathList.iterator().forEachRemaining(s -> LOG.info(s));
+        return pathList;
     }
 
 }

@@ -50,3 +50,6 @@ runbin:
 
 heart:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main data/heart/ heart_scale_train_1_x heart_scale_train_1_y heart_scale_test_1_x heart_scale_test_1_y
+
+bulkexp:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkExperiments
