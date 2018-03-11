@@ -1,5 +1,7 @@
 package edu.ise.svm.util;
 
+import edu.ise.svm.Constants.Constant;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -47,26 +49,55 @@ public class Util {
         }
     }
 
-    public static String [] optArgs(String [] args){
-        if(args!=null && args.length==5){
-            LOG.info("Source Folder : "+args[0]);
-            LOG.info("Train X: "+args[1]);
-            LOG.info("Train Y : "+args[2]);
-            LOG.info("Test X : "+args[3]);
-            LOG.info("Test Y : "+args[4]);
-        }else{
+    public static String [] optArgs(String [] args, String type){
+
+        if(args.length==0){
+            LOG.info("Invalid Arguments");
+
+            LOG.info("Training : ");
             LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
                     " <train-X> <train-Y> <test-X> <test-Y>");
+            LOG.info("Testing : ");
+            LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
+                    " <test-X> <test-Y>");
+
+            System.exit(0);
+
+        }else{
+            if(type.equals(Constant.TRAINING)){
+                if(args!=null && args.length==5){
+                    LOG.info("Source Folder : "+args[0]);
+                    LOG.info("Train X: "+args[1]);
+                    LOG.info("Train Y : "+args[2]);
+                    LOG.info("Test X : "+args[3]);
+                    LOG.info("Test Y : "+args[4]);
+                }else{
+                    LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
+                            " <train-X> <train-Y> <test-X> <test-Y>");
+                }
+            }
+            if(type.equals(Constant.TRAINING)){
+                if(args!=null && args.length==3){
+                    LOG.info("Source Folder : "+args[0]);
+                    LOG.info("Test X : "+args[1]);
+                    LOG.info("Test Y : "+args[2]);
+                }else{
+                    LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
+                            " <test-X> <test-Y>");
+                }
+            }
         }
+
+
         return args;
     }
 
-    public static void createLog (String filepath, String data)throws IOException {
+    public static void createLog (String filepath, String data, String type)throws IOException {
         String getDateTime = getDataTime();
         Path path = Paths.get(filepath);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write("=====================================================================================\n");
-            writer.write("Training Log : " +getDateTime+ " \n");
+            writer.write("Log "+type+" :" +getDateTime+ " \n");
             writer.write("=====================================================================================\n");
             writer.write(data);
             writer.newLine();

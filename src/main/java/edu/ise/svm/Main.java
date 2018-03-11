@@ -35,7 +35,7 @@ public class Main {
         String info="";
 
         long read_start = System.currentTimeMillis();
-        String [] argv = Util.optArgs(args);
+        String [] argv = Util.optArgs(args, Constant.TRAINING);
         String baseX = argv[0];
         String baseY = baseX;
 
@@ -270,6 +270,6 @@ public class Main {
         logdata += "Training Time : " + train_time + " s\n";
         logdata += "Accuracy : " + accuracy;
 
-        Util.createLog("logs/log_"+trainX+"", logdata);
+        Util.createLog("logs/log_"+trainX+"", logdata, Constant.TRAINING);
     }
 }
