@@ -1,13 +1,22 @@
-# Sequential Minimal Optimization
-A Simplified Implementation of SMO In Java Code
+# Support Vector Voting Networks
+
+In this research, a newer vesion of support vector machines is
+suggested to solve the computation problem in SMO in a much faster
+way.
+
+## Sequential Minimal Optimization
+A Simplified Implementation of SMO is implemented as the core of the
+algorithm.
 
 ## Objective
 
 Independent Study task to understand the parallelism in Support Vector Machines algorithm.
 
 ## Introduction
-In this project the code describes a Simplified Sequential Minimal Optimization
-for Support Vector Machines.
+In this project the code describes a Simplified Sequential Minimal
+Optimization for Support Vector Machines along with a voting mechanism
+to get a faster implementation of SVM in Kernel Matrix computation
+model.
 
 ## Code Implementation
 Vibhatha Lakmal Abeykoon
@@ -27,6 +36,6 @@ Geoffrey C. Fox
 7. http://svivek.com/teaching/machine-learning/fall2017/slides/svm/svm-sgd.pdf
 
 ## References
-Original Paper : [Simplified SMO](http://cs229.stanford.edu/materials/smo.pdf)
+Simplified SMO : [Simplified SMO](http://cs229.stanford.edu/materials/smo.pdf)
 FileSplitter : [File Splitter Code Reference](https://gist.github.com/msharp/8571150)
 Normalizer : [Normalizing Data Code Reference](https://machinelearningmastery.com/scale-machine-learning-data-scratch-python/)
