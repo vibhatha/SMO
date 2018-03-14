@@ -1,5 +1,6 @@
 package edu.ise.svm.experiments;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import edu.ise.svm.Constants.Constant;
 import edu.ise.svm.entities.Model;
 import edu.ise.svm.io.CsvFile;
@@ -48,13 +49,13 @@ public class BulkModelTesting {
         // generate the testArr in the Double format
         Double testArrRes [] = getTestArray(testReadCSVX, testReadCSVY);
         // get the accuracy array for each model
-        double [] accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes);
+        double [] accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes, Util.optArgs(args, Constant.TESTING)[1]);
 
-        Util.createLog("logs/log_bulk_model_testing_"+Util.optArgs(args, Constant.TESTING)[1]+"", logdata, Constant.TESTING);
+
 
     }
 
-    public static double [] getModelTrainingAccuracies(ArrayList<Model> models, Matrix testData, Double [] testArrRes ){
+    public static double [] getModelTrainingAccuracies(ArrayList<Model> models, Matrix testData, Double [] testArrRes, String expName ) throws IOException{
 
         double [] accuracyArray = new double[models.size()];
         int modelId = 0;
@@ -85,7 +86,7 @@ public class BulkModelTesting {
             logdata += "Accuracy : " + accuracy;
             accuracyArray[modelId] = accuracy;
             modelId++;
-
+            Util.createLog("logs/log_bulk_model_testing_"+expName+"_"+modelId, logdata, Constant.TESTING);
         }
 
         return accuracyArray;
