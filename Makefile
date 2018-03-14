@@ -8,6 +8,7 @@ package:
 setup:
 	if [ ! -d "model" ] ; then mkdir model; fi ;
 	if [ ! -d "logs" ] ; then mkdir logs; fi ;
+	if [ ! -d "stats" ] ; then mkdir stats; fi ;
 	python scripts/binaryconverter.py data/covtype/covtype_libsvm_ise_test_y data/covtype/covtype_libsvm_ise_test_y.bin
 	python scripts/binaryconverter.py data/covtype/covtype_libsvm_ise_train_y data/covtype/covtype_libsvm_ise_train_y.bin
 	python scripts/partition.py data/covtype/covtype_libsvm_ise_train_y.bin 400
@@ -19,6 +20,7 @@ setup:
 setupbin:
 	if [ ! -d "model" ] ; then mkdir model; fi ;
 	if [ ! -d "logs" ] ; then mkdir logs; fi ;
+	if [ ! -d "stats" ] ; then mkdir stats; fi ;
 	python scripts/binaryconverter.py data/covtype/covtype_libsvm_ise_test_y data/covtype/covtype_libsvm_ise_test_y.bin
 	python scripts/binaryconverter.py data/covtype/covtype_libsvm_ise_train_y data/covtype/covtype_libsvm_ise_train_y.bin
 	python scripts/partition.py data/covtype/covtype_libsvm_ise_train_y.bin 400

@@ -23,7 +23,8 @@ public class BulkModelTesting {
     private static String logdata = "";
 
     private ArrayList<String> modelList;
-    private static final String MODEL_PATH = "model";
+    private static final String EXP_ID = "1";
+    private static final String MODEL_PATH = "model/"+EXP_ID+"/";
 
     public static void main(String[] args) throws IOException {
 
@@ -48,8 +49,12 @@ public class BulkModelTesting {
         // generate the testArr in the Double format
         Double testArrRes [] = getTestArray(testReadCSVX, testReadCSVY);
         // get the accuracy array for each model
-        double [] accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes, Util.optArgs(args, Constant.TESTING)[1]);
-
+        String expName =  Util.optArgs(args, Constant.TESTING)[1];
+        double [] accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes, expName);
+        for (int i = 0; i < accuracyPerModel.length; i++) {
+            LOG.info("Model "+i+" Accuracy : " + accuracyPerModel[i]);
+        }
+        Util.modelAccuracySaveCSV(accuracyPerModel,"stats/"+"stats_"+expName+"_"+EXP_ID);
 
 
     }
