@@ -30,14 +30,12 @@ setupbin:
 
 
 clean:
-	if [ -d "model" ] ; then rm -r model ; fi ;	
 	rm -r data/covtype/covtype_libsvm_ise_train_x.*
 	rm -r data/covtype/covtype_libsvm_ise_test_x.*
 	rm -r data/covtype/covtype_libsvm_ise_test_y.*
 	rm -r data/covtype/covtype_libsvm_ise_train_y.*
 
 cleanbin:
-	if [ -d "model" ] ; then rm -r model ; fi ;	
 	rm -r data/covtype/covtype_libsvm_ise_train_x_bin.*
 	rm -r data/covtype/covtype_libsvm_ise_test_x_bin.*
 	rm -r data/covtype/covtype_libsvm_ise_test_y.*
@@ -57,10 +55,10 @@ bulkexpbin:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
 bulkmodeltrain:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkModelTraining data/covtype/  covtype_libsvm_ise_train_x_bin.1 covtype_libsvm_ise_train_y.1.bin covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/covtype/  covtype_libsvm_ise_train_x_bin.1 covtype_libsvm_ise_train_y.1.bin covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
-bulkmodeltest:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkModelTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
+sdmm:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkSDMMTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
 plotacc:
 	python scripts/csvplotaccuracies.py "covtype_libsvm_ise_test_x_bin.1_1"

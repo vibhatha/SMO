@@ -16,15 +16,24 @@ import java.util.logging.Logger;
 /**
  * Created by vibhatha on 3/11/18.
  */
-public class BulkModelTesting {
+public class BulkSDMMTesting {
 
-    private static final Logger LOG = Logger.getLogger(BulkModelTesting.class.getName());
+    private static final Logger LOG = Logger.getLogger(BulkSDMMTesting.class.getName());
     private static String info = "" ;
     private static String logdata = "";
 
     private ArrayList<String> modelList;
     private static final String EXP_ID = "1";
     private static final String MODEL_PATH = "model/"+EXP_ID+"/";
+
+    /**
+     * In this ModelTesting : Method 2 (Single Data Multiple Model Approach)
+     *
+     * First we pick up a single cross validation data set and multiple models.
+     * We calculate the accuracies returned by each model and then we create a
+     * weight distribution for each model. Then in the testing approach the weighted
+     * values from each model is being consumed to produce a collective prediction.
+     * **/
 
     public static void main(String[] args) throws IOException {
 
@@ -50,11 +59,18 @@ public class BulkModelTesting {
         Double testArrRes [] = getTestArray(testReadCSVX, testReadCSVY);
         // get the accuracy array for each model
         String expName =  Util.optArgs(args, Constant.TESTING)[1];
+
         double [] accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes, expName);
+
         for (int i = 0; i < accuracyPerModel.length; i++) {
             LOG.info("Model "+i+" Accuracy : " + accuracyPerModel[i]);
         }
+
         Util.modelAccuracySaveCSV(accuracyPerModel,"stats/"+"stats_"+expName+"_"+EXP_ID);
+
+        double [] weightedModels = generateWeightedModels(accuracyPerModel);
+
+
 
 
     }
@@ -170,7 +186,7 @@ public class BulkModelTesting {
         ArrayList<String> modelPaths = null;
         modelPaths = Util.loadPaths(MODEL_PATH);
         ArrayList<Model> models = new ArrayList<>();
-        if(modelPaths.size()>0){
+        if(modelPaths.size() > 0){
             for (String modelpath : modelPaths) {
                 Model model = new Model();
                 model = model.loadModel(modelpath);
@@ -178,7 +194,24 @@ public class BulkModelTesting {
             }
         }
 
-
         return models;
+    }
+
+    public static double [] generateWeightedModels(double [] accuracies){
+        double [] weights = new double [accuracies.length];
+        double total = 0;
+        for (int i = 0; i < accuracies.length; i++) {
+            total += accuracies[i];
+        }
+
+        double totalWeights = 0.0;
+        for (int i = 0; i < weights.length; i++) {
+            weights[i] = accuracies[i]/total;
+            totalWeights += weights[i];
+            LOG.info("Weights "+i+" :  " + weights[i]);
+        }
+
+        LOG.info("Total Weights : " + totalWeights);
+        return weights;
     }
 }

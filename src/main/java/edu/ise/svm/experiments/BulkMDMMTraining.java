@@ -18,7 +18,26 @@ import java.util.logging.Logger;
 /**
  * Created by vibhatha on 3/11/18.
  */
-public class BulkModelTraining {
+
+/**
+ * In this model we use Multiple Data Multiple Model Training
+ *
+ * Here we select random data from the bigger data set based on
+ * co-relation between data samples. We pick up the datasamples with
+ * least co-relation to a singular batch. So these batches are then being
+ * transformed into smaller batches. For instance the original data set
+ * has M data points and after correlation testing we get M1 amount of data points.
+ * Then we use a random algorithm to select random batches. These random batches
+ * contain M1/m number of samples per each batch. We use these batched to train
+ * m models and these m models provide m different trained models.
+ *
+ * For training stage we propose the Multiple Data Multiple Model Training approach.
+ * That's the only way to get different models. The other approach we will be discussing
+ * is multiple model multiple kernel approach.
+ * **/
+
+
+public class BulkMDMMTraining {
 
     static{
         System.setProperty(Constant.LOG_TYPE, Constant.LOG_FORMAT);
