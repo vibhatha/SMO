@@ -61,3 +61,7 @@ bulkmodeltrain:
 
 bulkmodeltest:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkModelTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
+
+plotacc:
+	python scripts/csvplotaccuracies.py "covtype_libsvm_ise_test_x_bin.1_1"
+
