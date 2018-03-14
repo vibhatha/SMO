@@ -54,10 +54,10 @@ heart:
 bulkexpbin:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
-bulkmodeltrain:
+mdmmtrain:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/covtype/  covtype_libsvm_ise_train_x_bin.1 covtype_libsvm_ise_train_y.1.bin covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
-sdmm:
+sdmmtest:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkSDMMTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
 plotacc:
