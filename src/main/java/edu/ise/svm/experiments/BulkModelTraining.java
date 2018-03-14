@@ -11,7 +11,6 @@ import edu.ise.svm.matrix.MatrixOperator;
 import edu.ise.svm.smo.Predict;
 import edu.ise.svm.smo.SMO;
 import edu.ise.svm.util.Util;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -46,7 +45,6 @@ public class BulkModelTraining {
          Testing (X) File : data/covtype/covtype_libsvm_ise_test_x.1
          Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.1.bin
          * */
-
 
         String baseX = argv[0];
         String baseY = baseX;

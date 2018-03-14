@@ -36,6 +36,7 @@ public class Main {
 
         long read_start = System.currentTimeMillis();
         String [] argv = Util.optArgs(args, Constant.TRAINING);
+
         String baseX = argv[0];
         String baseY = baseX;
 
