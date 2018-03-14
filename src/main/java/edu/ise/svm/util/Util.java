@@ -76,7 +76,17 @@ public class Util {
                             " <train-X> <train-Y> <test-X> <test-Y>");
                 }
             }
-            if(type.equals(Constant.TRAINING)){
+            if(type.equals(Constant.TESTING)){
+                if(args!=null && args.length==3){
+                    LOG.info("Source Folder : "+args[0]);
+                    LOG.info("Test X : "+args[1]);
+                    LOG.info("Test Y : "+args[2]);
+                }else{
+                    LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
+                            " <test-X> <test-Y>");
+                }
+            }
+            if(type.equals(Constant.PREDICTING)){
                 if(args!=null && args.length==3){
                     LOG.info("Source Folder : "+args[0]);
                     LOG.info("Test X : "+args[1]);

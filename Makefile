@@ -60,6 +60,9 @@ mdmmtrain:
 sdmmtest:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkSDMMTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
+sdmmpredict:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkSDMMPrediction data/covtype/  covtype_libsvm_ise_test_x_bin.2 covtype_libsvm_ise_test_y.2.bin
+
 plotacc:
 	python scripts/csvplotaccuracies.py "covtype_libsvm_ise_test_x_bin.1_1"
 

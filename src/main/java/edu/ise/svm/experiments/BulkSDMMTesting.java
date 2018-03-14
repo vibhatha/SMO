@@ -70,9 +70,7 @@ public class BulkSDMMTesting {
 
         double [] weightedModels = generateWeightedModels(accuracyPerModel);
 
-
-
-
+        Util.modelAccuracySaveCSV(weightedModels,"stats/weightedmodels/"+"weighted_acc_"+expName+"_"+EXP_ID);
     }
 
     public static double [] getModelTrainingAccuracies(ArrayList<Model> models, Matrix testData, Double [] testArrRes, String expName ) throws IOException{

@@ -12,4 +12,5 @@ public class Constant {
     public static final String LOG_FORMAT = "[%1$tF %1$tT] [%4$-7s] %5$s %n";
     public static final String TESTING = "TESTING";
     public static final String TRAINING = "TRAINING";
+    public static final String PREDICTING = "PREDICTING";
 }
