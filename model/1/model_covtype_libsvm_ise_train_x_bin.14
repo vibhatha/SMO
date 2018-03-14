@@ -1,0 +1,135 @@
+<model>
+linear
+</model>
+<W>
+1.045407352585839
+0.13331477566684471
+0.008517914438286256
+-0.550130327374412
+0.10884093963861247
+-0.4750118225445468
+0.2976537017775074
+-0.4436486293010346
+0.08715487109174538
+-0.19346522491927046
+-0.6714101591460924
+1.8474805019152996E-16
+0.4994836497643055
+0.3550989828680349
+0.22452058793132262
+0.06458564433914613
+0.02267999384287729
+0.10143448478915149
+0.10827122504480201
+-7.979727989493313E-16
+4.336808689942018E-17
+-8.283304597789254E-17
+-0.03029274289137325
+0.2881388475314456
+4.85722573273506E-16
+-0.2934490922987089
+-0.11631956578870531
+2.688821387764051E-17
+1.680513367352532E-17
+0.016360721701883463
+0.0791007726183299
+0.18575566188242734
+0.03045669879796028
+-0.15877992785747977
+4.651227319962814E-17
+0.2823354427177235
+0.27756894333009086
+0.12583943923509422
+1.8648277366750676E-17
+-1.3379054808471125E-16
+-2.8189256484623115E-18
+-0.12247786638566
+0.030430881310825414
+0.11000061354710444
+1.8388068845354155E-15
+-0.8772886135715807
+-0.21264166328930378
+-1.1275702593849246E-17
+-5.941427905220564E-17
+-6.5052130349130266E-18
+-1.6566609195578508E-16
+0.06817108471871844
+0.07946506374542026
+0.1291775847379738
+</W>
+<b>
+0.6250573180941799
+</b>
+<info>
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.1 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.1.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.1 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.1.bin 
+I/O Time : 282
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.2 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.2.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.2 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.2.bin 
+I/O Time : 2846273
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.3 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.3.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.3 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.3.bin 
+I/O Time : 5054405
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.4 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.4.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.4 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.4.bin 
+I/O Time : 6638926
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.5 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.5.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.5 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.5.bin 
+I/O Time : 7875021
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.6 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.6.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.6 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.6.bin 
+I/O Time : 8631008
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.7 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.7.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.7 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.7.bin 
+I/O Time : 9604842
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.8 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.8.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.8 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.8.bin 
+I/O Time : 10557476
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.9 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.9.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.9 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.9.bin 
+I/O Time : 14672881
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.10 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.10.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.10 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.10.bin 
+I/O Time : 16339976
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.11 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.11.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.11 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.11.bin 
+I/O Time : 18930272
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.12 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.12.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.12 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.12.bin 
+I/O Time : 21571750
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.13 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.13.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.13 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.13.bin 
+I/O Time : 24070579
+Training (X) File : data/covtype/covtype_libsvm_ise_train_x_bin.14 
+Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.14.bin 
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.14 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.14.bin 
+I/O Time : 28241852
+Kernel Matrix Calculation : 0.194 s
+</info>
