@@ -38,9 +38,9 @@ public class SDMMPrediction {
     private static final String WEIGHETD_MODEL_PATH = "stats/weightedmodels/"+MODEL_NAME;
 
     private ArrayList<String> modelList;
-    private static final String EXP_ID = "1";
+    private static final String EXP_ID = "covtype/1";
     private static final String MODEL_PATH = "model/"+EXP_ID+"/";
-    private final static int  DATA_PARTITION_SIZE = 400;
+    private final static int  DATA_PARTITION_SIZE = 100;
 
     public static void main(String[] args) throws IOException{
         long read_start = System.currentTimeMillis();

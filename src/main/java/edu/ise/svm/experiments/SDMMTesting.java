@@ -27,7 +27,7 @@ public class SDMMTesting {
     private static String logdata = "";
 
     private ArrayList<String> modelList;
-    private static final String EXP_ID = "1";
+    private static final String EXP_ID = "covtype/1";
     private static final String MODEL_PATH = "model/"+EXP_ID+"/";
 
     /**
