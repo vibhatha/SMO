@@ -45,7 +45,7 @@ public class BulkMDMMTraining {
     }
 
     public final static Logger LOG = Logger.getLogger(Main.class.getName());
-    public final static String MODEL_PATH = "model/heart/1";
+    public static String MODEL_PATH = "model/heart/2";
 
     private enum DATATYPE {
         DOUBLE, INT
@@ -75,12 +75,14 @@ public class BulkMDMMTraining {
         String testX = argv[3];
         String testY = argv[4];
 
+        MODEL_PATH = argv[5];
+
         LOG.info(trainX);
         LOG.info(trainY);
         LOG.info(testX);
         LOG.info(testY);
 
-        for (int k = 1; k < 4; k++) {
+        for (int k = 1; k < 3; k++) {
             trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
             testX = testX.split("\\.")[0] + "." + String.valueOf(k);
             trainY = trainY.split(".bin")[0].split("\\.")[0] + "."  + String.valueOf(k)+".bin";

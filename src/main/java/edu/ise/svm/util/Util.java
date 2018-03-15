@@ -62,15 +62,16 @@ public class Util {
 
         }else{
             if(type.equals(Constant.TRAINING)){
-                if(args!=null && args.length==5){
+                if(args!=null && args.length==6){
                     LOG.info("Source Folder : "+args[0]);
                     LOG.info("Train X: "+args[1]);
                     LOG.info("Train Y : "+args[2]);
                     LOG.info("Test X : "+args[3]);
                     LOG.info("Test Y : "+args[4]);
+                    LOG.info("Model Path : "+args[5]);
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
-                            " <train-X> <train-Y> <test-X> <test-Y>");
+                            " <train-X> <train-Y> <test-X> <test-Y> <model-path>");
                 }
             }
             if(type.equals(Constant.TESTING)){
