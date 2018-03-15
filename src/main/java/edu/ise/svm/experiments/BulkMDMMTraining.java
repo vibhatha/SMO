@@ -45,6 +45,7 @@ public class BulkMDMMTraining {
     }
 
     public final static Logger LOG = Logger.getLogger(Main.class.getName());
+    public final static String MODEL_PATH = "model/covtype/1";
 
     private enum DATATYPE {
         DOUBLE, INT
@@ -179,7 +180,7 @@ public class BulkMDMMTraining {
             String kernel = Constant.LINEAR;
             long train_start = System.currentTimeMillis();
             Model model = SMO.svmTrain(X,Y,Constant.LINEAR);
-            model.saveModel("model/model_"+trainX);
+            model.saveModel(MODEL_PATH+"/model_"+trainX);
             long train_end = System.currentTimeMillis();
             double train_time = (train_end-train_start)/1000.0;
 
