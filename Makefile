@@ -58,11 +58,13 @@ mdmmtrain:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/covtype/  covtype_libsvm_ise_train_x_bin.1 covtype_libsvm_ise_train_y.1.bin covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
 sdmmtest:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkSDMMTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMTesting data/covtype/  covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin
 
 sdmmpredict:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkSDMMPrediction data/covtype/  covtype_libsvm_ise_test_x_bin.2 covtype_libsvm_ise_test_y.2.bin
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMPrediction data/covtype/  covtype_libsvm_ise_test_x_bin.2 covtype_libsvm_ise_test_y.2.bin
 
 plotacc:
 	python scripts/csvplotaccuracies.py "covtype_libsvm_ise_test_x_bin.1_1"
 
+plotsdmmacc:
+	python scripts/csvplotaccuracies.py "stats/accuracyPerDataSet/covtype/"  "accuracy_covtype_libsvm_ise_test_x_bin.2_1" "stats/plots/accuracyPerDataSet/" "covtype-model-50-predictions.png" "Data Set ID" "Accuracy of DataSet" "Accuracy Distribution Per DataSet for Single Data Multi Model Approach" "CovType" "-1-" "SDMM-"

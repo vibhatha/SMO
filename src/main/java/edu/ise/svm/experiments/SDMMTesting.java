@@ -16,9 +16,13 @@ import java.util.logging.Logger;
 /**
  * Created by vibhatha on 3/11/18.
  */
-public class BulkSDMMTesting {
+public class SDMMTesting {
 
-    private static final Logger LOG = Logger.getLogger(BulkSDMMTesting.class.getName());
+    static{
+        System.setProperty(Constant.LOG_TYPE, Constant.LOG_FORMAT);
+    }
+
+    private static final Logger LOG = Logger.getLogger(SDMMTesting.class.getName());
     private static String info = "" ;
     private static String logdata = "";
 

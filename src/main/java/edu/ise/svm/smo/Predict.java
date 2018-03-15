@@ -104,7 +104,7 @@ public class Predict {
         //the y=mx+C relation ship for a given coordinates is considered here
         //the m*X multiplication is done and assigned to op1 matrix
         Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
-        LOG.info("op1");
+        //LOG.info("op1");
         //matrixOperator.disp(op1);
         //the matrix addition is done based on the definitions in the matrix package
         Matrix b = new Matrix(m,1,"DOUBLE");
@@ -113,12 +113,12 @@ public class Predict {
             b.getMatDouble()[i][0]= model.getB();
         }
 
-        LOG.info("b");
+        //LOG.info("b");
         //matrixOperator.disp(b);
         //mx+C addition is done in this stage
         Matrix op2 = matrixOperator.add(op1,b);
 
-        LOG.info("op2");
+        //LOG.info("op2");
         //matrixOperator.disp(op2);
 
         //the classes identification is done here
@@ -182,7 +182,7 @@ public class Predict {
     }
 
 
-    public double getAccuracy(Double [] testData, double [] predictData){
+    public static double getAccuracy(Double [] testData, double [] predictData){
         int matchcount = 0;
         int totalCount = predictData.length;
         for (int i = 0; i < testData.length; i++) {

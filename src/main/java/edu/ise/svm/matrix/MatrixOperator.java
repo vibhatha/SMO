@@ -420,7 +420,7 @@ public class MatrixOperator implements IMatrix {
         String bType = b.getType().toString();
 
         if (aType.equals(bType)) {
-            LOG.info("Type matches");
+            //LOG.info("Type matches");
             m = new Matrix(1, 1, aType);
 
             int aRow = a.getRows();

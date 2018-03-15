@@ -174,10 +174,10 @@ public class Model {
             }
 
         }
-        LOG.info("Processing Model ");
+        //LOG.info("Processing Model ");
         int listSize = lines.size();
         if(listSize>0){
-            LOG.info("List Size : " + listSize);
+           // LOG.info("List Size : " + listSize);
         int wStart = -1;
         int wEnd = -1;
         int infoStart = -1;
@@ -207,10 +207,10 @@ public class Model {
                 List<String> wList =  lines.subList(wStart, wEnd+1);
                 int wlistSize = wList.size();
                 double [][] wArr = new double[1][wlistSize];
-                LOG.info("wArr size : " + wlistSize);
+                // LOG.info("wArr size : " + wlistSize);
                 for (int j = 0; j < wlistSize; j++) {
                     wArr[0][j] = Double.parseDouble(wList.get(j));
-                    LOG.info(""+wArr[0][j]);
+                    // LOG.info(""+wArr[0][j]);
                 }
                 Matrix w = new Matrix(1, wArr[0].length, "DOUBLE");
                 w.setMatDouble(wArr);

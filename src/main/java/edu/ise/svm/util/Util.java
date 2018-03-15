@@ -1,10 +1,7 @@
 package edu.ise.svm.util;
 
 import edu.ise.svm.Constants.Constant;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -167,10 +164,21 @@ public class Util {
                 writer.write(String.valueOf(accruacies[i]));
                 writer.newLine();
             }
-
-
         }
+    }
 
+    public static double [] loadModelWeights(String modelWeightPath) throws IOException{
+        double [] weights = null;
+        ArrayList<Double> weightList = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(modelWeightPath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                weightList.add(Double.parseDouble(line));
+            }
+        }
+        weights =  weightList.stream().mapToDouble(d -> d).toArray();
+
+        return weights;
     }
 
 }
