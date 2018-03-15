@@ -34,13 +34,14 @@ public class SDMMPrediction {
     private static String info = "" ;
     private static String logdata = "";
 
-    private static final String MODEL_NAME = "weighted_acc_covtype_libsvm_ise_test_x_bin.1_1";
+    private static final String MODEL_NAME = "weighted_acc_heart_positive_cr_isesvm_test_x_bin.1_1";
     private static final String WEIGHETD_MODEL_PATH = "stats/weightedmodels/"+MODEL_NAME;
 
     private ArrayList<String> modelList;
-    private static final String EXP_ID = "covtype/1";
-    private static final String MODEL_PATH = "model/"+EXP_ID+"/";
-    private final static int  DATA_PARTITION_SIZE = 100;
+    private static final String EXP_PATH = "heart/";
+    private static final String EXP_ID = "1";
+    private static final String MODEL_PATH = "model/"+EXP_PATH+EXP_ID+"/";
+    private final static int  DATA_PARTITION_SIZE = 3;
 
     public static void main(String[] args) throws IOException{
         long read_start = System.currentTimeMillis();
@@ -79,7 +80,7 @@ public class SDMMPrediction {
             allDataSetAccuracies[i-1] = accuracyPerDataSet;
         }
 
-        Util.modelAccuracySaveCSV(allDataSetAccuracies,"stats/accuracyPerDataSet/covtype/"+"accuracy_"+expName+"_"+EXP_ID);
+        Util.modelAccuracySaveCSV(allDataSetAccuracies,"stats/accuracyPerDataSet/"+EXP_PATH+"accuracy_"+expName+"_"+EXP_ID);
 
     }
 

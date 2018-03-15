@@ -160,6 +160,8 @@ public class Util {
     public static void modelAccuracySaveCSV(double [] accruacies, String filepath) throws IOException{
         Path path = Paths.get(filepath);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            writer.write("Accuracies");
+            writer.newLine();
             for (int i = 0; i < accruacies.length; i++) {
                 writer.write(String.valueOf(accruacies[i]));
                 writer.newLine();

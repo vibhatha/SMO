@@ -223,6 +223,9 @@ public class SMO {
                         j = (int) Math.ceil(m * rand);
 
                     }
+                    if(k.getColumns()==j){
+                        j=j-1;
+                    }
 
                     Matrix k_j = matrixOperator.getColumnData(k, j);
                     Matrix op1j = matrixOperator.dotMultiply(alphas, y);

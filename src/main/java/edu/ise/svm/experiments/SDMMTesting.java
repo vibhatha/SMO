@@ -27,8 +27,9 @@ public class SDMMTesting {
     private static String logdata = "";
 
     private ArrayList<String> modelList;
-    private static final String EXP_ID = "covtype/1";
-    private static final String MODEL_PATH = "model/"+EXP_ID+"/";
+    private static final String EXP_PATH="heart/";
+    private static final String EXP_ID = "1";
+    private static final String MODEL_PATH = "model/"+EXP_PATH+EXP_ID+"/";
 
     /**
      * In this ModelTesting : Method 2 (Single Data Multiple Model Approach)

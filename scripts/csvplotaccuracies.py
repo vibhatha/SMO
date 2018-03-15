@@ -29,10 +29,11 @@ if(len(sys.argv)==11):
     expId = sys.argv[9]
     modelType = sys.argv[10]
 
-    print("Reading file : "+input_file)
+print("Reading file : "+input_file)
 
 df = pd.read_csv(src_dir+input_file)
 data = df.get_values()
+print(data)
 x=[]
 y=[]
 count=0
