@@ -82,24 +82,26 @@ sdmmtestcov:
 sdmmpredictcov:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMPrediction data/covtype/  covtype_libsvm_ise_test_x_bin.2 covtype_libsvm_ise_test_y.2.bin
 
-mdmmtrainhrt-pst:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/model_partition/heart/ heart_positive_cr_isesvm_train_x_bin.1 heart_positive_cr_isesvm_train_y.1.bin heart_positive_cr_isesvm_test_x_bin.1 heart_positive_cr_isesvm_test_y.1.bin model/heart/2/positive
+cor-mdmmtrainhrt-pst:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.BulkMDMMTraining data/model_partition/heart/ heart_positive_cr_isesvm_train_x_bin.1 heart_positive_cr_isesvm_train_y.1.bin heart_positive_cr_isesvm_test_x_bin.1 heart_positive_cr_isesvm_test_y.1.bin model/heart/2/positive
 
-sdmmtesthrt-pst:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMTesting data/model_partition/heart/ heart_positive_cr_isesvm_test_x_bin.1 heart_positive_cr_isesvm_test_y.1.bin model/heart/2/positive
+cor-sdmmtesthrt-pst:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMTesting data/model_partition/heart/ heart_positive_cr_isesvm_test_x_bin.1 heart_positive_cr_isesvm_test_y.1.bin model/heart/2/positive
 
-sdmmpredicthrt-pst:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMPrediction data/model_partition/heart/  heart_positive_cr_isesvm_test_x_bin.2 heart_positive_cr_isesvm_test_y.2.bin model/heart/2/positive weighted_acc_heart_positive_cr_isesvm_test_x_bin.1
+cor-sdmmpredicthrt-pst:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMPrediction data/model_partition/heart/  heart_positive_cr_isesvm_test_x_bin.2 heart_positive_cr_isesvm_test_y.2.bin model/heart/2/positive weighted_acc_heart_positive_cr_isesvm_test_x_bin.1
 
-mdmmtrainhrt-ngt:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/model_partition/heart/ heart_negative_cr_isesvm_train_x_bin.1 heart_negative_cr_isesvm_train_y.1.bin heart_negative_cr_isesvm_test_x_bin.1 heart_negative_cr_isesvm_test_y.1.bin model/heart/2/negative 
+cor-mdmmtrainhrt-ngt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.BulkMDMMTraining data/model_partition/heart/ heart_negative_cr_isesvm_train_x_bin.1 heart_negative_cr_isesvm_train_y.1.bin heart_negative_cr_isesvm_test_x_bin.1 heart_negative_cr_isesvm_test_y.1.bin model/heart/2/negative 
 
-sdmmtesthrt-ngt:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMTesting data/model_partition/heart/ heart_negative_cr_isesvm_test_x_bin.1 heart_negative_cr_isesvm_test_y.1.bin model/heart/2/negative
+cor-sdmmtesthrt-ngt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMTesting data/model_partition/heart/ heart_negative_cr_isesvm_test_x_bin.1 heart_negative_cr_isesvm_test_y.1.bin model/heart/2/negative
 
-sdmmpredicthrt-ngt:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMPrediction data/model_partition/heart/  heart_negative_cr_isesvm_test_x_bin.2 heart_negative_cr_isesvm_test_y.2.bin model/heart/2/negative weighted_acc_heart_negative_cr_isesvm_test_x_bin.1
+cor-sdmmpredicthrt-ngt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMPrediction data/model_partition/heart/  heart_negative_cr_isesvm_test_x_bin.2 heart_negative_cr_isesvm_test_y.2.bin model/heart/2/negative weighted_acc_heart_negative_cr_isesvm_test_x_bin.1
 
+s-mdmmtrain-hrt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/heart/ heart_scale_train_x_bin.1 heart_scale_train_y.1.bin heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1 1
 
 plotacc:
 	python scripts/csvplotaccuracies.py "covtype_libsvm_ise_test_x_bin.1_1"
@@ -107,8 +109,8 @@ plotacc:
 plotsdmmacc-cov:
 	python scripts/csvplotaccuracies.py "stats/accuracyPerDataSet/covtype/"  "accuracy_covtype_libsvm_ise_test_x_bin.2_1" "stats/plots/accuracyPerDataSet/" "covtype-model-50-predictions.png" "Data Set ID" "Accuracy of DataSet" "Accuracy Distribution Per DataSet for Single Data Multi Model Approach" "CovType" "-1-" "SDMM-"
 
-plotsdmmacc-hrt-pst:
+plot-cor-sdmmacc-hrt-pst:
 	python scripts/csvplotaccuracies.py "stats/accuracyPerDataSet/heart/2/positive/"  "accuracy_heart_positive_cr_isesvm_test_x_bin.2_2" "stats/plots/accuracyPerDataSet/heart/2/" "heart-model-positive-2-predictions.png" "Data Set ID" "Accuracy of DataSet" "Accuracy Distribution Per DataSet for Single Data Multi Model Approach" "Heart-Positive-Cor" "-2-" "SDMM-"
 
-plotsdmmacc-hrt-ngt:
+plot-cor-sdmmacc-hrt-ngt:
 	python scripts/csvplotaccuracies.py "stats/accuracyPerDataSet/heart/2/negative/"  "accuracy_heart_negative_cr_isesvm_test_x_bin.2_2" "stats/plots/accuracyPerDataSet/heart/2/" "heart-model-negative-2-predictions.png" "Data Set ID" "Accuracy of DataSet" "Accuracy Distribution Per DataSet for Single Data Multi Model Approach" "Heart-Negative-Cor" "-2-" "SDMM-"

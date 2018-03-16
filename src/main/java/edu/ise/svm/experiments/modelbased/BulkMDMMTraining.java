@@ -1,4 +1,4 @@
-package edu.ise.svm.experiments;
+package edu.ise.svm.experiments.modelbased;
 
 import edu.ise.svm.Constants.Constant;
 import edu.ise.svm.Main;
@@ -8,7 +8,7 @@ import edu.ise.svm.io.ReadCSV;
 import edu.ise.svm.matrix.FeatureMatrix;
 import edu.ise.svm.matrix.Matrix;
 import edu.ise.svm.smo.SMO;
-import edu.ise.svm.util.UtilSingle;
+import edu.ise.svm.util.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,12 +44,7 @@ public class BulkMDMMTraining {
     }
 
     public final static Logger LOG = Logger.getLogger(Main.class.getName());
-    public static String MODEL_PATH = "model/single/heart/1";
-    public static int DATA_PARTITIONS = 1;
-    private static String MODEL_BASE=""; // model
-    private static String MODEL_DATANAME=""; //heart
-    private static String MODEL_VERSION=""; //2
-    private static String MODEL_SINGLE=""; //positive, negative or zero
+    public static String MODEL_PATH = "model/heart/2";
 
     private enum DATATYPE {
         DOUBLE, INT
@@ -62,14 +57,14 @@ public class BulkMDMMTraining {
         String info="";
 
         long read_start = System.currentTimeMillis();
-        String [] argv = UtilSingle.optArgs(args, Constant.TRAINING);
+        String [] argv = Util.optArgs(args, Constant.TRAINING);
 
         /**
          * Training (X) File : data/covtype/covtype_libsvm_ise_train_x.1
          Training (Y) File : data/covtype/covtype_libsvm_ise_train_y.1.bin
          Testing (X) File : data/covtype/covtype_libsvm_ise_test_x.1
          Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.1.bin
-         **/
+         * */
 
         String baseX = argv[0];
         String baseY = baseX;
@@ -80,20 +75,13 @@ public class BulkMDMMTraining {
         String testY = argv[4];
 
         MODEL_PATH = argv[5];
-        DATA_PARTITIONS = Integer.parseInt(argv[6]);
-
-        String [] model_path_attrb = MODEL_PATH.split("/");
-        MODEL_BASE = model_path_attrb[0];
-        MODEL_DATANAME = model_path_attrb[2];
-        MODEL_VERSION = model_path_attrb[3];
-        MODEL_SINGLE = model_path_attrb[1];
 
         LOG.info(trainX);
         LOG.info(trainY);
         LOG.info(testX);
         LOG.info(testY);
 
-        for (int k = 1; k < DATA_PARTITIONS + 1; k++) {
+        for (int k = 1; k < 3; k++) {
             trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
             testX = testX.split("\\.")[0] + "." + String.valueOf(k);
             trainY = trainY.split(".bin")[0].split("\\.")[0] + "."  + String.valueOf(k)+".bin";
@@ -205,7 +193,7 @@ public class BulkMDMMTraining {
             logdata += "I/O Time : " + read_time_d + " s\n";
             logdata += "Training Time : " + train_time + " s\n";
 
-            UtilSingle.createLog("logs/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/log_"+trainX+"", logdata, Constant.TRAINING);
+            Util.createLog("logs/log_"+trainX+"", logdata, Constant.TRAINING);
 
         }
 
