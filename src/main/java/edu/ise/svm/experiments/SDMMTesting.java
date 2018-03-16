@@ -7,7 +7,7 @@ import edu.ise.svm.io.ReadCSV;
 import edu.ise.svm.matrix.Matrix;
 import edu.ise.svm.matrix.MatrixOperator;
 import edu.ise.svm.smo.Predict;
-import edu.ise.svm.util.Util;
+import edu.ise.svm.util.UtilSingle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,13 +27,16 @@ public class SDMMTesting {
     private static String logdata = "";
 
     private ArrayList<String> modelList;
-    private static final String EXP_PATH="heart/";
-    private static final String EXP_ID = "2";
-    private static String MODEL_PATH = "model/"+EXP_PATH+EXP_ID+"/";
+    //"model/single/heart/1"
+
+    public static String MODEL_PATH = "model/single/heart/1";
+    public static int DATA_PARTITIONS = 1;
     private static String MODEL_BASE=""; // model
     private static String MODEL_DATANAME=""; //heart
     private static String MODEL_VERSION=""; //2
-    private static String MODEL_TYPE=""; //positive, negative or zero
+    private static String MODEL_SINGLE=""; //positive, negative or zero
+
+
     /**
      * In this ModelTesting : Method 2 (Single Data Multiple Model Approach)
      *
@@ -48,15 +51,14 @@ public class SDMMTesting {
         long read_start = System.currentTimeMillis();
 
         ArrayList<ReadCSV> data = getData(args);
-        MODEL_PATH = args[3];
-        LOG.info("MODEL PATH : " + MODEL_PATH);
-        String [] model_path_attrb = MODEL_PATH.split("/");
-        MODEL_BASE = model_path_attrb[0];
-        MODEL_DATANAME = model_path_attrb[1];
-        MODEL_VERSION = model_path_attrb[2];
-        MODEL_TYPE = model_path_attrb[3];
         ReadCSV testReadCSVX = data.get(0);
         ReadCSV testReadCSVY = data.get(1);
+        MODEL_PATH = args[3];
+        String [] model_path_attrb = MODEL_PATH.split("/");
+        MODEL_BASE = model_path_attrb[0];
+        MODEL_DATANAME = model_path_attrb[2];
+        MODEL_VERSION = model_path_attrb[3];
+        MODEL_SINGLE = model_path_attrb[1];
 
         ArrayList<Model> models = loadModels();
 
@@ -73,7 +75,7 @@ public class SDMMTesting {
         // generate the testArr in the Double format
         Double testArrRes [] = getTestArray(testReadCSVX, testReadCSVY);
         // get the accuracy array for each model
-        String expName =  Util.optArgs(args, Constant.TESTING)[1];
+        String expName =  UtilSingle.optArgs(args, Constant.TESTING)[1];
 
         double [] accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes, expName);
 
@@ -81,11 +83,11 @@ public class SDMMTesting {
             LOG.info("Model "+i+" Accuracy : " + accuracyPerModel[i]);
         }
 
-        Util.modelAccuracySaveCSV(accuracyPerModel,"stats/"+"SDMMTestAccuracies/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+"stats_"+expName);
+        UtilSingle.modelAccuracySaveCSV(accuracyPerModel,"stats/SDMMTestAccuracies/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+"stats_"+expName+"_"+MODEL_VERSION);
 
         double [] weightedModels = generateWeightedModels(accuracyPerModel);
 
-        Util.modelAccuracySaveCSV(weightedModels,"stats/weightedmodels/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+"weighted_acc_"+expName);
+        UtilSingle.modelAccuracySaveCSV(weightedModels,"stats/weightedmodels/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+"weighted_acc_"+expName+"_"+MODEL_VERSION);
     }
 
     public static double [] getModelTrainingAccuracies(ArrayList<Model> models, Matrix testData, Double [] testArrRes, String expName ) throws IOException{
@@ -119,7 +121,7 @@ public class SDMMTesting {
             logdata += "Accuracy : " + accuracy;
             accuracyArray[modelId] = accuracy;
             modelId++;
-            Util.createLog("logs/log_bulk_model_testing_"+expName+"_"+modelId, logdata, Constant.TESTING);
+            UtilSingle.createLog("logs/log_bulk_model_testing_"+expName+"_"+modelId, logdata, Constant.TESTING);
         }
 
         return accuracyArray;
@@ -131,7 +133,7 @@ public class SDMMTesting {
         ArrayList<double []> testXValues = testReadCSVX.getxVals();
         ArrayList<Double> testYValues = testReadCSVY.getyVals();
 
-        double [][] testArr = Util.converToArray(testXValues);
+        double [][] testArr = UtilSingle.converToArray(testXValues);
         Double [] testRes = new Double[testArr.length];
         Double [] testArrRes = testYValues.toArray(testRes);
 
@@ -151,7 +153,7 @@ public class SDMMTesting {
     public static Double [] getTestArray(ReadCSV testReadCSVX, ReadCSV testReadCSVY){
 
         ArrayList<double []> testXValues = testReadCSVX.getxVals();
-        double [][] testArr = Util.converToArray(testXValues);
+        double [][] testArr = UtilSingle.converToArray(testXValues);
         ArrayList<Double> testYValues = testReadCSVY.getyVals();
         Double [] testRes = new Double[testArr.length];
         Double [] testArrRes = testYValues.toArray(testRes);
@@ -163,7 +165,7 @@ public class SDMMTesting {
     public static ArrayList<ReadCSV> getData(String [] args){
         ArrayList<ReadCSV> readCSVS = new ArrayList<>();
 
-        String [] argv = Util.optArgs(args, Constant.TESTING);
+        String [] argv = UtilSingle.optArgs(args, Constant.TESTING);
         String baseX = argv[0];
         String baseY = baseX;
 
@@ -197,7 +199,7 @@ public class SDMMTesting {
     public static ArrayList<Model> loadModels() throws IOException{
 
         ArrayList<String> modelPaths = null;
-        modelPaths = Util.loadPaths(MODEL_PATH);
+        modelPaths = UtilSingle.loadPaths(MODEL_PATH);
         ArrayList<Model> models = new ArrayList<>();
         if(modelPaths.size() > 0){
             for (String modelpath : modelPaths) {
