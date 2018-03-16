@@ -28,9 +28,12 @@ public class SDMMTesting {
 
     private ArrayList<String> modelList;
     private static final String EXP_PATH="heart/";
-    private static final String EXP_ID = "1";
-    private static final String MODEL_PATH = "model/"+EXP_PATH+EXP_ID+"/";
-
+    private static final String EXP_ID = "2";
+    private static String MODEL_PATH = "model/"+EXP_PATH+EXP_ID+"/";
+    private static String MODEL_BASE=""; // model
+    private static String MODEL_DATANAME=""; //heart
+    private static String MODEL_VERSION=""; //2
+    private static String MODEL_TYPE=""; //positive, negative or zero
     /**
      * In this ModelTesting : Method 2 (Single Data Multiple Model Approach)
      *
@@ -45,6 +48,12 @@ public class SDMMTesting {
         long read_start = System.currentTimeMillis();
 
         ArrayList<ReadCSV> data = getData(args);
+        MODEL_PATH = args[3];
+        String [] model_path_attrb = MODEL_PATH.split("/");
+        MODEL_BASE = model_path_attrb[0];
+        MODEL_DATANAME = model_path_attrb[1];
+        MODEL_VERSION = model_path_attrb[2];
+        MODEL_TYPE = model_path_attrb[3];
         ReadCSV testReadCSVX = data.get(0);
         ReadCSV testReadCSVY = data.get(1);
 
@@ -71,11 +80,11 @@ public class SDMMTesting {
             LOG.info("Model "+i+" Accuracy : " + accuracyPerModel[i]);
         }
 
-        Util.modelAccuracySaveCSV(accuracyPerModel,"stats/"+"stats_"+expName+"_"+EXP_ID);
+        Util.modelAccuracySaveCSV(accuracyPerModel,"stats/"+"SDMMTestAccuracies/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+"stats_"+expName);
 
         double [] weightedModels = generateWeightedModels(accuracyPerModel);
 
-        Util.modelAccuracySaveCSV(weightedModels,"stats/weightedmodels/"+"weighted_acc_"+expName+"_"+EXP_ID);
+        Util.modelAccuracySaveCSV(weightedModels,"stats/weightedmodels/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+"weighted_acc_"+expName);
     }
 
     public static double [] getModelTrainingAccuracies(ArrayList<Model> models, Matrix testData, Double [] testArrRes, String expName ) throws IOException{
