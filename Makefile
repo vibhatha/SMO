@@ -103,6 +103,12 @@ cor-sdmmpredicthrt-ngt:
 s-mdmmtrain-hrt:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/heart/ heart_scale_train_x_bin.1 heart_scale_train_y.1.bin heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1 1
 
+s-sdmmtest-hrt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMTesting data/heart/  heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1
+
+s-sdmmpredict-hrt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMPrediction data/heart/  heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1 1 weighted_acc_heart_scale_test_x_bin.1_1
+
 plotacc:
 	python scripts/csvplotaccuracies.py "covtype_libsvm_ise_test_x_bin.1_1"
 

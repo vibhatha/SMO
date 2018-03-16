@@ -11,7 +11,7 @@ import edu.ise.svm.io.ReadCSV;
 import edu.ise.svm.matrix.Matrix;
 import edu.ise.svm.matrix.MatrixOperator;
 import edu.ise.svm.smo.Predict;
-import edu.ise.svm.util.Util;
+import edu.ise.svm.util.UtilSingle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,25 +34,33 @@ public class SDMMPrediction {
     private static String info = "" ;
     private static String logdata = "";
 
-    private static String MODEL_NAME = "weighted_acc_heart_positive_cr_isesvm_test_x_bin.1_1";
-    private static String WEIGHETD_MODEL_PATH = "stats/weightedmodels/"+MODEL_NAME;
+    private static String MODEL_NAME = "weighted_acc_heart_scale_test_x_bin.1_1";
+    private static String WEIGHETD_MODEL_PATH = "stats/weightedmodels/single/heart/1/"+MODEL_NAME;
 
     private ArrayList<String> modelList;
-    private static final String EXP_PATH = "heart/";
-    private static final String EXP_ID = "2";
-    private static String MODEL_PATH = "model/"+EXP_PATH+EXP_ID+"/";
-    private final static int  DATA_PARTITION_SIZE = 2;
+    private static final String EXP_ID = "covtype/1";
+    private static String MODEL_PATH = "model/single/heart/1";
+    private static int  DATA_PARTITION_SIZE = 1;
     private static String MODEL_BASE=""; // model
     private static String MODEL_DATANAME=""; //heart
     private static String MODEL_VERSION=""; //2
-    private static String MODEL_TYPE=""; //positive, negative or zero
+    private static String MODEL_SINGLE=""; //positive, negative or zero
 
     public static void main(String[] args) throws IOException{
         long read_start = System.currentTimeMillis();
-        LOG.info("args[0] "+ args[0]);
-        LOG.info("args[1] "+ args[1]);
-        LOG.info("args[2] "+ args[2]);
-        String expName =  Util.optArgs(args, Constant.PREDICTING)[1];
+
+        String expName =  UtilSingle.optArgs(args, Constant.PREDICTING)[1];
+        MODEL_PATH = args[3];
+        String [] model_path_attrb = MODEL_PATH.split("/");
+        MODEL_BASE = model_path_attrb[0];
+        MODEL_DATANAME = model_path_attrb[2];
+        MODEL_VERSION = model_path_attrb[3];
+        MODEL_SINGLE = model_path_attrb[1];
+
+        DATA_PARTITION_SIZE = Integer.parseInt(args[4]);
+        MODEL_NAME = args[5];
+        WEIGHETD_MODEL_PATH ="stats/weightedmodels/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_NAME;
+
         double [] allDataSetAccuracies = new double[DATA_PARTITION_SIZE];
         for (int i = 1; i < DATA_PARTITION_SIZE+1; i++) {
             double accuracyPerDataSet = 0.0;
@@ -69,16 +77,8 @@ public class SDMMPrediction {
             ArrayList<ReadCSV> data = getData(argv);
             ReadCSV testReadCSVX = data.get(0);
             ReadCSV testReadCSVY = data.get(1);
-            MODEL_PATH = args[3];
-            String [] model_path_attrb = MODEL_PATH.split("/");
-            MODEL_BASE = model_path_attrb[0];
-            MODEL_DATANAME = model_path_attrb[1];
-            MODEL_VERSION = model_path_attrb[2];
-            MODEL_TYPE = model_path_attrb[3];
-            LOG.info("Model Path : " + MODEL_PATH);
-            //"stats/weightedmodels/"+MODEL_NAME;
-            MODEL_NAME = args[4];
-            WEIGHETD_MODEL_PATH = "stats/"+"weightedmodels/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+MODEL_NAME;
+
+
 
             ArrayList<Model> models = loadModels();
 
@@ -94,7 +94,8 @@ public class SDMMPrediction {
             allDataSetAccuracies[i-1] = accuracyPerDataSet;
         }
 
-        Util.modelAccuracySaveCSV(allDataSetAccuracies,"stats/accuracyPerDataSet/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+"accuracy_"+expName+"_"+EXP_ID);
+        UtilSingle.modelAccuracySaveCSV(allDataSetAccuracies,"stats/accuracyPerDataSet/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+"accuracy_"+expName+"_"+"1");
+
     }
 
     public static double perDataSetPrediction(Matrix testData, ArrayList<Model> models,  ArrayList<ReadCSV> data ) throws IOException{
@@ -102,7 +103,7 @@ public class SDMMPrediction {
         ReadCSV testReadCSVX = data.get(0);
         ReadCSV testReadCSVY = data.get(1);
 
-        double [] modelWeights = Util.loadModelWeights(WEIGHETD_MODEL_PATH);
+        double [] modelWeights = UtilSingle.loadModelWeights(WEIGHETD_MODEL_PATH);
         for (int i = 0; i < modelWeights.length; i++) {
             LOG.info("Model Id :  "+i+ " : weight value : " + modelWeights[i]);
         }
@@ -113,7 +114,7 @@ public class SDMMPrediction {
         }*/
         ArrayList<double []> testXValues = testReadCSVX.getxVals();
         ArrayList<Double> testYValues = testReadCSVY.getyVals();
-        double [][] testArr = Util.converToArray(testXValues);
+        double [][] testArr = UtilSingle.converToArray(testXValues);
         Double [] testRes = new Double[testArr.length];
         Double [] testArrRes = testYValues.toArray(testRes);
 
@@ -176,7 +177,7 @@ public class SDMMPrediction {
     public static ArrayList<Model> loadModels() throws IOException {
 
         ArrayList<String> modelPaths = null;
-        modelPaths = Util.loadPaths(MODEL_PATH);
+        modelPaths = UtilSingle.loadPaths(MODEL_PATH);
         ArrayList<Model> models = new ArrayList<>();
         if(modelPaths.size() > 0){
             for (String modelpath : modelPaths) {
@@ -192,7 +193,7 @@ public class SDMMPrediction {
     public static ArrayList<ReadCSV> getData(String [] args){
         ArrayList<ReadCSV> readCSVS = new ArrayList<>();
 
-        String [] argv = Util.optArgs(args, Constant.TESTING);
+        String [] argv = UtilSingle.optArgs(args, Constant.TESTING);
         String baseX = argv[0];
         String baseY = baseX;
 
@@ -229,7 +230,7 @@ public class SDMMPrediction {
         ArrayList<double []> testXValues = testReadCSVX.getxVals();
         ArrayList<Double> testYValues = testReadCSVY.getyVals();
 
-        double [][] testArr = Util.converToArray(testXValues);
+        double [][] testArr = UtilSingle.converToArray(testXValues);
         Double [] testRes = new Double[testArr.length];
         Double [] testArrRes = testYValues.toArray(testRes);
 
@@ -249,7 +250,7 @@ public class SDMMPrediction {
     public static Double [] getTestArray(ReadCSV testReadCSVX, ReadCSV testReadCSVY){
 
         ArrayList<double []> testXValues = testReadCSVX.getxVals();
-        double [][] testArr = Util.converToArray(testXValues);
+        double [][] testArr = UtilSingle.converToArray(testXValues);
         ArrayList<Double> testYValues = testReadCSVY.getyVals();
         Double [] testRes = new Double[testArr.length];
         Double [] testArrRes = testYValues.toArray(testRes);
