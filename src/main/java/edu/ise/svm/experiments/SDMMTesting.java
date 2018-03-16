@@ -49,6 +49,7 @@ public class SDMMTesting {
 
         ArrayList<ReadCSV> data = getData(args);
         MODEL_PATH = args[3];
+        LOG.info("MODEL PATH : " + MODEL_PATH);
         String [] model_path_attrb = MODEL_PATH.split("/");
         MODEL_BASE = model_path_attrb[0];
         MODEL_DATANAME = model_path_attrb[1];
