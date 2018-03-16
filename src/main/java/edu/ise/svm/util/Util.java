@@ -75,23 +75,26 @@ public class Util {
                 }
             }
             if(type.equals(Constant.TESTING)){
-                if(args!=null && args.length==3){
+                if(args!=null && args.length==4){
                     LOG.info("Source Folder : "+args[0]);
                     LOG.info("Test X : "+args[1]);
                     LOG.info("Test Y : "+args[2]);
+                    LOG.info("Model Path "+args[3]);
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
-                            " <test-X> <test-Y>");
+                            " <test-X> <test-Y> <model-path>");
                 }
             }
             if(type.equals(Constant.PREDICTING)){
-                if(args!=null && args.length==3){
+                if(args!=null && args.length==5){
                     LOG.info("Source Folder : "+args[0]);
                     LOG.info("Test X : "+args[1]);
                     LOG.info("Test Y : "+args[2]);
+                    LOG.info("Model Path : " + args[3]);
+                    LOG.info("Model File : " + args[4]);
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
-                            " <test-X> <test-Y>");
+                            " <test-X> <test-Y> <model-path>");
                 }
             }
         }
@@ -175,8 +178,12 @@ public class Util {
         ArrayList<Double> weightList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(modelWeightPath))) {
             String line;
+            int count = 0; // skip header line
             while ((line = br.readLine()) != null) {
-                weightList.add(Double.parseDouble(line));
+                if(count>0){
+                    weightList.add(Double.parseDouble(line));
+                }
+                count++;
             }
         }
         weights =  weightList.stream().mapToDouble(d -> d).toArray();
