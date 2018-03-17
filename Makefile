@@ -5,7 +5,7 @@ package:
 	mvn clean
 	mvn package
 
-setup:
+setupcov:
 	if [ ! -d "model" ] ; then mkdir model; fi ;
 	if [ ! -d "logs" ] ; then mkdir logs; fi ;
 	if [ ! -d "stats" ] ; then mkdir stats; fi ;
@@ -17,7 +17,7 @@ setup:
 	python scripts/partition.py data/covtype/covtype_libsvm_ise_test_x 400
 
 
-setupbin:
+setupcovbin:
 	if [ ! -d "model" ] ; then mkdir model; fi ;
 	if [ ! -d "logs" ] ; then mkdir logs; fi ;
 	if [ ! -d "stats" ] ; then mkdir stats; fi ;
@@ -27,6 +27,12 @@ setupbin:
 	python scripts/partition.py data/covtype/covtype_libsvm_ise_test_y.bin 400
 	python scripts/partition.py data/covtype/covtype_libsvm_ise_train_x_bin 400
 	python scripts/partition.py data/covtype/covtype_libsvm_ise_test_x_bin 400
+
+setupijcnnbin:
+	python scripts/partition.py data/ijcnn1/ijcnn1_isesvm_test_x_bin 40
+	python scripts/partition.py data/ijcnn1/ijcnn1_isesvm_train_x_bin 40
+	python scripts/partition.py data/ijcnn1/ijcnn1_isesvm_test_y.bin 40
+	python scripts/partition.py data/ijcnn1/ijcnn1_isesvm_train_y.bin 40
 
 setupmodelheart:
 	python scripts/partition.py data/model_partition/heart/heart_negative_cr_isesvm_train_y.bin 1
@@ -104,10 +110,19 @@ s-mdmmtrain-hrt:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/heart/ heart_scale_train_x_bin.1 heart_scale_train_y.1.bin heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1 1
 
 s-sdmmtest-hrt:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMTesting data/heart/  heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMTesting data/heart/ heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1
 
 s-sdmmpredict-hrt:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMPrediction data/heart/  heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1 1 weighted_acc_heart_scale_test_x_bin.1_1
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMPrediction data/heart/ heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/1 1 weighted_acc_heart_scale_test_x_bin.1_1
+
+s-mdmmtrain-ijcnn1:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.BulkMDMMTraining data/ijcnn1/ ijcnn1_isesvm_train_x_bin.1 ijcnn1_isesvm_train_y.1.bin ijcnn1_isesvm_test_x_bin.1 ijcnn1_isesvm_test_y.1.bin model/single/ijcnn1/1 1
+
+s-sdmmtest-ijcnn1:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMTesting data/ijcnn1/ ijcnn1_isesvm_test_x_bin.1 ijcnn1_isesvm_test_y.1.bin model/single/ijcnn1/1 
+
+s-sdmmpredict-ijcnn1:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.SDMMPrediction data/ijcnn1/ ijcnn1_isesvm_test_x_bin.2 ijcnn1_isesvm_test_y.2.bin model/single/ijcnn1/1 10 weighted_acc_ijcnn1_isesvm_test_x_bin.1_1
 
 plotacc:
 	python scripts/csvplotaccuracies.py "covtype_libsvm_ise_test_x_bin.1_1"
@@ -120,3 +135,10 @@ plot-cor-sdmmacc-hrt-pst:
 
 plot-cor-sdmmacc-hrt-ngt:
 	python scripts/csvplotaccuracies.py "stats/accuracyPerDataSet/heart/2/negative/"  "accuracy_heart_negative_cr_isesvm_test_x_bin.2_2" "stats/plots/accuracyPerDataSet/heart/2/" "heart-model-negative-2-predictions.png" "Data Set ID" "Accuracy of DataSet" "Accuracy Distribution Per DataSet for Single Data Multi Model Approach" "Heart-Negative-Cor" "-2-" "SDMM-"
+
+setup-dir-ijcnn1-s:
+	mkdir -p logs/ijcnn1/{1..10}
+	mkdir -p model/single/ijcnn1/{1..10}
+	mkdir -p stats/accuracyPerDataSet/single/ijcnn1/{1..10}
+	mkdir -p stats/SDMMTestAccuracies/single/ijcnn1/{1..10}
+	mkdir -p stats/weightedmodels/single/ijcnn1/{1..10}

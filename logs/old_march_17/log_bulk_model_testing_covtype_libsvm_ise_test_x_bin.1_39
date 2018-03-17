@@ -1,0 +1,46 @@
+=====================================================================================
+Log TESTING :2018/03/14 15:02:09 
+=====================================================================================
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.1 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.1.bin 
+I/O Time : 0.159 s
+Testing Time : 0 s
+Accuracy : 40.0Testing Time : 0 s
+Accuracy : 39.6551724137931Testing Time : 0 s
+Accuracy : 62.58620689655172Testing Time : 0 s
+Accuracy : 56.37931034482758Testing Time : 0 s
+Accuracy : 58.620689655172406Testing Time : 0 s
+Accuracy : 68.62068965517241Testing Time : 0 s
+Accuracy : 39.6551724137931Testing Time : 0 s
+Accuracy : 54.65517241379311Testing Time : 0 s
+Accuracy : 60.862068965517246Testing Time : 0 s
+Accuracy : 54.310344827586206Testing Time : 0 s
+Accuracy : 42.241379310344826Testing Time : 0 s
+Accuracy : 50.689655172413794Testing Time : 0 s
+Accuracy : 40.3448275862069Testing Time : 0 s
+Accuracy : 58.44827586206897Testing Time : 0 s
+Accuracy : 57.24137931034483Testing Time : 0 s
+Accuracy : 70.0Testing Time : 0 s
+Accuracy : 50.86206896551724Testing Time : 0 s
+Accuracy : 67.24137931034483Testing Time : 0 s
+Accuracy : 66.72413793103448Testing Time : 0 s
+Accuracy : 67.75862068965517Testing Time : 0 s
+Accuracy : 60.3448275862069Testing Time : 0 s
+Accuracy : 55.172413793103445Testing Time : 0 s
+Accuracy : 71.03448275862068Testing Time : 0 s
+Accuracy : 58.44827586206897Testing Time : 0 s
+Accuracy : 60.51724137931035Testing Time : 0 s
+Accuracy : 62.93103448275862Testing Time : 0 s
+Accuracy : 60.689655172413794Testing Time : 0 s
+Accuracy : 43.62068965517241Testing Time : 0 s
+Accuracy : 60.3448275862069Testing Time : 0 s
+Accuracy : 38.793103448275865Testing Time : 0 s
+Accuracy : 66.72413793103448Testing Time : 0 s
+Accuracy : 56.03448275862068Testing Time : 0 s
+Accuracy : 39.6551724137931Testing Time : 0 s
+Accuracy : 72.75862068965517Testing Time : 0 s
+Accuracy : 62.41379310344828Testing Time : 0 s
+Accuracy : 54.137931034482754Testing Time : 0 s
+Accuracy : 59.48275862068966Testing Time : 0 s
+Accuracy : 39.6551724137931Testing Time : 0 s
+Accuracy : 66.89655172413794

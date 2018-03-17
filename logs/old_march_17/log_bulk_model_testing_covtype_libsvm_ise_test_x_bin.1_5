@@ -1,0 +1,12 @@
+=====================================================================================
+Log TESTING :2018/03/14 15:02:09 
+=====================================================================================
+Testing (X) File : data/covtype/covtype_libsvm_ise_test_x_bin.1 
+Testing (Y) File : data/covtype/covtype_libsvm_ise_test_y.1.bin 
+I/O Time : 0.159 s
+Testing Time : 0 s
+Accuracy : 40.0Testing Time : 0 s
+Accuracy : 39.6551724137931Testing Time : 0 s
+Accuracy : 62.58620689655172Testing Time : 0 s
+Accuracy : 56.37931034482758Testing Time : 0 s
+Accuracy : 58.620689655172406
