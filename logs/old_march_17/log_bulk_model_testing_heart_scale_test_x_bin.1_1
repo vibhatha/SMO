@@ -1,0 +1,8 @@
+=====================================================================================
+Log TESTING :2018/03/16 09:21:21 
+=====================================================================================
+Testing (X) File : data/heart/heart_scale_test_x_bin.1 
+Testing (Y) File : data/heart/heart_scale_test_y.1.bin 
+I/O Time : 0.091 s
+Testing Time : 0 s
+Accuracy : 82.85714285714286

@@ -1,0 +1,10 @@
+=====================================================================================
+Log TRAINING :2018/03/15 18:36:24 
+=====================================================================================
+Training (X) File : data/heart/heart_scale_train_1_x 
+Training (Y) File : data/heart/heart_scale_train_1_y 
+Testing (X) File : data/heart/heart_scale_test_1_x 
+Testing (Y) File : data/heart/heart_scale_test_1_y 
+I/O Time : 0.01 s
+Training Time : 11.982 s
+Accuracy : 82.85714285714286

@@ -1,0 +1,8 @@
+=====================================================================================
+Log TESTING :2018/03/23 08:19:30 
+=====================================================================================
+Testing (X) File : data/model_partition/ijcnn1/ijcnn_negative_cr_isesvm_test_x_bin.1 
+Testing (Y) File : data/model_partition/ijcnn1/ijcnn_negative_cr_isesvm_test_y.1.bin 
+I/O Time : 0.108 s
+Testing Time : 1 s
+Accuracy : 0.0

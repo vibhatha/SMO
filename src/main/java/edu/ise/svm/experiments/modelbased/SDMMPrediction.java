@@ -10,6 +10,7 @@ import edu.ise.svm.io.CsvFile;
 import edu.ise.svm.io.ReadCSV;
 import edu.ise.svm.matrix.Matrix;
 import edu.ise.svm.matrix.MatrixOperator;
+import edu.ise.svm.smo.ModularPrediction;
 import edu.ise.svm.smo.Predict;
 import edu.ise.svm.util.Util;
 
@@ -41,17 +42,25 @@ public class SDMMPrediction {
     private static final String EXP_PATH = "heart/";
     private static final String EXP_ID = "2";
     private static String MODEL_PATH = "model/"+EXP_PATH+EXP_ID+"/";
-    private final static int  DATA_PARTITION_SIZE = 2;
+    private static int  DATA_PARTITION_SIZE = 2;
     private static String MODEL_BASE=""; // model
     private static String MODEL_DATANAME=""; //heart
     private static String MODEL_VERSION=""; //2
     private static String MODEL_TYPE=""; //positive, negative or zero
 
+
     public static void main(String[] args) throws IOException{
         long read_start = System.currentTimeMillis();
-        LOG.info("args[0] "+ args[0]);
-        LOG.info("args[1] "+ args[1]);
-        LOG.info("args[2] "+ args[2]);
+        LOG.info("Prediction Configuration");
+        LOG.info("====================================");
+        LOG.info(" "+ args[0]);
+        LOG.info(" "+ args[1]);
+        LOG.info(" "+ args[2]);
+        LOG.info(" "+ args[3]);
+        LOG.info(" "+ args[4]);
+        LOG.info(" "+ args[5]);
+        LOG.info("====================================");
+        DATA_PARTITION_SIZE = Integer.parseInt(args[5]);
         String expName =  Util.optArgs(args, Constant.PREDICTING)[1];
         double [] allDataSetAccuracies = new double[DATA_PARTITION_SIZE];
         for (int i = 1; i < DATA_PARTITION_SIZE+1; i++) {
@@ -90,7 +99,7 @@ public class SDMMPrediction {
 
             // generates the TestMatrix
             Matrix testData = generateTestMatrix(testReadCSVX, testReadCSVY);
-            accuracyPerDataSet = perDataSetPrediction(testData, models, data);
+            accuracyPerDataSet = perDataSetPrediction(testData, models, data, MODEL_TYPE);
             allDataSetAccuracies[i-1] = accuracyPerDataSet;
         }
 
@@ -103,11 +112,17 @@ public class SDMMPrediction {
         ReadCSV testReadCSVY = data.get(1);
 
         double [] modelWeights = Util.loadModelWeights(WEIGHETD_MODEL_PATH);
+        LOG.info("Model Weight Path : " + WEIGHETD_MODEL_PATH);
         for (int i = 0; i < modelWeights.length; i++) {
             LOG.info("Model Id :  "+i+ " : weight value : " + modelWeights[i]);
         }
 
         double [] getAllPredictionArray = getPredictions(testData, models, modelWeights);
+        String predSavePath = getPredictionSavePath(WEIGHETD_MODEL_PATH);
+        LOG.info("Prediction Save Path : " + predSavePath);
+        //save prediction results
+        savePredictions(predSavePath, getAllPredictionArray);
+
         /*for (int i = 0; i < getAllPredictionArray.length; i++) {
             LOG.info("Sample : " + i +" prediction : " + getAllPredictionArray[i]);
         }*/
@@ -120,6 +135,81 @@ public class SDMMPrediction {
         double accuracy = Predict.getAccuracy(testArrRes, getAllPredictionArray);
         LOG.info("Accuracy : " + accuracy);
         return accuracy;
+    }
+
+    public static double perDataSetPrediction(Matrix testData, ArrayList<Model> models,  ArrayList<ReadCSV> data, String modelType ) throws IOException{
+
+        ReadCSV testReadCSVX = data.get(0);
+        ReadCSV testReadCSVY = data.get(1);
+
+        double [] modelWeights = Util.loadModelWeights(WEIGHETD_MODEL_PATH);
+        LOG.info("Model Weight Path : " + WEIGHETD_MODEL_PATH);
+        for (int i = 0; i < modelWeights.length; i++) {
+            LOG.info("Model Id :  "+i+ " : weight value : " + modelWeights[i]);
+        }
+
+        double [] getAllPredictionArray = getPredictions(testData, models, modelWeights, modelType);
+        String predSavePath = getPredictionSavePath(WEIGHETD_MODEL_PATH);
+        LOG.info("Prediction Save Path : " + predSavePath);
+        //save prediction results
+        savePredictions(predSavePath, getAllPredictionArray);
+
+        /*for (int i = 0; i < getAllPredictionArray.length; i++) {
+            LOG.info("Sample : " + i +" prediction : " + getAllPredictionArray[i]);
+        }*/
+        ArrayList<double []> testXValues = testReadCSVX.getxVals();
+        ArrayList<Double> testYValues = testReadCSVY.getyVals();
+        double [][] testArr = Util.converToArray(testXValues);
+        Double [] testRes = new Double[testArr.length];
+        Double [] testArrRes = testYValues.toArray(testRes);
+
+        double accuracy = Predict.getAccuracy(testArrRes, getAllPredictionArray);
+        LOG.info("Accuracy : " + accuracy);
+        return accuracy;
+    }
+
+
+    public static String getPredictionSavePath(String path){
+        String newPath = "";
+        String [] comps = path.split("/");
+        comps[1] = "predictionResults";
+        String [] fnames = comps[5].split("_");
+        fnames[0]="predictions";
+        String filename = "";
+
+        for (int i=0 ; i < fnames.length ; i++) {
+            if(i<fnames.length-1){
+                filename+=fnames[i]+"_";
+            }else{
+                filename+=fnames[i];
+            }
+        }
+
+        LOG.info(filename);
+        comps[comps.length-1] = filename;
+        String filepath = "";
+        for (int i=0 ; i < comps.length ; i++) {
+            if(i<comps.length-1){
+                filepath+=comps[i]+"/";
+            }else{
+                filepath+=comps[i];
+            }
+
+        }
+        newPath = filepath;
+        return newPath;
+    }
+
+    public static void savePredictions(String filepath, double [] predictions) throws IOException {
+        String data = "";
+        for (int i = 0; i < predictions.length; i++) {
+            if(i<predictions.length-1){
+                data+= String.valueOf(predictions[i])+"\n";
+            }else{
+                data+= String.valueOf(predictions[i]);
+            }
+        }
+        Util.createLog(filepath, data, "Prediction Results");
     }
 
 
@@ -144,8 +234,43 @@ public class SDMMPrediction {
             int modelId=0;
             double predictLabelOfSample=-1;
             for (Model model:models) {
-                Predict predict = new Predict(model, sample);
+                ModularPrediction predict = new ModularPrediction(model, sample);
                 Matrix prediction = predict.predict();
+                double[] curPrediction = matrixOperator.transpose(prediction).getMatDouble()[0];
+                double predClass = curPrediction[0];
+                modelPredictionList[modelId] = predClass;
+                modelId++;
+            }
+            double predictScore = 0.0;
+            for (int j = 0; j < modelWeights.length; j++) {
+                predictScore += modelWeights[j]*modelPredictionList[j];
+            }
+            if(predictScore>=0){
+                predictLabelOfSample = 1;
+            }else{
+                predictLabelOfSample = -1;
+            }
+            allPredictionArray[allPredictionArrayId] = predictLabelOfSample;
+            allPredictionArrayId++;
+        }
+
+        return allPredictionArray;
+    }
+
+    public static double [] getPredictions(Matrix testData, ArrayList<Model> models, double [] modelWeights, String modelType){
+
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int rows = testData.getRows();
+        double [] allPredictionArray = new double[rows];
+        int allPredictionArrayId=0;
+        for (int i = 0; i < rows; i++) {
+            Matrix sample = matrixOperator.getRowData(testData, i);
+            double [] modelPredictionList = new double[models.size()];
+            int modelId=0;
+            double predictLabelOfSample=-1;
+            for (Model model:models) {
+                ModularPrediction predict = new ModularPrediction(model, sample);
+                Matrix prediction = predict.predict(modelType);
                 double[] curPrediction = matrixOperator.transpose(prediction).getMatDouble()[0];
                 double predClass = curPrediction[0];
                 modelPredictionList[modelId] = predClass;

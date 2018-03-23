@@ -86,15 +86,16 @@ public class Util {
                 }
             }
             if(type.equals(Constant.PREDICTING)){
-                if(args!=null && args.length==5){
+                if(args!=null && args.length==6){
                     LOG.info("Source Folder : "+args[0]);
                     LOG.info("Test X : "+args[1]);
                     LOG.info("Test Y : "+args[2]);
                     LOG.info("Model Path : " + args[3]);
                     LOG.info("Model File : " + args[4]);
+                    LOG.info("Data Partitions : " + args[5]);
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
-                            " <test-X> <test-Y> <model-path>");
+                            " <test-X> <test-Y> <model-path> <num-data partitions>");
                 }
             }
         }

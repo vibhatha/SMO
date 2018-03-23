@@ -54,7 +54,6 @@ public class SMO {
 
         Matrix w_square = null;
 
-
         try {
 
             w_square = this.operator.norm(this.w);
@@ -335,7 +334,6 @@ public class SMO {
         if (x != null && y != null && alphas != null && w != null) {
             model = new Model(x, y, b, alphas, w,kernel, info);
         }
-
 
         return model;
 

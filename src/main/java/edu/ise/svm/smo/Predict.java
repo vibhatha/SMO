@@ -125,6 +125,7 @@ public class Predict {
         linearPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
 
         linearPredictions = getClassesForTwoClass(op2);
+        //matrixOperator.disp(linearPredictions);
 
 
         return linearPredictions;

@@ -13,4 +13,7 @@ public class Constant {
     public static final String TESTING = "TESTING";
     public static final String TRAINING = "TRAINING";
     public static final String PREDICTING = "PREDICTING";
+    public static final String MODEL_TYPE_POSITIVE="positive";
+    public static final String MODEL_TYPE_NEGATIVE="negative";
+    public static final String MODEL_TYPE_ZERO="zero";
 }
