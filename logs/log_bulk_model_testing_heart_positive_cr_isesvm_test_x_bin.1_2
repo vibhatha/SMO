@@ -1,0 +1,9 @@
+=====================================================================================
+Log TESTING :2018/03/23 15:00:39 
+=====================================================================================
+Testing (X) File : data/model_partition/heart/heart_positive_cr_isesvm_test_x_bin.1 
+Testing (Y) File : data/model_partition/heart/heart_positive_cr_isesvm_test_y.1.bin 
+I/O Time : 0.071 s
+Testing Time : 1 s
+Accuracy : 18.6046511627907Testing Time : 0 s
+Accuracy : 83.72093023255815

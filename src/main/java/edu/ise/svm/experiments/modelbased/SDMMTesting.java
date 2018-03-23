@@ -6,6 +6,7 @@ import edu.ise.svm.io.CsvFile;
 import edu.ise.svm.io.ReadCSV;
 import edu.ise.svm.matrix.Matrix;
 import edu.ise.svm.matrix.MatrixOperator;
+import edu.ise.svm.smo.ModularPrediction;
 import edu.ise.svm.smo.Predict;
 import edu.ise.svm.util.Util;
 
@@ -125,6 +126,43 @@ public class SDMMTesting {
         return accuracyArray;
     }
 
+    public static double [] getModelTrainingAccuracies(ArrayList<Model> models, Matrix testData, Double [] testArrRes, String expName, String modelType ) throws IOException{
+
+        double [] accuracyArray = new double[models.size()];
+        int modelId = 0;
+        for (Model model: models) {
+
+            long start_testing = System.currentTimeMillis();
+
+            ModularPrediction predict = new ModularPrediction(model, testData);
+
+            long end_testing = System.currentTimeMillis();
+
+            long testing_time = end_testing - start_testing;
+
+            Matrix prediction1 = predict.predict(modelType);
+
+            double [] predictionArr = new MatrixOperator().transpose(prediction1).getMatDouble()[0];
+
+            double accuracy = predict.getAccuracy(testArrRes , predictionArr);
+
+            LOG.info("Prediction of test 1");
+            LOG.info("-----------------------------------------");
+            LOG.info("Accuracy : " + accuracy);
+            LOG.info("----------------------------------------");
+
+            double b_cal = model.getB();
+            LOG.info("b : " + b_cal);
+            logdata += "Testing Time : " + testing_time + " s\n";
+            logdata += "Accuracy : " + accuracy;
+            accuracyArray[modelId] = accuracy;
+            modelId++;
+            Util.createLog("logs/log_bulk_model_testing_"+expName+"_"+modelId, logdata, Constant.TESTING);
+        }
+        return accuracyArray;
+    }
+
+
     public static Matrix generateTestMatrix(ReadCSV testReadCSVX, ReadCSV testReadCSVY){
         Matrix testData = null;
 
@@ -206,7 +244,6 @@ public class SDMMTesting {
                 models.add(model);
             }
         }
-
         return models;
     }
 
@@ -216,14 +253,12 @@ public class SDMMTesting {
         for (int i = 0; i < accuracies.length; i++) {
             total += accuracies[i];
         }
-
         double totalWeights = 0.0;
         for (int i = 0; i < weights.length; i++) {
             weights[i] = accuracies[i]/total;
             totalWeights += weights[i];
             LOG.info("Weights "+i+" :  " + weights[i]);
         }
-
         LOG.info("Total Weights : " + totalWeights);
         return weights;
     }

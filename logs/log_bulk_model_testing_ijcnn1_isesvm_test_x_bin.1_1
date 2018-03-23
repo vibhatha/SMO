@@ -1,8 +1,8 @@
 =====================================================================================
-Log TESTING :2018/03/17 09:29:40 
+Log TESTING :2018/03/23 19:38:08 
 =====================================================================================
 Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.1 
 Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.1.bin 
-I/O Time : 0.101 s
+I/O Time : 0.12 s
 Testing Time : 1 s
 Accuracy : 90.57180270624181

@@ -1,0 +1,11 @@
+=====================================================================================
+Log TESTING :2018/03/23 19:43:37 
+=====================================================================================
+Testing (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_x_bin.1 
+Testing (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_y.1.bin 
+I/O Time : 0.097 s
+Testing Time : 1 s
+Accuracy : 85.61151079136691Testing Time : 0 s
+Accuracy : 86.33093525179856Testing Time : 0 s
+Accuracy : 90.28776978417267Testing Time : 0 s
+Accuracy : 89.92805755395683

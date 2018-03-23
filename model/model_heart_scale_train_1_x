@@ -1,0 +1,28 @@
+<model>
+linear
+</model>
+<W>
+0.07426822024974944
+0.6184130455497792
+0.9351578326323549
+0.39452803156024896
+0.5943794989853297
+-0.1242419577722238
+-0.014588386800682862
+-0.9112532076985259
+0.2951862780052785
+0.8994340704778457
+0.3618661154075391
+1.2526475712802358
+</W>
+<b>
+1.1325185082742344
+</b>
+<info>
+Training (X) File : data/heart/heart_scale_train_1_x 
+Training (Y) File : data/heart/heart_scale_train_1_y 
+Testing (X) File : data/heart/heart_scale_test_1_x 
+Testing (Y) File : data/heart/heart_scale_test_1_y 
+I/O Time : 10
+Kernel Matrix Calculation : 0.008 s
+</info>

@@ -1,9 +1,9 @@
 =====================================================================================
-Log TESTING :2018/03/22 09:36:11 
+Log TESTING :2018/03/23 14:59:41 
 =====================================================================================
 Testing (X) File : data/model_partition/ijcnn1/ijcnn_positive_cr_isesvm_test_x_bin.1 
 Testing (Y) File : data/model_partition/ijcnn1/ijcnn_positive_cr_isesvm_test_y.1.bin 
-I/O Time : 0.093 s
+I/O Time : 0.094 s
 Testing Time : 0 s
 Accuracy : 100.0Testing Time : 0 s
 Accuracy : 100.0

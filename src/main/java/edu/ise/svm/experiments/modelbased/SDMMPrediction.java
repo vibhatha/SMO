@@ -163,7 +163,7 @@ public class SDMMPrediction {
         Double [] testRes = new Double[testArr.length];
         Double [] testArrRes = testYValues.toArray(testRes);
 
-        double accuracy = Predict.getAccuracy(testArrRes, getAllPredictionArray);
+        double accuracy = ModularPrediction.getAccuracy(testArrRes, getAllPredictionArray);
         LOG.info("Accuracy : " + accuracy);
         return accuracy;
     }
