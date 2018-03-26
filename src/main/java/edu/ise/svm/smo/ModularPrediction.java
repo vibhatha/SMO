@@ -318,12 +318,12 @@ public class ModularPrediction{
                         }
                     }
                 }
-            }else if(modelType.equals(Constant.MODEL_TYPE_NEGATIVE)){
+            }else if(modelType.equals(Constant.MODEL_TYPE_NEGATIVE)){//boundary checks for positive and negative models must be opposite
                 for (int i = 0; i < predictions.getRows(); i++) {
                     for (int j = 0; j < predictions.getColumns(); j++) {
-                        if(predictions.getMatDouble()[i][j]<0){ //when the prediction value is greater than 0 the class is considered as 1 and it can be any number but basically 1 and -1 are used here
+                        if(predictions.getMatDouble()[i][j]>=0){ //when the prediction value is greater than 0 the class is considered as 1 and it can be any number but basically 1 and -1 are used here
                             classes.getMatDouble()[i][j]=1;
-                        }else if(predictions.getMatDouble()[i][j]>=0){//prediction value lesser than 0 can be considered as the other class
+                        }else if(predictions.getMatDouble()[i][j]<0){//prediction value lesser than 0 can be considered as the other class
                             classes.getMatDouble()[i][j]=-1;
                         }
                     }

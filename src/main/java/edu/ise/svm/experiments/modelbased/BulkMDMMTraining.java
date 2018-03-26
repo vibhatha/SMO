@@ -45,6 +45,10 @@ public class BulkMDMMTraining {
 
     public final static Logger LOG = Logger.getLogger(Main.class.getName());
     public static String MODEL_PATH = "model/heart/2";
+    private static String MODEL_BASE = "";
+    private static String DATA_SOURCE = "";
+    private static String MODEL_VERSION = "";
+    private static String MODEL_TYPE = "";
 
     private enum DATATYPE {
         DOUBLE, INT
@@ -75,6 +79,12 @@ public class BulkMDMMTraining {
         String testY = argv[4];
 
         MODEL_PATH = argv[5];
+
+        String [] paths = MODEL_PATH.split("/");
+        MODEL_BASE = paths[0];
+        DATA_SOURCE = paths[1];
+        MODEL_VERSION = paths[2];
+        MODEL_TYPE = paths[3];
 
         LOG.info(trainX);
         LOG.info(trainY);
@@ -169,9 +179,17 @@ public class BulkMDMMTraining {
             for(int i=0; i < w.getRows();i++){
                 for(int j=0; j < w.getColumns(); j++){
 
-                    w.getMatDouble()[i][j]= 2.00;
+                    //w.getMatDouble()[i][j]= 2.00;
                     b.getMatDouble()[i][j]= 3.00;
-                    alpha.getMatDouble()[i][j]=0;
+                    if(MODEL_TYPE.equals("positive")){
+                        w.getMatDouble()[i][j]=0;
+                    }
+
+
+                    if(MODEL_TYPE.equals("negative")){
+                        w.getMatDouble()[i][j]=-1;
+                    }
+
 
                 }
             }
@@ -180,7 +198,7 @@ public class BulkMDMMTraining {
             //SMO.lagrangeCalculation(alpha,matX,matY,b,w);
             String kernel = Constant.LINEAR;
             long train_start = System.currentTimeMillis();
-            Model model = SMO.svmTrain(X,Y,Constant.LINEAR);
+            Model model = SMO.svmTrain(X,Y,Constant.LINEAR, MODEL_TYPE);
             model.saveModel(MODEL_PATH+"/model_"+trainX);
             long train_end = System.currentTimeMillis();
             double train_time = (train_end-train_start)/1000.0;
