@@ -5,4 +5,7 @@ Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.
 Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.1.bin 
 I/O Time : 0.09 s
 Testing Time : 1 s
-Accuracy : 63.498920086393085
+Accuracy : 63.498920086393085Testing Time : 0 s
+Accuracy : 57.45140388768899Testing Time : 0 s
+Accuracy : 57.45140388768899Testing Time : 0 s
+Accuracy : 63.714902807775374

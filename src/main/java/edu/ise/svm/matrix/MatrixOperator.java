@@ -579,5 +579,46 @@ public class MatrixOperator implements IMatrix {
 
     }
 
+    public void sout(Matrix m) {
+
+        if (m != null) {
+
+            int rows = m.getRows();
+            int cols = m.getColumns();
+
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (m.getMatDouble() != null) {
+
+                        System.out.print(m.getMatDouble()[i][j] + " ");
+
+                    } else if (m.getMatInt() != null) {
+                        System.out.print(m.getMatInt()[i][j] + " ");
+                    }
+
+                }
+                System.out.println();
+            }
+
+
+        }
+
+
+    }
+
+    public boolean checkSumWeights(Matrix op1){
+        boolean status = true;
+        double [] [] d = op1.getMatDouble();
+        double sum = 0.0;
+        for (int i = 0; i < d.length; i++) {
+            for (int j = 0; j < d[0].length; j++) {
+                sum+= d[i][j];
+            }
+        }
+        if(sum>0){
+            status = false;
+        }
+        return status;
+    }
 
 }

@@ -1,9 +1,9 @@
 =====================================================================================
-Log TESTING :2018/03/26 09:48:04 
+Log TESTING :2018/03/26 09:47:11 
 =====================================================================================
-Testing (X) File : data/model_partition/ijcnn1/ijcnn_positive_cr_isesvm_test_x_bin.4 
-Testing (Y) File : data/model_partition/ijcnn1/ijcnn_positive_cr_isesvm_test_y.4.bin 
-I/O Time : 0.097 s
+Testing (X) File : /home/vibhatha/data/isesvm/webspam/webspam_positive_cr_isesvm_test_x_bin.1 
+Testing (Y) File : /home/vibhatha/data/isesvm/webspam/webspam_positive_cr_isesvm_test_y.1.bin 
+I/O Time : 0.089 s
 Testing Time : 1 s
 Accuracy : 100.0Testing Time : 0 s
 Accuracy : 100.0

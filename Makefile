@@ -240,3 +240,25 @@ cor-sdmmtesthrt-ngt:
 
 cor-sdmmpredicthrt-ngt:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMPrediction data/model_partition/heart/  heart_negative_cr_isesvm_test_x_bin.1 heart_negative_cr_isesvm_test_y.1.bin model/heart/2/negative weighted_acc_heart_negative_cr_isesvm_test_x_bin.1 1
+
+# WEBSPAM MODULAR SECTION
+
+## POSITIVE 
+cor-mdmmtrain-webspam-pst:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.BulkMDMMTraining ~/data/isesvm/webspam/ webspam_positive_cr_isesvm_train_x_bin.1 webspam_positive_cr_isesvm_train_y.1.bin webspam_positive_cr_isesvm_test_x_bin.1 webspam_positive_cr_isesvm_test_y.1.bin model/webspam/2/positive
+
+cor-sdmmtest-webspam-pst:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMTesting ~/data/isesvm/webspam/ webspam_positive_cr_isesvm_test_x_bin.1 webspam_positive_cr_isesvm_test_y.1.bin model/webspam/2/positive
+
+cor-sdmmpredict-webspam-pst:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMPrediction ~/data/isesvm/webspam/  webspam_positive_cr_isesvm_test_x_bin.1 webspam_positive_cr_isesvm_test_y.1.bin model/webspam/2/positive weighted_acc_webspam_positive_cr_isesvm_test_x_bin.1 5
+
+## NEGATIVE
+cor-mdmmtrain-webspam-ngt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.BulkMDMMTraining ~/data/isesvm/webspam/ webspam_negative_cr_isesvm_train_x_bin.1 webspam_negative_cr_isesvm_train_y.1.bin webspam_negative_cr_isesvm_test_x_bin.1 webspam_negative_cr_isesvm_test_y.1.bin model/webspam/2/negative 
+
+cor-sdmmtest-webspam-ngt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMTesting ~/data/isesvm/webspam/ webspam_negative_cr_isesvm_test_x_bin.1 webspam_negative_cr_isesvm_test_y.1.bin model/webspam/2/negative
+
+cor-sdmmpredict-webspam-ngt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.modelbased.SDMMPrediction ~/data/isesvm/webspam/ webspam_negative_cr_isesvm_test_x_bin.1 webspam_negative_cr_isesvm_test_y.1.bin model/webspam/2/negative weighted_acc_webspam_negative_cr_isesvm_test_x_bin.1 5
