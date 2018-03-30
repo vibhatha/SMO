@@ -126,6 +126,99 @@ public class Model {
                 writer.write("<W>");
                 writer.newLine();
                 Matrix w = this.getW();
+                //new MatrixOperator().sout(w);
+                if (w != null && w.getRows() > 0) {
+                    double[][] wArr = w.getMatDouble();
+                    int rowWArr = wArr.length;
+                    int colWarr = wArr[0].length;
+                    for (int i = 0; i < rowWArr; i++) {
+                        for (int j = 0; j < colWarr; j++) {
+                            if (colWarr > 1) {
+                                if (j < colWarr - 1) {
+                                    writer.write(String.valueOf(wArr[i][j]) + ",");
+                                }
+                                writer.write(String.valueOf(wArr[i][j]));
+                            }
+                            writer.write(String.valueOf(wArr[i][j]) + "");
+                        }
+                        writer.newLine();
+                    }
+                }
+                writer.write("</W>");
+                writer.newLine();
+                writer.write("<b>");
+                writer.newLine();
+                double b = this.getB();
+                writer.write(String.valueOf(b));
+                writer.newLine();
+                writer.write("</b>");
+                writer.newLine();
+                writer.write("<info>");
+                writer.newLine();
+                writer.write(info);
+                writer.newLine();
+                writer.write("</info>");
+                writer.newLine();
+                LOG.info("Model saved : " + filepath);
+            }
+
+            if (this.getKernel().equals(Constant.GAUSSIAN)) {
+                writer.write("<model>");
+                writer.newLine();
+                writer.write(this.getKernel());
+                writer.newLine();
+                writer.write("</model>");
+                writer.newLine();
+                writer.write("<W>");
+                writer.newLine();
+                Matrix w = this.getW();
+                //new MatrixOperator().sout(w);
+                if (w != null && w.getRows() > 0) {
+                    double[][] wArr = w.getMatDouble();
+                    int rowWArr = wArr.length;
+                    int colWarr = wArr[0].length;
+                    for (int i = 0; i < rowWArr; i++) {
+                        for (int j = 0; j < colWarr; j++) {
+                            if (colWarr > 1) {
+                                if (j < colWarr - 1) {
+                                    writer.write(String.valueOf(wArr[i][j]) + ",");
+                                }
+                                writer.write(String.valueOf(wArr[i][j]));
+                            }
+                            writer.write(String.valueOf(wArr[i][j]) + "");
+                        }
+                        writer.newLine();
+                    }
+                }
+                writer.write("</W>");
+                writer.newLine();
+                writer.write("<b>");
+                writer.newLine();
+                double b = this.getB();
+                writer.write(String.valueOf(b));
+                writer.newLine();
+                writer.write("</b>");
+                writer.newLine();
+                writer.write("<info>");
+                writer.newLine();
+                writer.write(info);
+                writer.newLine();
+                writer.write("</info>");
+                writer.newLine();
+                LOG.info("Model saved : " + filepath);
+            }
+
+            if (this.getKernel().equals(Constant.POLYNOMIAL)) {
+                writer.write("<model>");
+                writer.newLine();
+                writer.write(this.getKernel());
+                writer.newLine();
+                writer.write("</model>");
+                writer.newLine();
+                writer.write("<W>");
+                writer.newLine();
+                Matrix w = this.getW();
+                //new MatrixOperator().sout(w);
                 if (w != null && w.getRows() > 0) {
                     double[][] wArr = w.getMatDouble();
                     int rowWArr = wArr.length;
@@ -161,7 +254,6 @@ public class Model {
                 LOG.info("Model saved : " + filepath);
             }
         }
-
     }
 
     public static Model loadModel(String modelpath) throws IOException{

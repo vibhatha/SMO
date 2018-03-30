@@ -67,7 +67,6 @@ public class ModularPrediction{
             //start of switch statement to get the kernel
             String kernel = null;
             switch (model.getKernel()) {
-
                 case Constant.LINEAR://checking the linear condition
                     predictions = getLinearKernelPredictions(currentModel, test_data);
                     break;
@@ -78,6 +77,10 @@ public class ModularPrediction{
 
                 case Constant.GAUSSIAN://checking the gaussian condition
                     predictions = getGaussianKernelPredictions(currentModel, test_data);
+                    break;
+
+                case Constant.POLYNOMIAL://checking the gaussian condition
+                    predictions = getPolynomialPredictions(currentModel, test_data);
                     break;
 
                 default://the default kernel function for a dataset with no specific kernel setup is the gaussian kernel //this can be different based on the programmers perspective
@@ -91,6 +94,161 @@ public class ModularPrediction{
         }
 
     }
+
+    private Matrix getPolynomialPredictions(Model currentModel, Matrix test_data) {
+        Matrix polynomialPredictions = null;
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int m = x.getRows();
+        polynomialPredictions = new Matrix(m, 1, "DOUBLE");
+        Matrix tmp = new Matrix(m, 1, "DOUBLE");
+
+        //the y=mx+C relation ship for a given coordinates is considered here
+        //the m*X multiplication is done and assigned to op1 matrix
+        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
+        //LOG.info("op1");
+        //matrixOperator.disp(op1);
+        //the matrix addition is done based on the definitions in the matrix package
+        Matrix b = new Matrix(m,1,"DOUBLE");
+
+        for (int i = 0; i < m; i++) {
+            b.getMatDouble()[i][0]= model.getB();
+        }
+
+        //LOG.info("b");
+        //matrixOperator.disp(b);
+        //mx+C addition is done in this stage
+        Matrix op2 = matrixOperator.add(op1,b);
+
+        //LOG.info("op2");
+        //matrixOperator.disp(op2);
+
+        //the classes identification is done here
+        polynomialPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
+
+        polynomialPredictions = getClassesForTwoClass(op2);
+        //matrixOperator.disp(linearPredictions);
+
+
+        return polynomialPredictions;
+    }
+
+    //linear kernel based predictions
+    public Matrix getLinearKernelPredictions(Model model, Matrix x) {
+        Matrix linearPredictions = null;
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int m = x.getRows();
+        linearPredictions = new Matrix(m, 1, "DOUBLE");
+        Matrix tmp = new Matrix(m, 1, "DOUBLE");
+
+        //the y=mx+C relation ship for a given coordinates is considered here
+        //the m*X multiplication is done and assigned to op1 matrix
+        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
+        //LOG.info("op1");
+        //matrixOperator.disp(op1);
+        //the matrix addition is done based on the definitions in the matrix package
+        Matrix b = new Matrix(m,1,"DOUBLE");
+
+        for (int i = 0; i < m; i++) {
+            b.getMatDouble()[i][0]= model.getB();
+        }
+
+        //LOG.info("b");
+        //matrixOperator.disp(b);
+        //mx+C addition is done in this stage
+        Matrix op2 = matrixOperator.add(op1,b);
+
+        //LOG.info("op2");
+        //matrixOperator.disp(op2);
+
+        //the classes identification is done here
+        linearPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
+
+        linearPredictions = getClassesForTwoClass(op2);
+        //matrixOperator.disp(linearPredictions);
+
+
+        return linearPredictions;
+
+    }
+
+    //rbf kernel based predictions
+    public Matrix getRBFKernelPredictions(Model model, Matrix x) {
+        Matrix rbfPredictions = null;
+
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int m = x.getRows();
+        rbfPredictions = new Matrix(m, 1, "DOUBLE");
+        Matrix tmp = new Matrix(m, 1, "DOUBLE");
+
+        //the y=mx+C relation ship for a given coordinates is considered here
+        //the m*X multiplication is done and assigned to op1 matrix
+        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
+        //LOG.info("op1");
+        //matrixOperator.disp(op1);
+        //the matrix addition is done based on the definitions in the matrix package
+        Matrix b = new Matrix(m,1,"DOUBLE");
+
+        for (int i = 0; i < m; i++) {
+            b.getMatDouble()[i][0]= model.getB();
+        }
+
+        //LOG.info("b");
+        //matrixOperator.disp(b);
+        //mx+C addition is done in this stage
+        Matrix op2 = matrixOperator.add(op1,b);
+
+        //LOG.info("op2");
+        //matrixOperator.disp(op2);
+
+        //the classes identification is done here
+        rbfPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
+
+        rbfPredictions = getClassesForTwoClass(op2);
+        //matrixOperator.disp(linearPredictions);
+
+
+        return rbfPredictions;
+
+    }
+
+    //gaussian kernel based predictions
+    public Matrix getGaussianKernelPredictions(Model model, Matrix x) {
+        Matrix gaussianPredictions = null;
+
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int m = x.getRows();
+        gaussianPredictions = new Matrix(m, 1, "DOUBLE");
+        Matrix tmp = new Matrix(m, 1, "DOUBLE");
+
+        //the y=mx+C relation ship for a given coordinates is considered here
+        //the m*X multiplication is done and assigned to op1 matrix
+        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
+        //LOG.info("op1");
+        //matrixOperator.disp(op1);
+        //the matrix addition is done based on the definitions in the matrix package
+        Matrix b = new Matrix(m,1,"DOUBLE");
+
+        for (int i = 0; i < m; i++) {
+            b.getMatDouble()[i][0]= model.getB();
+        }
+
+        //LOG.info("b");
+        //matrixOperator.disp(b);
+        //mx+C addition is done in this stage
+        Matrix op2 = matrixOperator.add(op1,b);
+
+        //LOG.info("op2");
+        //matrixOperator.disp(op2);
+
+        //the classes identification is done here
+        gaussianPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
+
+        gaussianPredictions = getClassesForTwoClass(op2);
+
+        return gaussianPredictions;
+
+    }
+
 
     public Matrix predict(String modelType) {
 
@@ -114,15 +272,15 @@ public class ModularPrediction{
                     break;
 
                 case Constant.RBF://checking the RBF condition
-                    predictions = getRBFKernelPredictions(currentModel, test_data);
+                    predictions = getRBFKernelPredictions(currentModel, test_data, modelType);
                     break;
 
                 case Constant.GAUSSIAN://checking the gaussian condition
-                    predictions = getGaussianKernelPredictions(currentModel, test_data);
+                    predictions = getGaussianKernelPredictions(currentModel, test_data, modelType);
                     break;
 
                 default://the default kernel function for a dataset with no specific kernel setup is the gaussian kernel //this can be different based on the programmers perspective
-                    predictions = getGaussianKernelPredictions(currentModel, test_data);
+                    predictions = getGaussianKernelPredictions(currentModel, test_data, modelType);
 
             }
             //end of switch statement
@@ -133,54 +291,6 @@ public class ModularPrediction{
 
     }
 
-
-    //linear kernel based predictions
-    public Matrix getLinearKernelPredictions(Model model, Matrix x) {
-        Matrix linearPredictions = null;
-        MatrixOperator matrixOperator = new MatrixOperator();
-        int m = x.getRows();
-        linearPredictions = new Matrix(m, 1, "DOUBLE");
-        Matrix tmp = new Matrix(m, 1, "DOUBLE");
-
-        //the y=mx+C relation ship for a given coordinates is considered here
-        //the m*X multiplication is done and assigned to op1 matrix
-        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
-
-        //CEHCKSUM OF OP1
-
-        // LOG.info("Modular Prediction : op1 status "+ wightUpdateLess);
-
-        //LOG.info("op1");
-        //matrixOperator.disp(op1);
-        //the matrix addition is done based on the definitions in the matrix package
-        Matrix b = new Matrix(m,1,"DOUBLE");
-
-        for (int i = 0; i < m; i++) {
-            b.getMatDouble()[i][0]= model.getB();
-        }
-
-        //LOG.info("b");
-        //matrixOperator.disp(b);
-        //mx+C addition is done in this stage
-        Matrix op2 = matrixOperator.add(op1,b);
-
-        //LOG.info("op2");
-        //matrixOperator.disp(op2);
-
-        //the classes identification is done here
-        linearPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
-
-
-        linearPredictions = getClassesForTwoClass(op2);
-
-
-
-        //matrixOperator.disp(linearPredictions);
-
-
-        return linearPredictions;
-
-    }
 
     public Matrix getLinearKernelPredictions(Model model, Matrix x, String modelType) {
         Matrix linearPredictions = null;
@@ -250,8 +360,53 @@ public class ModularPrediction{
 
 
     //rbf kernel based predictions
-    public Matrix getRBFKernelPredictions(Model model, Matrix x) {
+    public Matrix getRBFKernelPredictions(Model model, Matrix x, String modelType) {
         Matrix rbfPredictions = null;
+
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int m = x.getRows();
+        rbfPredictions = new Matrix(m, 1, "DOUBLE");
+        Matrix tmp = new Matrix(m, 1, "DOUBLE");
+
+        //the y=mx+C relation ship for a given coordinates is considered here
+        //the m*X multiplication is done and assigned to op1 matrix
+        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
+
+        //CEHCKSUM OF OP1
+        boolean wightUpdateLess = checkSumWeights(op1);
+        //LOG.info("Modular Prediction : op1 status "+ wightUpdateLess);
+        //LOG.info("MODEL Type : " + modelType);
+        //LOG.info("op1");
+        //matrixOperator.disp(op1);
+        //the matrix addition is done based on the definitions in the matrix package
+        Matrix b = new Matrix(m,1,"DOUBLE");
+
+        for (int i = 0; i < m; i++) {
+            b.getMatDouble()[i][0]= model.getB();
+        }
+
+        //LOG.info("b");
+        //matrixOperator.disp(b);
+        //mx+C addition is done in this stage
+        Matrix op2 = matrixOperator.add(op1,b);
+
+        //LOG.info("op2");
+        //matrixOperator.disp(op2);
+
+        //the classes identification is done here
+        rbfPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
+
+        if(wightUpdateLess==true){
+            rbfPredictions = getClassesForTwoClass(op2, modelType);
+        }else{
+            rbfPredictions = getClassesForTwoClass(op2);
+        }
+
+
+        //matrixOperator.disp(linearPredictions);
+
+
+
 
 
         return rbfPredictions;
@@ -259,8 +414,51 @@ public class ModularPrediction{
     }
 
     //gaussian kernel based predictions
-    public Matrix getGaussianKernelPredictions(Model model, Matrix x) {
+    public Matrix getGaussianKernelPredictions(Model model, Matrix x, String modelType) {
         Matrix gaussianPredictions = null;
+
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int m = x.getRows();
+        gaussianPredictions = new Matrix(m, 1, "DOUBLE");
+        Matrix tmp = new Matrix(m, 1, "DOUBLE");
+
+        //the y=mx+C relation ship for a given coordinates is considered here
+        //the m*X multiplication is done and assigned to op1 matrix
+        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
+
+        //CEHCKSUM OF OP1
+        boolean wightUpdateLess = checkSumWeights(op1);
+        //LOG.info("Modular Prediction : op1 status "+ wightUpdateLess);
+        //LOG.info("MODEL Type : " + modelType);
+        //LOG.info("op1");
+        //matrixOperator.disp(op1);
+        //the matrix addition is done based on the definitions in the matrix package
+        Matrix b = new Matrix(m,1,"DOUBLE");
+
+        for (int i = 0; i < m; i++) {
+            b.getMatDouble()[i][0]= model.getB();
+        }
+
+        //LOG.info("b");
+        //matrixOperator.disp(b);
+        //mx+C addition is done in this stage
+        Matrix op2 = matrixOperator.add(op1,b);
+
+        //LOG.info("op2");
+        //matrixOperator.disp(op2);
+
+        //the classes identification is done here
+        gaussianPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
+
+        if(wightUpdateLess==true){
+            gaussianPredictions = getClassesForTwoClass(op2, modelType);
+        }else{
+            gaussianPredictions = getClassesForTwoClass(op2);
+        }
+
+
+        //matrixOperator.disp(linearPredictions);
+
 
 
         return gaussianPredictions;

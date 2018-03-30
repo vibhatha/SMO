@@ -136,6 +136,37 @@ public class Predict {
     public Matrix getRBFKernelPredictions(Model model, Matrix x) {
         Matrix rbfPredictions = null;
 
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int m = x.getRows();
+        rbfPredictions = new Matrix(m, 1, "DOUBLE");
+        Matrix tmp = new Matrix(m, 1, "DOUBLE");
+
+        //the y=mx+C relation ship for a given coordinates is considered here
+        //the m*X multiplication is done and assigned to op1 matrix
+        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
+        //LOG.info("op1");
+        //matrixOperator.disp(op1);
+        //the matrix addition is done based on the definitions in the matrix package
+        Matrix b = new Matrix(m,1,"DOUBLE");
+
+        for (int i = 0; i < m; i++) {
+            b.getMatDouble()[i][0]= model.getB();
+        }
+
+        //LOG.info("b");
+        //matrixOperator.disp(b);
+        //mx+C addition is done in this stage
+        Matrix op2 = matrixOperator.add(op1,b);
+
+        //LOG.info("op2");
+        //matrixOperator.disp(op2);
+
+        //the classes identification is done here
+        rbfPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
+
+        rbfPredictions = getClassesForTwoClass(op2);
+        //matrixOperator.disp(linearPredictions);
+
 
         return rbfPredictions;
 
@@ -145,6 +176,35 @@ public class Predict {
     public Matrix getGaussianKernelPredictions(Model model, Matrix x) {
         Matrix gaussianPredictions = null;
 
+        MatrixOperator matrixOperator = new MatrixOperator();
+        int m = x.getRows();
+        gaussianPredictions = new Matrix(m, 1, "DOUBLE");
+        Matrix tmp = new Matrix(m, 1, "DOUBLE");
+
+        //the y=mx+C relation ship for a given coordinates is considered here
+        //the m*X multiplication is done and assigned to op1 matrix
+        Matrix op1 = matrixOperator.product(x,model.getW(),"CROSS");
+        //LOG.info("op1");
+        //matrixOperator.disp(op1);
+        //the matrix addition is done based on the definitions in the matrix package
+        Matrix b = new Matrix(m,1,"DOUBLE");
+
+        for (int i = 0; i < m; i++) {
+            b.getMatDouble()[i][0]= model.getB();
+        }
+
+        //LOG.info("b");
+        //matrixOperator.disp(b);
+        //mx+C addition is done in this stage
+        Matrix op2 = matrixOperator.add(op1,b);
+
+        //LOG.info("op2");
+        //matrixOperator.disp(op2);
+
+        //the classes identification is done here
+        gaussianPredictions = new Matrix(op2.getRows(),op2.getColumns(),op2.getType());
+
+        gaussianPredictions = getClassesForTwoClass(op2);
 
         return gaussianPredictions;
 

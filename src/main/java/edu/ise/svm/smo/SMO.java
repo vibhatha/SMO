@@ -3,9 +3,11 @@ package edu.ise.svm.smo;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import edu.ise.svm.Constants.Constant;
 import edu.ise.svm.entities.Model;
+import edu.ise.svm.kernel.GaussianKernel;
 import edu.ise.svm.matrix.Matrix;
 import edu.ise.svm.matrix.MatrixOperator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -16,10 +18,11 @@ import java.util.logging.Logger;
  */
 
 public class SMO {
-    static{
+    static {
         System.setProperty("java.util.logging.SimpleFormatter.format",
                 "[%1$tF %1$tT] [%4$-7s] %5$s %n");
     }
+
     public final static Logger LOG = Logger.getLogger(SMO.class.getName());
     private boolean debug = false;
     private Matrix alpha;
@@ -156,28 +159,71 @@ public class SMO {
 
         //moving on with the linear kernel
         Matrix k = null;
-        try{
-            LOG.info("Matrix Dimension : "+m+","+m);
+        try {
+            LOG.info("Matrix Dimension : " + m + "," + m);
             k = new Matrix(m, m, "DOUBLE");
-        }catch (OutOfMemoryError ex){
+        } catch (OutOfMemoryError ex) {
             LOG.info("Exception " + ex.getMessage());
         }
 
         MatrixOperator matrixOperator = new MatrixOperator();
-        Matrix x_dash = matrixOperator.transpose(x);
         long time_kernel_start = System.currentTimeMillis();
-        k = matrixOperator.product(x, x_dash, "CROSS");
+        if(kernel.equals(Constant.LINEAR)){
+            Matrix x_dash = matrixOperator.transpose(x);
+
+            k = matrixOperator.product(x, x_dash, "CROSS");//linear kernel value
+            try {
+                matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/linear.mat");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
         long time_kernel_end = System.currentTimeMillis();
+
+        if(kernel.equals(Constant.POLYNOMIAL)){
+            Matrix x_dash = matrixOperator.transpose(x);
+
+            k = matrixOperator.product(x, x_dash, "CROSS");//linear kernel value
+            Matrix k1 = matrixOperator.addConstant(k,1);
+            k = matrixOperator.product(k,k,"DOT");//a9a best
+            //k = matrixOperator.product(k,k,"DOT");
+            //k = matrixOperator.product(k,k,"DOT");
+            //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy
+
+            try {
+                matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/polynomial.mat");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+
+        double sigma = 4.0;
+
+        if(kernel.equals(Constant.GAUSSIAN)){
+            GaussianKernel gaussianKernel = new GaussianKernel(x, x, sigma);
+            try {
+                k = gaussianKernel.getGaussianKernelOutput();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            try {
+                matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/gaussian-1.mat");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        LOG.info(kernel+" Kernel Matrix Dimension : " + k.getRows() + "," + k.getColumns());
+
         LOG.info("====================================================");
-        LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start)/1000.0);
+        LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0);
         LOG.info("====================================================");
-        this.info += "Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start)/1000.0 + " s";
+        this.info += "Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0 + " s";
         //LOG.info("X");
         //matrixOperator.disp(x);
         //LOG.info("Y");
         //matrixOperator.disp(y);
         //debug = true;
-        if(debug){
+        if (debug) {
             LOG.info("Kernel Matrix");
             matrixOperator.disp(k);
         }
@@ -186,7 +232,7 @@ public class SMO {
 
             int num_changed_alphas = 0;
             debug = true;
-            if(debug){
+            if (debug) {
                 LOG.info("Passes : " + passes + "/" + max_passes);
             }
 
@@ -199,7 +245,7 @@ public class SMO {
                 e.getMatDouble()[i][0] = itr_value;
 
                 debug = false;
-                if(debug){
+                if (debug) {
                     LOG.info("Debug Mode");
                     LOG.info("Itr value : " + itr_value);
 
@@ -221,10 +267,9 @@ public class SMO {
                     while (j == i) {
                         rand = Math.random() * 0.98;
                         j = (int) Math.ceil(m * rand);
-
                     }
-                    if(k.getColumns()==j){
-                        j=j-1;
+                    if (k.getColumns() == j) {
+                        j = j - 1;
                     }
 
                     Matrix k_j = matrixOperator.getColumnData(k, j);
@@ -261,8 +306,8 @@ public class SMO {
                     eta = 2.00 * k.getMatDouble()[i][j] - k.getMatDouble()[i][i] - k.getMatDouble()[j][j];
 
                     if (eta >= 0) {
-                        debug = true;
-                        if(debug){
+                        debug = false;
+                        if (debug) {
                             LOG.info("Eta : " + eta);
                         }
                         continue;
@@ -276,8 +321,8 @@ public class SMO {
 
                     double diff = Math.abs(alphas.getMatDouble()[j][0] - alpha_j_old);
                     if (diff < tol) {
-                        if(debug){
-                            LOG.info("Diff : " + diff + ", tol : " +tol);
+                        if (debug) {
+                            LOG.info("Diff : " + diff + ", tol : " + tol);
                         }
                         alphas.getMatDouble()[j][0] = alpha_j_old;
                         continue;
@@ -333,7 +378,13 @@ public class SMO {
         //setting up the model
         Model model = null;
         if (x != null && y != null && alphas != null && w != null) {
-            model = new Model(x, y, b, alphas, w,kernel, info);
+            LOG.info("Model Viable");
+            model = new Model(x, y, b, alphas, w, kernel, info);
+            //System.out.println("W");
+            //matrixOperator.sout(w);
+            System.out.println("b: "+b);
+        }else{
+            LOG.info("Model failed");
         }
 
         return model;
@@ -370,28 +421,30 @@ public class SMO {
 
         //moving on with the linear kernel
         Matrix k = null;
-        try{
-            LOG.info("Matrix Dimension : "+m+","+m);
+        try {
+            LOG.info("Matrix Dimension : " + m + "," + m);
             k = new Matrix(m, m, "DOUBLE");
-        }catch (OutOfMemoryError ex){
+        } catch (OutOfMemoryError ex) {
             LOG.info("Exception " + ex.getMessage());
         }
 
         MatrixOperator matrixOperator = new MatrixOperator();
+        // LINEAR KERNEL CALCULATION STARTS
         Matrix x_dash = matrixOperator.transpose(x);
         long time_kernel_start = System.currentTimeMillis();
         k = matrixOperator.product(x, x_dash, "CROSS");
+        // LINEAR KERNEL CALCULATION ENDS
         long time_kernel_end = System.currentTimeMillis();
         LOG.info("====================================================");
-        LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start)/1000.0);
+        LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0);
         LOG.info("====================================================");
-        this.info += "Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start)/1000.0 + " s";
+        this.info += "Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0 + " s";
         //LOG.info("X");
         //matrixOperator.disp(x);
         //LOG.info("Y");
         //matrixOperator.disp(y);
         //debug = true;
-        if(debug){
+        if (debug) {
             LOG.info("Kernel Matrix");
             matrixOperator.disp(k);
         }
@@ -400,7 +453,7 @@ public class SMO {
 
             int num_changed_alphas = 0;
             debug = true;
-            if(debug){
+            if (debug) {
                 LOG.info("Passes : " + passes + "/" + max_passes);
             }
 
@@ -413,7 +466,7 @@ public class SMO {
                 e.getMatDouble()[i][0] = itr_value;
 
                 debug = false;
-                if(debug){
+                if (debug) {
                     LOG.info("Debug Mode");
                     LOG.info("Itr value : " + itr_value);
 
@@ -432,14 +485,16 @@ public class SMO {
                     double rand = Math.random() * 0.98; //0.98 used to make sure the j won't cause an array index out of bounds condition
                     int j = (int) Math.ceil(m * rand);
 
+
                     while (j == i) {
                         rand = Math.random() * 0.98;
                         j = (int) Math.ceil(m * rand);
 
                     }
-                    if(k.getColumns()==j){
-                        j=j-1;
+                    if (k.getColumns() == j) {
+                        j = j - 1;
                     }
+
 
                     Matrix k_j = matrixOperator.getColumnData(k, j);
                     Matrix op1j = matrixOperator.dotMultiply(alphas, y);
@@ -475,8 +530,8 @@ public class SMO {
                     eta = 2.00 * k.getMatDouble()[i][j] - k.getMatDouble()[i][i] - k.getMatDouble()[j][j];
 
                     if (eta >= 0) {
-                        debug = true;
-                        if(debug){
+                        //debug = true;
+                        if (debug) {
                             LOG.info("Eta : " + eta);
                         }
                         continue;
@@ -490,8 +545,8 @@ public class SMO {
 
                     double diff = Math.abs(alphas.getMatDouble()[j][0] - alpha_j_old);
                     if (diff < tol) {
-                        if(debug){
-                            LOG.info("Diff : " + diff + ", tol : " +tol);
+                        if (debug) {
+                            LOG.info("Diff : " + diff + ", tol : " + tol);
                         }
                         alphas.getMatDouble()[j][0] = alpha_j_old;
                         continue;
@@ -540,15 +595,15 @@ public class SMO {
         Matrix w = matrixOperator.transpose(wt);
         //matrixOperator.disp(w);
         boolean checkSum = matrixOperator.checkSumWeights(w);
-        if(checkSum){
-            if(modelType.equals(Constant.MODEL_TYPE_POSITIVE)){
-                w = matrixOperator.transpose(this.w) ;
+        if (checkSum) {
+            if (modelType.equals(Constant.MODEL_TYPE_POSITIVE)) {
+                w = matrixOperator.transpose(this.w);
             }
-            if(modelType.equals(Constant.MODEL_TYPE_NEGATIVE)){
-                w = matrixOperator.transpose(this.w) ;
+            if (modelType.equals(Constant.MODEL_TYPE_NEGATIVE)) {
+                w = matrixOperator.transpose(this.w);
             }
         }
-        matrixOperator.sout(w);
+        //matrixOperator.sout(w);
         //Matrix idx = matrixOperator.setValueByBoundry(alphas,">",0.0);
         //Scanner input = new Scanner(System.in);
         //input.hasNext();
@@ -556,7 +611,7 @@ public class SMO {
         //setting up the model
         Model model = null;
         if (x != null && y != null && alphas != null && w != null) {
-            model = new Model(x, y, b, alphas, w,kernel, info);
+            model = new Model(x, y, b, alphas, w, kernel, info);
         }
 
         return model;

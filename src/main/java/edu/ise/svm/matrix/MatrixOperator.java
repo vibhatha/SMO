@@ -1,15 +1,21 @@
 package edu.ise.svm.matrix;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 /**
  * Created by vlabeyko on 9/28/2016.
  */
 public class MatrixOperator implements IMatrix {
-    static{
+    static {
         System.setProperty("java.util.logging.SimpleFormatter.format",
                 "[%1$tF %1$tT] [%4$-7s] %5$s %n");
     }
+
     public final static Logger LOG = Logger.getLogger(MatrixOperator.class.getName());
 
     private enum PRODUCT {
@@ -58,6 +64,81 @@ public class MatrixOperator implements IMatrix {
 
     }
 
+    public Matrix sum(Matrix a, int type) {
+
+        Matrix m = null;
+
+        if (type == 2) {
+            int aRows = a.getRows();
+            int aCols = a.getColumns();
+            m = new Matrix(aRows, 1, a.getType().toString());
+            Matrix[] temps = new Matrix[aCols];
+            if (a.getType().equals("DOUBLE")) {
+
+                for (int i = 0; i < aRows; i++) {
+                    double colValues[] = a.getMatDouble()[i];
+                    double value = 0.0;
+                    for (int j = 0; j < colValues.length; j++) {
+                        value += colValues[j];
+                    }
+                    m.getMatDouble()[i][0] = value;
+                }
+
+            } else if (a.getType().equals("INT")) {
+
+                for (int i = 0; i < aRows; i++) {
+                    int colValues[] = a.getMatInt()[i];
+                    int value = 0;
+                    for (int j = 0; j < colValues.length; j++) {
+                        value += colValues[j];
+                    }
+                    m.getMatInt()[i][0] = value;
+                }
+
+            }
+
+        }
+        if (type == 1) {
+            int aRows = a.getRows();
+            int aCols = a.getColumns();
+
+            m = new Matrix(1, aCols, a.getType().toString());
+            Matrix[] temps = new Matrix[aRows];
+
+            if (a.getType().equals("DOUBLE")) {
+
+                for (int i = 0; i < aRows; i++) {
+                    temps[i] = new Matrix(1, aCols, a.getType().toString());
+                    for (int j = 0; j < aCols; j++) {
+
+                        temps[i].getMatDouble()[0][j] = a.getMatDouble()[i][j];
+                    }
+                    m = this.add(m, temps[i]);
+                }
+
+
+            } else if (a.getType().equals("INT")) {
+
+                for (int i = 0; i < aRows; i++) {
+                    temps[i] = new Matrix(1, aCols, a.getType().toString());
+                    for (int j = 0; j < aCols; j++) {
+
+                        temps[i].getMatInt()[0][j] = a.getMatInt()[i][j];
+                    }
+                    m = this.add(m, temps[i]);
+                }
+
+            }
+
+        }
+
+
+        return m;
+
+
+    }
+
+
     @Override
     public Matrix getValueMatchingBoundary(Matrix a, Matrix matcher) {
 
@@ -74,24 +155,24 @@ public class MatrixOperator implements IMatrix {
         int matcherRows = matcher.getRows();
         int matcherColumns = matcher.getColumns();
 
-        if(aRows == matcherRows && aCols == matcherColumns){
+        if (aRows == matcherRows && aCols == matcherColumns) {
 
-            int count=0;
-            for(int i =0; i<matcherRows; i++){
+            int count = 0;
+            for (int i = 0; i < matcherRows; i++) {
                 for (int j = 0; j < matcherColumns; j++) {
 
-                    if(matcher.getMatDouble()[i][j]==1){
+                    if (matcher.getMatDouble()[i][j] == 1) {
                         count++;
                     }
                 }
             }
-            m = new Matrix(count,1,"DOUBLE");
-            int c=0;
+            m = new Matrix(count, 1, "DOUBLE");
+            int c = 0;
             for (int i = 0; i < matcherRows; i++) {
                 for (int j = 0; j < matcherColumns; j++) {
 
-                    if(matcher.getMatDouble()[i][j]==1){
-                        m.getMatDouble()[c][0]=a.getMatDouble()[i][j];
+                    if (matcher.getMatDouble()[i][j] == 1) {
+                        m.getMatDouble()[c][0] = a.getMatDouble()[i][j];
                         c++;
                     }
 
@@ -113,7 +194,7 @@ public class MatrixOperator implements IMatrix {
 
             int aRows = a.getRows();
             int aCols = a.getColumns();
-            m = new Matrix(aRows,aCols,a.getType().toString());
+            m = new Matrix(aRows, aCols, a.getType().toString());
 
             for (int i = 0; i < aRows; i++) {
                 for (int j = 0; j < aCols; j++) {
@@ -324,9 +405,89 @@ public class MatrixOperator implements IMatrix {
         return m;
     }
 
+    public Matrix bsxfun(Matrix a, Matrix b, String type){
+        // Matrix a : must be the nxn dimensional one
+        // Matrix b : must be nx1
+        Matrix m = new Matrix(a.getRows(),a.getColumns(), a.getType().toString());
+        MatrixOperator matrixOperator = new MatrixOperator();
+        double arr [][] = new double[a.getRows()][a.getColumns()];
+        if(type.equals("plus")){
+          if(a.getColumns() == b.getColumns()){
+              for (int i = 0; i < a.getRows(); i++) {
+                  Matrix row1 = matrixOperator.getRowData(a,i);
+                  Matrix add1 = matrixOperator.add(row1,b);
+                  arr[i] = add1.getMatDouble()[0];
+              }
+          }
+          m.setMatDouble(arr);
+        }
+        return m;
+    }
+
+
+    public Matrix multiplyByConstant(Matrix a, double constant) {
+
+        Matrix m = null;
+
+        int aRow = a.getRows();
+        int aCol = a.getColumns();
+
+        if (a.getType().toString().equals("DOUBLE")) {
+            m = new Matrix(aRow, aCol, a.getType().toString());
+            for (int i = 0; i < aRow; i++) {
+                for (int j = 0; j < aCol; j++) {
+                    m.getMatDouble()[i][j] = a.getMatDouble()[i][j] * constant;
+                }
+            }
+        } else if (a.getType().toString().equals("INT")) {
+            m = new Matrix(aRow, aCol, a.getType().toString());
+            for (int i = 0; i < aRow; i++) {
+                for (int j = 0; j < aCol; j++) {
+                    m.getMatInt()[i][j] = (int) (a.getMatInt()[i][j] * constant);
+                }
+            }
+        }
+
+        return m;
+    }
+
+    public Matrix addConstant(Matrix a, double constant) {
+
+        Matrix m = null;
+
+        int aRow = a.getRows();
+        int aCol = a.getColumns();
+
+        if (a.getType().toString().equals("DOUBLE")) {
+            m = new Matrix(aRow, aCol, a.getType().toString());
+            for (int i = 0; i < aRow; i++) {
+                for (int j = 0; j < aCol; j++) {
+                    m.getMatDouble()[i][j] = a.getMatDouble()[i][j] + constant;
+                }
+            }
+        } else if (a.getType().toString().equals("INT")) {
+            m = new Matrix(aRow, aCol, a.getType().toString());
+            for (int i = 0; i < aRow; i++) {
+                for (int j = 0; j < aCol; j++) {
+                    m.getMatInt()[i][j] = (int) (a.getMatInt()[i][j] + constant);
+                }
+            }
+        }
+
+        return m;
+    }
+
+
+    public Matrix powerBy(Matrix a, int power){
+        Matrix m = null;
+
+        return m;
+    }
+
+
     @Override
     public Matrix subtract(Matrix a, Matrix b) {
-
+        System.out.println("Mat Sub");
         Matrix result = null;
 
         int aRows = a.getRows();
@@ -334,10 +495,9 @@ public class MatrixOperator implements IMatrix {
 
         int bRows = b.getRows();
         int bCols = b.getColumns();
-
-        if (a.getType() == b.getType()) {
-
-
+        System.out.println(a.getType() + "," + b.getType());
+        if (a.getType().equals(b.getType())) {
+            System.out.println("Equals Sub");
             if (aRows == bRows && aCols == bCols) {//condition for matrices a and b to be eligibel for matrix subtraction
 
                 result = new Matrix(a.getRows(), a.getColumns(), a.getType().toString());
@@ -382,12 +542,13 @@ public class MatrixOperator implements IMatrix {
 
         double value = 0.0;
         Matrix m = null;
+        LOG.info("NORM CALC");
         if (a != null) {
-
+            LOG.info("NORM NOT NULL CALC");
             int rows = a.getRows();
             int cols = a.getColumns();
 
-            m = new Matrix(1, 1, "DOUBLE");
+            m = new Matrix(rows, cols, "DOUBLE");
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
 
@@ -399,12 +560,10 @@ public class MatrixOperator implements IMatrix {
 
                         value += a.getMatInt()[i][j] * a.getMatInt()[i][j];
                     }
-
+                    m.getMatDouble()[i][j] = Math.sqrt(value);
                 }
+
             }
-
-            m.getMatDouble()[0][0] = Math.sqrt(value);
-
 
         }
 
@@ -432,7 +591,7 @@ public class MatrixOperator implements IMatrix {
 
             if (productType.equals(PRODUCT.DOT.toString())) {
 
-
+                m = new Matrix(aRow, aCol, a.getType().toString());
                 if (aRow == bRow && aCol == bCol) { //condition to check whether the dot product is mathematical possible for entered matrices
 
                     for (int i = 0; i < aRow; i++) {
@@ -441,11 +600,11 @@ public class MatrixOperator implements IMatrix {
 
                             if (m.getMatDouble() != null) {
 
-                                m.getMatDouble()[0][0] += a.getMatDouble()[i][j] * b.getMatDouble()[i][j];
+                                m.getMatDouble()[i][j] += a.getMatDouble()[i][j] * b.getMatDouble()[i][j];
 
 
                             } else if (m.getMatInt() != null) {
-                                m.getMatInt()[0][0] += a.getMatInt()[i][j] * b.getMatInt()[i][j];
+                                m.getMatInt()[i][j] += a.getMatInt()[i][j] * b.getMatInt()[i][j];
                             }
 
 
@@ -606,19 +765,37 @@ public class MatrixOperator implements IMatrix {
 
     }
 
-    public boolean checkSumWeights(Matrix op1){
+    public boolean checkSumWeights(Matrix op1) {
         boolean status = true;
-        double [] [] d = op1.getMatDouble();
+        double[][] d = op1.getMatDouble();
         double sum = 0.0;
         for (int i = 0; i < d.length; i++) {
             for (int j = 0; j < d[0].length; j++) {
-                sum+= d[i][j];
+                sum += d[i][j];
             }
         }
-        if(sum>0){
+        if (sum > 0) {
             status = false;
         }
         return status;
+    }
+
+    public void saveMatrix(Matrix a, String filepath) throws IOException {
+        int aRows = a.getRows();
+        int aCols = a.getColumns();
+        Path path = Paths.get(filepath);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (int i = 0; i < aRows; i++) {
+                for (int j = 0; j < aCols; j++) {
+                    if(j<aCols-1){
+                        writer.write(String.valueOf(a.getMatDouble()[i][j])+",");
+                    }else{
+                        writer.write(String.valueOf(a.getMatDouble()[i][j]));
+                    }
+                }
+                writer.newLine();
+            }
+        }
     }
 
 }

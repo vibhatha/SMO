@@ -180,19 +180,17 @@ public class BulkMDMMTraining {
 
             for(int i=0; i < w.getRows();i++){
                 for(int j=0; j < w.getColumns(); j++){
-
                     w.getMatDouble()[i][j]= 2.00;
                     b.getMatDouble()[i][j]= 3.00;
                     alpha.getMatDouble()[i][j]=0;
-
                 }
             }
 
             SMO SMO = new SMO(alpha,b,w,X,Y,lpd,info);
             //SMO.lagrangeCalculation(alpha,matX,matY,b,w);
-            String kernel = Constant.LINEAR;
+            String kernel = Constant.POLYNOMIAL;
             long train_start = System.currentTimeMillis();
-            Model model = SMO.svmTrain(X,Y,Constant.LINEAR);
+            Model model = SMO.svmTrain(X,Y,kernel);
             model.saveModel(MODEL_PATH+"/model_"+trainX);
             long train_end = System.currentTimeMillis();
             double train_time = (train_end-train_start)/1000.0;
