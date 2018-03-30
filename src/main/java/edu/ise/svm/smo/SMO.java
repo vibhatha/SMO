@@ -185,11 +185,15 @@ public class SMO {
 
             k = matrixOperator.product(x, x_dash, "CROSS");//linear kernel value
             Matrix k1 = matrixOperator.addConstant(k,1);
-            k = matrixOperator.product(k,k,"DOT");//a9a best
-            //k = matrixOperator.product(k,k,"DOT");
-            //k = matrixOperator.product(k,k,"DOT");
-            //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy
-
+            k = matrixOperator.product(k,k,"DOT");//a9a best//2
+            k = matrixOperator.product(k,k,"DOT");//3
+            k = matrixOperator.product(k,k,"DOT");//4
+            k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//5
+            k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//6
+            k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//7
+            //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//8
+            //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//9
+            //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//10
             try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/polynomial.mat");
             } catch (IOException e1) {

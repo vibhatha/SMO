@@ -121,13 +121,13 @@ s-sdmmpredict-hrt:
 ## IJCNN1
 
 s-mdmmtrain-ijcnn1:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.BulkMDMMTraining data/ijcnn1/ ijcnn1_isesvm_train_x_bin.1 ijcnn1_isesvm_train_y.1.bin ijcnn1_isesvm_test_x_bin.1 ijcnn1_isesvm_test_y.1.bin model/single/ijcnn1/5 5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.BulkMDMMTraining data/ijcnn1/ ijcnn1_isesvm_train_x_bin.1 ijcnn1_isesvm_train_y.1.bin ijcnn1_isesvm_test_x_bin.1 ijcnn1_isesvm_test_y.1.bin model/single/ijcnn1/1 1
 
 s-sdmmtest-ijcnn1:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMTesting data/ijcnn1/ ijcnn1_isesvm_test_x_bin.1 ijcnn1_isesvm_test_y.1.bin model/single/ijcnn1/5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMTesting data/ijcnn1/ ijcnn1_isesvm_test_x_bin.1 ijcnn1_isesvm_test_y.1.bin model/single/ijcnn1/1
 
 s-sdmmpredict-ijcnn1:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction data/ijcnn1/ ijcnn1_isesvm_test_x_bin.2 ijcnn1_isesvm_test_y.2.bin model/single/ijcnn1/5 40 weighted_acc_ijcnn1_isesvm_test_x_bin.1_5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction data/ijcnn1/ ijcnn1_isesvm_test_x_bin.2 ijcnn1_isesvm_test_y.2.bin model/single/ijcnn1/1 40 weighted_acc_ijcnn1_isesvm_test_x_bin.1_1
 
 ## COVTYPE
 
@@ -144,35 +144,35 @@ s-sdmmpredict-covtype-deprecated:
 ## WEBSPAM
 
 s-mdmmtrain-webspam:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.BulkMDMMTraining /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_train_x_bin.1 webspam_isesvm_train_y.1.bin webspam_isesvm_test_x_bin.1 webspam_isesvm_test_y.1.bin model/single/webspam/5 5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.BulkMDMMTraining /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_train_x_bin.1 webspam_isesvm_train_y.1.bin webspam_isesvm_test_x_bin.1 webspam_isesvm_test_y.1.bin model/single/webspam/1 1
 
 s-sdmmtest-webspam:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMTesting /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_test_x_bin.1 webspam_isesvm_test_y.1.bin model/single/webspam/5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMTesting /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_test_x_bin.1 webspam_isesvm_test_y.1.bin model/single/webspam/1
 
 s-sdmmpredict-webspam:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_test_x_bin.2 webspam_isesvm_test_y.2.bin model/single/webspam/5 40 weighted_acc_webspam_isesvm_test_x_bin.1_5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_test_x_bin.2 webspam_isesvm_test_y.2.bin model/single/webspam/1 40 weighted_acc_webspam_isesvm_test_x_bin.1_1
 
 ##COVTYPE SCALED
 
 s-mdmmtrain-covtype:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.BulkMDMMTraining /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_train_x_bin.1 covtype_isesvm_train_y.1.bin covtype_isesvm_test_x_bin.1 covtype_isesvm_test_y.1.bin model/single/covtype/5 5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.BulkMDMMTraining /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_train_x_bin.1 covtype_isesvm_train_y.1.bin covtype_isesvm_test_x_bin.1 covtype_isesvm_test_y.1.bin model/single/covtype/1 1
 
 s-sdmmtest-covtype:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMTesting /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_test_x_bin.1 covtype_isesvm_test_y.1.bin model/single/covtype/5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMTesting /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_test_x_bin.1 covtype_isesvm_test_y.1.bin model/single/covtype/1
 
 s-sdmmpredict-covtype:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_test_x_bin.2 covtype_isesvm_test_y.2.bin model/single/covtype/5 40 weighted_acc_covtype_isesvm_test_x_bin.1_5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_test_x_bin.2 covtype_isesvm_test_y.2.bin model/single/covtype/1 40 weighted_acc_covtype_isesvm_test_x_bin.1_1
 
 ##a9a
 
 s-mdmmtrain-a9a:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.BulkMDMMTraining /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_train_x_bin.1 a9a_isesvm_train_y.1.bin a9a_isesvm_test_x_bin.1 a9a_isesvm_test_y.1.bin model/single/a9a/5 5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.BulkMDMMTraining /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_train_x_bin.1 a9a_isesvm_train_y.1.bin a9a_isesvm_test_x_bin.1 a9a_isesvm_test_y.1.bin model/single/a9a/1 1
 
 s-sdmmtest-a9a:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMTesting /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_test_x_bin.1 a9a_isesvm_test_y.1.bin model/single/a9a/5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMTesting /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_test_x_bin.1 a9a_isesvm_test_y.1.bin model/single/a9a/1
 
 s-sdmmpredict-a9a:
-	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_test_x_bin.2 a9a_isesvm_test_y.2.bin model/single/a9a/5 40 weighted_acc_a9a_isesvm_test_x_bin.1_5
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_test_x_bin.2 a9a_isesvm_test_y.2.bin model/single/a9a/1 40 weighted_acc_a9a_isesvm_test_x_bin.1_1
 
 
 # PLOTTING

@@ -61,8 +61,9 @@ public class GaussianKernel extends Kernel implements IKernel {
             matrixOperator.saveMatrix(op3,"/home/vibhatha/Sandbox/msvm/op3.gaussian");
             Matrix k1 = matrixOperator.bsxfun(op3, x2, "plus");
             matrixOperator.saveMatrix(k1,"/home/vibhatha/Sandbox/msvm/k1.gaussian");
-            m = matrixOperator.product(k1, k1,"DOT");
-            matrixOperator.saveMatrix(m,"/home/vibhatha/Sandbox/msvm/m.gaussian");
+            m = k1;
+            //m = matrixOperator.product(k1, k1,"DOT");
+            //matrixOperator.saveMatrix(m,"/home/vibhatha/Sandbox/msvm/m.gaussian");
         }
 
         return m;
@@ -73,21 +74,26 @@ public class GaussianKernel extends Kernel implements IKernel {
         Matrix m = null;
 
         if (getX1() != null && getX2() != null) {
-            System.out.println("X1");
-            System.out.println(getX1().getRows()+","+ getX1().getColumns());
-            System.out.println("X2");
-            System.out.println(getX2().getRows()+","+ getX2().getColumns());
+            //System.out.println("X1");
+            //System.out.println(getX1().getRows()+","+ getX1().getColumns());
+            //System.out.println("X2");
+            //System.out.println(getX2().getRows()+","+ getX2().getColumns());
 
             MatrixOperator matrixOperator = new MatrixOperator();
             //m = new Matrix(getX1().getRows(), getX1().getColumns(), "DOUBLE");
-            m = matrixOperator.norm(matrixOperator.subtract(getX1(), getX2()));//this matrix is a double matrix -> norm returns a double matrix
+            //m = matrixOperator.norm(matrixOperator.subtract(getX1(), getX2()));//this matrix is a double matrix -> norm returns a double matrix
+            m = getX1();
             matrixOperator.saveMatrix(m,"/home/vibhatha/Sandbox/msvm/m1.gaussian2");
             System.out.println("GK");
             System.out.println(m.getRows()+","+m.getColumns());
             for (int i = 0; i < getX1().getRows(); i++) {
                 for (int j = 0; j < getX1().getColumns(); j++) {
-                    m.getMatDouble()[i][j] = Math.exp(-1.0 * Math.abs(m.getMatDouble()[i][j] * m.getMatDouble()[i][j]) / (2 * getSigma() * getSigma()));
+                    double expc = -1.0 / (2 * getSigma() * getSigma());
+                    double d = Math.pow(Math.exp(expc), m.getMatDouble()[i][j] * m.getMatDouble()[i][j]);
+                    m.getMatDouble()[i][j] = d;
+                    //System.out.print(d+" ");
                 }
+                //System.out.println();
             }
             matrixOperator.saveMatrix(m,"/home/vibhatha/Sandbox/msvm/m.gaussian2");
             System.out.println("Matrix m dim : "+m.getRows()+","+m.getColumns());
