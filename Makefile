@@ -174,6 +174,79 @@ s-sdmmtest-a9a:
 s-sdmmpredict-a9a:
 	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_test_x_bin.2 a9a_isesvm_test_y.2.bin model/single/a9a/1 40 weighted_acc_a9a_isesvm_test_x_bin.1_1
 
+##########################################################################################
+#DYNAMIC EXPERIMENTS
+
+# SINGLE MODEL MULTIPLE DATA EXPERIMENTS
+
+## HEART
+sd-mdmmtrain-hrt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.BulkMDMMTraining data/heart/ heart_scale_train_x_bin.1 heart_scale_train_y.1.bin heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/2 1 1 4
+
+sd-sdmmtest-hrt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMTesting data/heart/ heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/2
+
+sd-sdmmpredict-hrt:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMPrediction data/heart/ heart_scale_test_x_bin.1 heart_scale_test_y.1.bin model/single/heart/2 1 weighted_acc_heart_scale_test_x_bin.1_2
+
+## IJCNN1
+
+sd-mdmmtrain-ijcnn1:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.BulkMDMMTraining data/ijcnn1/ ijcnn1_isesvm_train_x_bin.1 ijcnn1_isesvm_train_y.1.bin ijcnn1_isesvm_test_x_bin.1 ijcnn1_isesvm_test_y.1.bin model/single/ijcnn1/1 1 1 4
+
+sd-sdmmtest-ijcnn1:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMTesting data/ijcnn1/ ijcnn1_isesvm_test_x_bin.1 ijcnn1_isesvm_test_y.1.bin model/single/ijcnn1/1
+
+sd-sdmmpredict-ijcnn1:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.single.SDMMPrediction data/ijcnn1/ ijcnn1_isesvm_test_x_bin.2 ijcnn1_isesvm_test_y.2.bin model/single/ijcnn1/1 40 weighted_acc_ijcnn1_isesvm_test_x_bin.1_1
+
+## COVTYPE
+
+sd-mdmmtrain-covtype-deprecated:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.BulkMDMMTraining data/covtype/ covtype_libsvm_ise_train_x_bin.1 covtype_libsvm_ise_train_y.1.bin covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin model/single/covtype/5 5
+
+sd-sdmmtest-covtype-deprecated:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMTesting data/covtype/ covtype_libsvm_ise_test_x_bin.1 covtype_libsvm_ise_test_y.1.bin model/single/covtype/5
+
+sd-sdmmpredict-covtype-deprecated:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMPrediction data/ijcnn1/ covtype_libsvm_ise_test_x_bin.2 covtype_libsvm_ise_test_y.2.bin model/single/covtype/5 40 weighted_acc_covtype_libsvm_ise_test_x_bin.1_5
+
+
+## WEBSPAM
+
+sd-mdmmtrain-webspam:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.BulkMDMMTraining /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_train_x_bin.1 webspam_isesvm_train_y.1.bin webspam_isesvm_test_x_bin.1 webspam_isesvm_test_y.1.bin model/single/webspam/1 1 1 4
+
+sd-sdmmtest-webspam:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMTesting /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_test_x_bin.1 webspam_isesvm_test_y.1.bin model/single/webspam/1
+
+sd-sdmmpredict-webspam:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMPrediction /home/vibhatha/data/libsvm/webspam/ webspam_isesvm_test_x_bin.2 webspam_isesvm_test_y.2.bin model/single/webspam/1 40 weighted_acc_webspam_isesvm_test_x_bin.1_1
+
+##COVTYPE SCALED
+
+sd-mdmmtrain-covtype:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.BulkMDMMTraining /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_train_x_bin.1 covtype_isesvm_train_y.1.bin covtype_isesvm_test_x_bin.1 covtype_isesvm_test_y.1.bin model/single/covtype/1 1
+
+sd-sdmmtest-covtype:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMTesting /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_test_x_bin.1 covtype_isesvm_test_y.1.bin model/single/covtype/1
+
+sd-sdmmpredict-covtype:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMPrediction /home/vibhatha/data/libsvm/covtype/ covtype_isesvm_test_x_bin.2 covtype_isesvm_test_y.2.bin model/single/covtype/1 40 weighted_acc_covtype_isesvm_test_x_bin.1_1
+
+##a9a
+
+sd-mdmmtrain-a9a:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.BulkMDMMTraining /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_train_x_bin.1 a9a_isesvm_train_y.1.bin a9a_isesvm_test_x_bin.1 a9a_isesvm_test_y.1.bin model/single/a9a/1 1 1 4
+
+sd-sdmmtest-a9a:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMTesting /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_test_x_bin.1 a9a_isesvm_test_y.1.bin model/single/a9a/1
+
+sd-sdmmpredict-a9a:
+	java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.experiments.dynamic.single.SDMMPrediction /home/vibhatha/data/libsvm/a9a/ a9a_isesvm_test_x_bin.2 a9a_isesvm_test_y.2.bin model/single/a9a/1 40 weighted_acc_a9a_isesvm_test_x_bin.1_1
+
+####################################################################
+
 
 # PLOTTING
 

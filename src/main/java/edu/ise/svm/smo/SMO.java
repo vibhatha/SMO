@@ -395,6 +395,273 @@ public class SMO {
 
     }
 
+
+    public Model svmTrain(Matrix x, Matrix y, String kernel, double c, double gamma) {
+
+
+        ArrayList<Integer> testVal = new ArrayList<>();
+
+        int m = x.getRows();
+        int n = x.getColumns();
+        Matrix alphas = new Matrix(m, 1, "DOUBLE");
+
+        for (int i = 0; i < alphas.getRows(); i++) {
+            for (int j = 0; j < alphas.getColumns(); j++) {
+
+                alphas.getMatDouble()[i][j] = 0.0;
+
+            }
+        }
+        double tol = 0.001; //tolerance
+        double b = 0;
+        double b1 = 0;
+        double b2 = 0;
+        Matrix e = new Matrix(m, 1, "DOUBLE");
+        int passes = 0;
+        double eta = 0.0;
+        double l = 0;
+        double h = 0;
+        double C = c;
+        int max_passes = 12;
+
+        //moving on with the linear kernel
+        Matrix k = null;
+        try {
+            LOG.info("Matrix Dimension : " + m + "," + m);
+            k = new Matrix(m, m, "DOUBLE");
+        } catch (OutOfMemoryError ex) {
+            LOG.info("Exception " + ex.getMessage());
+        }
+
+        MatrixOperator matrixOperator = new MatrixOperator();
+        long time_kernel_start = System.currentTimeMillis();
+        if(kernel.equals(Constant.LINEAR)){
+            Matrix x_dash = matrixOperator.transpose(x);
+
+            k = matrixOperator.product(x, x_dash, "CROSS");//linear kernel value
+            try {
+                matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/linear.mat");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        long time_kernel_end = System.currentTimeMillis();
+
+        if(kernel.equals(Constant.POLYNOMIAL)){
+            Matrix x_dash = matrixOperator.transpose(x);
+
+            k = matrixOperator.product(x, x_dash, "CROSS");//linear kernel value
+            Matrix k1 = matrixOperator.addConstant(k,1);
+            k = matrixOperator.product(k,k,"DOT");//a9a best//2
+            k = matrixOperator.product(k,k,"DOT");//3
+            k = matrixOperator.product(k,k,"DOT");//4
+            k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//5
+            k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//6
+            k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//7
+            //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//8
+            //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//9
+            //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//10
+            try {
+                matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/polynomial.mat");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+
+        double sigma = 1.0/gamma;
+
+        if(kernel.equals(Constant.GAUSSIAN)){
+            GaussianKernel gaussianKernel = new GaussianKernel(x, x, sigma);
+            try {
+                k = gaussianKernel.getGaussianKernelOutput();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            try {
+                matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/gaussian-1.mat");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        LOG.info(kernel+" Kernel Matrix Dimension : " + k.getRows() + "," + k.getColumns());
+
+        LOG.info("====================================================");
+        LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0);
+        LOG.info("====================================================");
+        this.info += "Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0 + " s";
+        //LOG.info("X");
+        //matrixOperator.disp(x);
+        //LOG.info("Y");
+        //matrixOperator.disp(y);
+        //debug = true;
+        if (debug) {
+            LOG.info("Kernel Matrix");
+            matrixOperator.disp(k);
+        }
+
+        while (passes < max_passes) { //start while
+
+            int num_changed_alphas = 0;
+            debug = false;
+            if (debug) {
+                LOG.info("Passes : " + passes + "/" + max_passes);
+            }
+
+            for (int i = 0; i < m; i++) {
+                Matrix k_i = matrixOperator.getColumnData(k, i);
+                Matrix op1 = matrixOperator.dotMultiply(alphas, y);
+                Matrix op2 = matrixOperator.dotMultiply(op1, k_i);
+                Matrix sum = matrixOperator.sum(op2);
+                double itr_value = b + sum.getMatDouble()[0][0] - y.getMatDouble()[i][0];
+                e.getMatDouble()[i][0] = itr_value;
+
+                debug = false;
+                if (debug) {
+                    LOG.info("Debug Mode");
+                    LOG.info("Itr value : " + itr_value);
+
+                }
+
+                //input.hasNext();
+                //Y(i) * E(i) multiplication
+
+                double y_e = y.getMatDouble()[i][0] * e.getMatDouble()[i][0];
+                double alphas_i = alphas.getMatDouble()[i][0];
+
+                Random random = new Random();
+
+                if ((y_e < -tol && alphas_i < C) || (y_e > tol && alphas_i > 0)) {
+
+                    double rand = Math.random() * 0.98; //0.98 used to make sure the j won't cause an array index out of bounds condition
+                    int j = (int) Math.ceil(m * rand);
+
+                    while (j == i) {
+                        rand = Math.random() * 0.98;
+                        j = (int) Math.ceil(m * rand);
+                    }
+                    if (k.getColumns() == j) {
+                        j = j - 1;
+                    }
+
+                    Matrix k_j = matrixOperator.getColumnData(k, j);
+                    Matrix op1j = matrixOperator.dotMultiply(alphas, y);
+                    Matrix op2j = matrixOperator.dotMultiply(op1j, k_j);
+                    Matrix sumj = matrixOperator.sum(op2j);
+                    double itr_valuej = b + sumj.getMatDouble()[0][0] - y.getMatDouble()[j][0];
+                    e.getMatDouble()[j][0] = itr_valuej;
+
+                    //old alpha values
+                    double alpha_i_old = alphas.getMatDouble()[i][0];
+                    double alpha_j_old = alphas.getMatDouble()[j][0];
+                    //LOG.info(alpha_i_old+" / "+alpha_j_old);
+
+                    //compute L and H
+                    if (y.getMatDouble()[i][0] == y.getMatDouble()[j][0]) {
+
+                        l = Math.max(0, alphas.getMatDouble()[j][0] + alphas.getMatDouble()[i][0] - C);
+                        h = Math.min(C, alphas.getMatDouble()[j][0] + alphas.getMatDouble()[i][0]);
+
+                    } else {
+
+                        l = Math.max(0, alphas.getMatDouble()[j][0] - alphas.getMatDouble()[i][0]);
+                        h = Math.min(C, C + alphas.getMatDouble()[j][0] - alphas.getMatDouble()[i][0]);
+
+                    }
+
+                    if (l == h) {
+                        continue;
+                    }
+
+                    //calculate ETA
+
+                    eta = 2.00 * k.getMatDouble()[i][j] - k.getMatDouble()[i][i] - k.getMatDouble()[j][j];
+
+                    if (eta >= 0) {
+                        debug = false;
+                        if (debug) {
+                            LOG.info("Eta : " + eta);
+                        }
+                        continue;
+                    }
+
+                    //compute values for alpha_j
+                    alphas.getMatDouble()[j][0] = alphas.getMatDouble()[j][0] - (y.getMatDouble()[j][0] * (e.getMatDouble()[i][0] - e.getMatDouble()[j][0])) / eta;
+
+                    alphas.getMatDouble()[j][0] = Math.min(h, alphas.getMatDouble()[j][0]);
+                    alphas.getMatDouble()[j][0] = Math.max(l, alphas.getMatDouble()[j][0]);
+
+                    double diff = Math.abs(alphas.getMatDouble()[j][0] - alpha_j_old);
+                    if (diff < tol) {
+                        if (debug) {
+                            LOG.info("Diff : " + diff + ", tol : " + tol);
+                        }
+                        alphas.getMatDouble()[j][0] = alpha_j_old;
+                        continue;
+                    }
+                    //values of alpha using i'
+                    alphas.getMatDouble()[i][0] = alphas.getMatDouble()[i][0] + y.getMatDouble()[i][0] * y.getMatDouble()[j][0] * (alpha_j_old - alphas.getMatDouble()[j][0]);
+                    //b1 and b2 value computing
+                    b1 = b - e.getMatDouble()[i][0] - y.getMatDouble()[i][0] * (alphas.getMatDouble()[i][0] - alpha_i_old) * k.getMatDouble()[i][j] - y.getMatDouble()[j][0] * (alphas.getMatDouble()[j][0] - alpha_j_old) * k.getMatDouble()[i][j];
+                    b2 = b - e.getMatDouble()[j][0] - y.getMatDouble()[i][0] * (alphas.getMatDouble()[i][0] - alpha_i_old) * k.getMatDouble()[i][j] - y.getMatDouble()[j][0] * (alphas.getMatDouble()[j][0] - alpha_j_old) * k.getMatDouble()[i][j];
+
+                    if (0 < alphas.getMatDouble()[i][0] && alphas.getMatDouble()[i][0] < C) {
+
+                        b = b1;
+                    } else if (0 < alphas.getMatDouble()[j][0] && alphas.getMatDouble()[j][0] < C) {
+                        b = b2;
+                    } else {
+                        b = (b1 + b2) / 2.00;
+                    }
+                    num_changed_alphas = num_changed_alphas + 1;
+                }
+
+
+            }
+            if (num_changed_alphas == 0) {
+                passes = passes + 1;
+            } else {
+                passes = 0;
+            }
+
+        }//end big while
+
+        //LOG.info("Training Completed...");
+        //matrixOperator.disp(alphas);
+        Matrix alphaPositive = matrixOperator.setValueByBoundry(alphas, ">", 0);
+        Matrix cleanAlphas = matrixOperator.getValueMatchingBoundary(alphas, alphaPositive);
+        //LOG.info("Clean ALPHA POSITIVE");
+        //matrixOperator.disp(alphaPositive);
+        //LOG.info("CLEAN ALPHA POSITIVE");
+        //LOG.info("b1,b2 : " + b1 + "," + b2);
+        //LOG.info("b :" + b);
+
+        //((alphas.*Y)'*X)'
+        Matrix alphas_y = matrixOperator.dotMultiply(alphas, y);
+        Matrix alphas_y_trans = matrixOperator.transpose(alphas_y);
+        Matrix wt = matrixOperator.product(alphas_y_trans, x, "CROSS");
+        Matrix w = matrixOperator.transpose(wt);
+        //matrixOperator.disp(w);
+
+        //Matrix idx = matrixOperator.setValueByBoundry(alphas,">",0.0);
+        //Scanner input = new Scanner(System.in);
+        //input.hasNext();
+
+        //setting up the model
+        Model model = null;
+        if (x != null && y != null && alphas != null && w != null) {
+            LOG.info("Model Viable");
+            model = new Model(x, y, b, alphas, w, kernel, info);
+            //System.out.println("W");
+            //matrixOperator.sout(w);
+            System.out.println("b: "+b);
+        }else{
+            LOG.info("Model failed");
+        }
+
+        return model;
+
+    }
+
     public Model svmTrain(Matrix x, Matrix y, String kernel, String modelType) {
 
 
