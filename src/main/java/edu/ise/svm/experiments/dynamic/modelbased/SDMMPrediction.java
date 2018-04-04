@@ -13,6 +13,7 @@ import edu.ise.svm.matrix.MatrixOperator;
 import edu.ise.svm.smo.ModularPrediction;
 import edu.ise.svm.smo.Predict;
 import edu.ise.svm.util.Util;
+import edu.ise.svm.util.UtilDynamic;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class SDMMPrediction {
     private static String MODEL_DATANAME=""; //heart
     private static String MODEL_VERSION=""; //2
     private static String MODEL_TYPE=""; //positive, negative or zero
+    private static double C = 0.0;
+    private static double gamma = 0.0;
 
 
     public static void main(String[] args) throws IOException{
@@ -61,7 +64,7 @@ public class SDMMPrediction {
         LOG.info(" "+ args[5]);
         LOG.info("====================================");
         DATA_PARTITION_SIZE = Integer.parseInt(args[5]);
-        String expName =  Util.optArgs(args, Constant.PREDICTING)[1];
+        String expName =  UtilDynamic.optArgs(args, Constant.DYNAMIC_PREDICTING)[1];
         double [] allDataSetAccuracies = new double[DATA_PARTITION_SIZE];
         for (int i = 1; i < DATA_PARTITION_SIZE+1; i++) {
             double accuracyPerDataSet = 0.0;
@@ -87,6 +90,8 @@ public class SDMMPrediction {
             LOG.info("Model Path : " + MODEL_PATH);
             //"stats/weightedmodels/"+MODEL_NAME;
             MODEL_NAME = args[4];
+            C = Double.parseDouble(args[6]);
+            gamma = Double.parseDouble(args[7]);
             WEIGHETD_MODEL_PATH = "stats/"+"weightedmodels/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+MODEL_NAME;
 
             ArrayList<Model> models = loadModels();
@@ -103,7 +108,7 @@ public class SDMMPrediction {
             allDataSetAccuracies[i-1] = accuracyPerDataSet;
         }
 
-        Util.modelAccuracySaveCSV(allDataSetAccuracies,"stats/accuracyPerDataSet/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+"accuracy_"+expName+"_"+EXP_ID);
+        UtilDynamic.modelAccuracySaveCSV(allDataSetAccuracies,"stats/accuracyPerDataSet/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/"+MODEL_TYPE+"/"+"accuracy_"+expName+"_"+"_C="+C+"_gamma="+gamma);
     }
 
     public static double perDataSetPrediction(Matrix testData, ArrayList<Model> models,  ArrayList<ReadCSV> data ) throws IOException{
@@ -209,7 +214,7 @@ public class SDMMPrediction {
                 data+= String.valueOf(predictions[i]);
             }
         }
-        Util.createLog(filepath, data, "Prediction Results");
+        UtilDynamic.createLog(filepath, data, "Prediction Results");
     }
 
 

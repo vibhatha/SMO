@@ -91,7 +91,7 @@ public class BulkMDMMTraining {
         LOG.info(testX);
         LOG.info(testY);
 
-        for (int k = 1; k < 3; k++) {
+        for (int k = 1; k < 2; k++) {
             trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
             testX = testX.split("\\.")[0] + "." + String.valueOf(k);
             trainY = trainY.split(".bin")[0].split("\\.")[0] + "."  + String.valueOf(k)+".bin";

@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Created by vibhatha on 3/30/18.
+ * Created by vibhatha on 4/3/18.
  */
-public class UtilDynamicSingle {
-    private final static Logger LOG = Logger.getLogger(UtilSingle.class.getName());
+public class UtilDynamic {
+    private final static Logger LOG = Logger.getLogger(Util.class.getName());
 
     static{
         System.setProperty("java.util.logging.SimpleFormatter.format",
@@ -67,26 +67,24 @@ public class UtilDynamicSingle {
                     LOG.info("Train Y : "+args[2]);
                     LOG.info("Test X : "+args[3]);
                     LOG.info("Test Y : "+args[4]);
-                    //"model/single/heart/1"
-                    LOG.info("Model path : "+args[5]);
+                    LOG.info("Model Path : "+args[5]);
                     LOG.info("Data Paritions: " + args[6]);
                     LOG.info("C: " + args[7]);
                     LOG.info("Gamma: " + args[8]);
-
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
-                            " <train-X> <train-Y> <test-X> <test-Y> <model-path> <data-partitions> <C> <gamma>");
-                    System.exit(0);
+                            " <train-X> <train-Y> <test-X> <test-Y> <model-path> <data-partitions> <c> <gamma>");
                 }
             }
-            if(type.equals(Constant.DYNAMIC_TESTING)){
-                if(args!=null && args.length==3){
+            if(type.equals(Constant.TESTING)){
+                if(args!=null && args.length==4){
                     LOG.info("Source Folder : "+args[0]);
                     LOG.info("Test X : "+args[1]);
                     LOG.info("Test Y : "+args[2]);
+                    LOG.info("Model Path "+args[3]);
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
-                            " <test-X> <test-Y>");
+                            " <test-X> <test-Y> <model-path>");
                 }
             }
             if(type.equals(Constant.DYNAMIC_PREDICTING)){
@@ -95,14 +93,13 @@ public class UtilDynamicSingle {
                     LOG.info("Test X : "+args[1]);
                     LOG.info("Test Y : "+args[2]);
                     LOG.info("Model Path : " + args[3]);
-                    LOG.info("Data Partitions : " + args[4]);
-                    LOG.info("Model Name : " + args[5]);
+                    LOG.info("Model File : " + args[4]);
+                    LOG.info("Data Partitions : " + args[5]);
                     LOG.info("C: " + args[6]);
                     LOG.info("Gamma: " + args[7]);
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
-                            " <test-X> <test-Y> <model-path> <data-partitions> <model-name> <C> <gamma>");
-                    System.exit(0);
+                            " <test-X> <test-Y> <model-path> <num-data partitions> <C> <gamma>");
                 }
             }
         }
@@ -172,6 +169,8 @@ public class UtilDynamicSingle {
     public static void modelAccuracySaveCSV(double [] accruacies, String filepath) throws IOException{
         Path path = Paths.get(filepath);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            writer.write("Accuracies");
+            writer.newLine();
             for (int i = 0; i < accruacies.length; i++) {
                 writer.write(String.valueOf(accruacies[i]));
                 writer.newLine();
@@ -184,8 +183,12 @@ public class UtilDynamicSingle {
         ArrayList<Double> weightList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(modelWeightPath))) {
             String line;
+            int count = 0; // skip header line
             while ((line = br.readLine()) != null) {
-                weightList.add(Double.parseDouble(line));
+                if(count>0){
+                    weightList.add(Double.parseDouble(line));
+                }
+                count++;
             }
         }
         weights =  weightList.stream().mapToDouble(d -> d).toArray();

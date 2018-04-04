@@ -84,8 +84,8 @@ public class GaussianKernel extends Kernel implements IKernel {
             //m = matrixOperator.norm(matrixOperator.subtract(getX1(), getX2()));//this matrix is a double matrix -> norm returns a double matrix
             m = getX1();
             matrixOperator.saveMatrix(m,"/home/vibhatha/Sandbox/msvm/m1.gaussian2");
-            System.out.println("GK");
-            System.out.println(m.getRows()+","+m.getColumns());
+            //System.out.println("GK");
+            //System.out.println(m.getRows()+","+m.getColumns());
             for (int i = 0; i < getX1().getRows(); i++) {
                 for (int j = 0; j < getX1().getColumns(); j++) {
                     double expc = -1.0 / (2 * getSigma() * getSigma());
@@ -96,7 +96,7 @@ public class GaussianKernel extends Kernel implements IKernel {
                 //System.out.println();
             }
             matrixOperator.saveMatrix(m,"/home/vibhatha/Sandbox/msvm/m.gaussian2");
-            System.out.println("Matrix m dim : "+m.getRows()+","+m.getColumns());
+            //System.out.println("Matrix m dim : "+m.getRows()+","+m.getColumns());
             Matrix m_dash = matrixOperator.transpose(m);
             m = matrixOperator.product(m, m_dash, "CROSS");
         }
