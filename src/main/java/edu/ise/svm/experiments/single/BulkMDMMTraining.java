@@ -188,7 +188,7 @@ public class BulkMDMMTraining {
 
             SMO SMO = new SMO(alpha,b,w,X,Y,lpd,info);
             //SMO.lagrangeCalculation(alpha,matX,matY,b,w);
-            String kernel = Constant.GAUSSIAN;
+            String kernel = Constant.LINEAR;
             long train_start = System.currentTimeMillis();
             Model model = SMO.svmTrain(X,Y,kernel);
             model.saveModel(MODEL_PATH+"/model_"+trainX);

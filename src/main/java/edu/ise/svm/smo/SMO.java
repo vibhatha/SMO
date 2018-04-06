@@ -422,12 +422,12 @@ public class SMO {
         double l = 0;
         double h = 0;
         double C = c;
-        int max_passes = 12;
+        int max_passes = 25;
 
         //moving on with the linear kernel
         Matrix k = null;
         try {
-            LOG.info("Matrix Dimension : " + m + "," + m);
+          //  LOG.info("Matrix Dimension : " + m + "," + m);
             k = new Matrix(m, m, "DOUBLE");
         } catch (OutOfMemoryError ex) {
             LOG.info("Exception " + ex.getMessage());
@@ -483,10 +483,10 @@ public class SMO {
                 e1.printStackTrace();
             }
         }
-        LOG.info(kernel+" Kernel Matrix Dimension : " + k.getRows() + "," + k.getColumns());
+        //LOG.info(kernel+" Kernel Matrix Dimension : " + k.getRows() + "," + k.getColumns());
 
-        LOG.info("====================================================");
-        LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0);
+        //LOG.info("====================================================");
+        //LOG.info("Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0);
         LOG.info("====================================================");
         this.info += "Kernel Matrix Calculation : " + (time_kernel_end - time_kernel_start) / 1000.0 + " s";
         //LOG.info("X");
@@ -649,13 +649,13 @@ public class SMO {
         //setting up the model
         Model model = null;
         if (x != null && y != null && alphas != null && w != null) {
-            LOG.info("Model Viable");
+            //LOG.info("Model Viable");
             model = new Model(x, y, b, alphas, w, kernel, info);
             //System.out.println("W");
             //matrixOperator.sout(w);
             //System.out.println("b: "+b);
         }else{
-            LOG.info("Model failed");
+            //LOG.info("Model failed");
         }
 
         return model;

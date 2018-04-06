@@ -12,6 +12,7 @@ import edu.ise.svm.util.UtilDynamicSingle;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Logger;
 
 /**
@@ -96,8 +97,8 @@ public class BulkMDMMTraining {
         LOG.info(trainY);
         LOG.info(testX);
         LOG.info(testY);
-
-        for (int k = 1; k < DATA_PARTITIONS + 1; k++) {
+        int start = new Random().nextInt(2);
+        for (int k = start; k < start+DATA_PARTITIONS + 1; k++) {
             trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
             testX = testX.split("\\.")[0] + "." + String.valueOf(k);
             trainY = trainY.split(".bin")[0].split("\\.")[0] + "."  + String.valueOf(k)+".bin";

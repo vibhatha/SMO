@@ -61,7 +61,7 @@ public class UtilDynamicSingle {
 
         }else{
             if(type.equals(Constant.DYNAMIC_TRAINING)){
-                if(args!=null && args.length==9){
+                if(args!=null && args.length==10){
                     LOG.info("Source Folder : "+args[0]);
                     LOG.info("Train X: "+args[1]);
                     LOG.info("Train Y : "+args[2]);
@@ -75,7 +75,7 @@ public class UtilDynamicSingle {
 
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
-                            " <train-X> <train-Y> <test-X> <test-Y> <model-path> <data-partitions> <C> <gamma>");
+                            " <train-X> <train-Y> <test-X> <test-Y> <model-path> <data-partitions> <C> <gamma> <kernel>");
                     System.exit(0);
                 }
             }
