@@ -20,4 +20,5 @@ public class Constant {
     public static final String MODEL_TYPE_POSITIVE="positive";
     public static final String MODEL_TYPE_NEGATIVE="negative";
     public static final String MODEL_TYPE_ZERO="zero";
+    public static final String SDSM_SVM="sdsm_svm";
 }

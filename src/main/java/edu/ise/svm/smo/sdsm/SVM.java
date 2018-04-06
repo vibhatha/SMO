@@ -1,5 +1,8 @@
-package edu.ise.svm.experiments.dynamic.checkacc;
+package edu.ise.svm.smo.sdsm;
 
+/**
+ * Created by vibhatha on 4/6/18.
+ */
 import edu.ise.svm.Constants.Constant;
 import edu.ise.svm.Main;
 import edu.ise.svm.entities.Model;
@@ -17,6 +20,7 @@ import edu.ise.svm.util.UtilSingle;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -43,7 +47,7 @@ import java.util.logging.Logger;
  * **/
 
 
-public class BulkMDMMTraining {
+public class SVM {
 
     static{
         System.setProperty(Constant.LOG_TYPE, Constant.LOG_FORMAT);
@@ -78,6 +82,7 @@ public class BulkMDMMTraining {
     private static double PREDICTION_ACCURACY=0.0;
     private static double COVALIDATION_ACCURACY=0.0;
     private static long TESTING_DATA_COUNT=0;
+    private static double BASE_ACCURACY=80.0;
 
 
     private enum DATATYPE {
@@ -91,7 +96,7 @@ public class BulkMDMMTraining {
         String info="";
 
         long read_start = System.currentTimeMillis();
-        String [] argv = UtilDynamicSingle.optArgs(args, Constant.DYNAMIC_TRAINING);
+        String [] argv = UtilDynamicSingle.optArgs(args, Constant.SDSM_SVM);
 
         /**
          * Training (X) File : data/covtype/covtype_libsvm_ise_train_x.1
@@ -114,6 +119,7 @@ public class BulkMDMMTraining {
         C = Double.parseDouble(argv[7]);
         gamma = Double.parseDouble(argv[8]);
         KERNEL = argv[9];
+        BASE_ACCURACY = Double.parseDouble(argv[10]);
 
 
         String [] model_path_attrb = MODEL_PATH.split("/");
@@ -135,211 +141,211 @@ public class BulkMDMMTraining {
         double base_accuracy = 80.0;
         ArrayList<Integer> listOfUsedPartitions = new ArrayList<>();
 
-        while ( avg_acc<base_accuracy) {
-                long full_training_start = System.currentTimeMillis();
-                k = new Random().nextInt(200);
+        while (avg_acc < BASE_ACCURACY) {
+            long full_training_start = System.currentTimeMillis();
+            k = new Random().nextInt(200);
+            listOfUsedPartitions.add(k);
+            if(k==0 || listOfUsedPartitions.contains(k)){
+                k++;
                 listOfUsedPartitions.add(k);
-                if(k==0 || listOfUsedPartitions.contains(k)){
-                    k++;
-                    listOfUsedPartitions.add(k);
-                }
-                LOG.info("Selected Data Set : "+k);
-                trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
-                testX = testX.split("\\.")[0] + "." + String.valueOf(k);
-                trainY = trainY.split(".bin")[0].split("\\.")[0] + "."  + String.valueOf(k)+".bin";
-                testY = testY.split(".bin")[0].split("\\.")[0] + "." + String.valueOf(k)+".bin";
+            }
+            LOG.info("Selected Data Set : "+k);
+            trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
+            testX = testX.split("\\.")[0] + "." + String.valueOf(k);
+            trainY = trainY.split(".bin")[0].split("\\.")[0] + "."  + String.valueOf(k)+".bin";
+            testY = testY.split(".bin")[0].split("\\.")[0] + "." + String.valueOf(k)+".bin";
 
-                String trainFilePathX = baseX + trainX;
-                String trainFileType = "csv";
-                CsvFile trainCsvFileX = new CsvFile(trainFilePathX, trainFileType);
-                ReadCSV trainReadCSVX = new ReadCSV(trainCsvFileX);
-                trainReadCSVX.readX();
+            String trainFilePathX = baseX + trainX;
+            String trainFileType = "csv";
+            CsvFile trainCsvFileX = new CsvFile(trainFilePathX, trainFileType);
+            ReadCSV trainReadCSVX = new ReadCSV(trainCsvFileX);
+            trainReadCSVX.readX();
 
 
-                String trainFilePathY = baseY + trainY;
-                String trainFileTypeY = "csv";
-                CsvFile trainCsvFileY = new CsvFile(trainFilePathY, trainFileTypeY);
-                ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
-                trainReadCSVY.readY();
+            String trainFilePathY = baseY + trainY;
+            String trainFileTypeY = "csv";
+            CsvFile trainCsvFileY = new CsvFile(trainFilePathY, trainFileTypeY);
+            ReadCSV trainReadCSVY = new ReadCSV(trainCsvFileY);
+            trainReadCSVY.readY();
 
-                String testFilePathX = baseX + testX;
-                String testFileType = "csv";
-                CsvFile testCsvFileX = new CsvFile(testFilePathX, testFileType);
-                ReadCSV testReadCSVX = new ReadCSV(testCsvFileX);
-                testReadCSVX.readX();
+            String testFilePathX = baseX + testX;
+            String testFileType = "csv";
+            CsvFile testCsvFileX = new CsvFile(testFilePathX, testFileType);
+            ReadCSV testReadCSVX = new ReadCSV(testCsvFileX);
+            testReadCSVX.readX();
 
 
-                String testFilePathY = baseY + testY;
-                String testFileTypeY = "csv";
-                CsvFile testCsvFileY = new CsvFile(testFilePathY, testFileTypeY);
-                ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
-                testReadCSVY.readY();
+            String testFilePathY = baseY + testY;
+            String testFileTypeY = "csv";
+            CsvFile testCsvFileY = new CsvFile(testFilePathY, testFileTypeY);
+            ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
+            testReadCSVY.readY();
 
-                TRAINING_DATA_COUNT = UtilDynamicSingle.datacount(trainFilePathY);
+            TRAINING_DATA_COUNT = UtilDynamicSingle.datacount(trainFilePathY);
 
 
 
-                info += "Training (X) File : "+trainFilePathX+" \n";
-                info += "Training (Y) File : "+trainFilePathY+" \n";
-                info += "Testing (X) File : "+testFilePathX+" \n";
-                info += "Testing (Y) File : "+testFilePathY+" \n";
+            info += "Training (X) File : "+trainFilePathX+" \n";
+            info += "Training (Y) File : "+trainFilePathY+" \n";
+            info += "Testing (X) File : "+testFilePathX+" \n";
+            info += "Testing (Y) File : "+testFilePathY+" \n";
 
-                long read_end = System.currentTimeMillis();
-                long read_time = read_end - read_start;
-                double read_time_d = (read_time/1000.0);
+            long read_end = System.currentTimeMillis();
+            long read_time = read_end - read_start;
+            double read_time_d = (read_time/1000.0);
 
-                info += "I/O Time : " + read_time + "\n";
+            info += "I/O Time : " + read_time + "\n";
 
-                ArrayList<double[]> trainXValues = trainReadCSVX.getxVals();
-                ArrayList<Double> trainYValues = trainReadCSVY.getyVals();
+            ArrayList<double[]> trainXValues = trainReadCSVX.getxVals();
+            ArrayList<Double> trainYValues = trainReadCSVY.getyVals();
 
-                ArrayList<double []> testXValues = testReadCSVX.getxVals();
-                ArrayList<Double> testYValues = testReadCSVY.getyVals();
+            ArrayList<double []> testXValues = testReadCSVX.getxVals();
+            ArrayList<Double> testYValues = testReadCSVY.getyVals();
 
-                FeatureMatrix featureMatrix = new FeatureMatrix(trainXValues, trainYValues);
+            FeatureMatrix featureMatrix = new FeatureMatrix(trainXValues, trainYValues);
 
-                featureMatrix.generate();
+            featureMatrix.generate();
 
-                //set CSV data in to Matrix format
-                //X features
-                int xRows = featureMatrix.getxVals().length;
-                int xCols =  featureMatrix.getxVals()[0].length;
+            //set CSV data in to Matrix format
+            //X features
+            int xRows = featureMatrix.getxVals().length;
+            int xCols =  featureMatrix.getxVals()[0].length;
 
-                Matrix X = new Matrix(xRows,xCols,"DOUBLE");
+            Matrix X = new Matrix(xRows,xCols,"DOUBLE");
 
-                for (int i = 0; i < xRows ; i++) {
-                    for (int j = 0; j < xCols; j++) {
+            for (int i = 0; i < xRows ; i++) {
+                for (int j = 0; j < xCols; j++) {
 
-                        X.getMatDouble()[i][j]=featureMatrix.getxVals()[i][j];
-
-                    }
-                }
-
-                //Y features
-                int yRows = featureMatrix.getxVals().length;
-                int yCols =  featureMatrix.getxVals()[0].length;
-
-                Matrix Y = new Matrix(yRows,1,"DOUBLE");
-
-                for (int i = 0; i < yRows ; i++) {
-
-                    Y.getMatDouble()[i][0]=featureMatrix.getyVals()[i];
+                    X.getMatDouble()[i][j]=featureMatrix.getxVals()[i][j];
 
                 }
+            }
 
-                Matrix b = new Matrix(1, X.getColumns(), "DOUBLE");
-                Matrix w = new Matrix(1, X.getColumns(), "DOUBLE");
-                Matrix alpha = new Matrix(1, X.getColumns(), "DOUBLE");
-                Matrix lpd = new Matrix(1, X.getColumns(), "DOUBLE");
+            //Y features
+            int yRows = featureMatrix.getxVals().length;
+            int yCols =  featureMatrix.getxVals()[0].length;
 
-                for(int i=0; i < w.getRows();i++){
-                    for(int j=0; j < w.getColumns(); j++){
-                        w.getMatDouble()[i][j]= 2.00;
-                        b.getMatDouble()[i][j]= 3.00;
-                        alpha.getMatDouble()[i][j]=0;
-                    }
+            Matrix Y = new Matrix(yRows,1,"DOUBLE");
+
+            for (int i = 0; i < yRows ; i++) {
+
+                Y.getMatDouble()[i][0]=featureMatrix.getyVals()[i];
+
+            }
+
+            Matrix b = new Matrix(1, X.getColumns(), "DOUBLE");
+            Matrix w = new Matrix(1, X.getColumns(), "DOUBLE");
+            Matrix alpha = new Matrix(1, X.getColumns(), "DOUBLE");
+            Matrix lpd = new Matrix(1, X.getColumns(), "DOUBLE");
+
+            for(int i=0; i < w.getRows();i++){
+                for(int j=0; j < w.getColumns(); j++){
+                    w.getMatDouble()[i][j]= 2.00;
+                    b.getMatDouble()[i][j]= 3.00;
+                    alpha.getMatDouble()[i][j]=0;
                 }
+            }
 
-                SMO SMO = new SMO(alpha,b,w,X,Y,lpd,info);
-                //SMO.lagrangeCalculation(alpha,matX,matY,b,w);
-                String kernel = KERNEL;
-                long train_start = System.currentTimeMillis();
-                Model model = SMO.svmTrain(X,Y,kernel,C,gamma);
+            SMO SMO = new SMO(alpha,b,w,X,Y,lpd,info);
+            //SMO.lagrangeCalculation(alpha,matX,matY,b,w);
+            String kernel = KERNEL;
+            long train_start = System.currentTimeMillis();
+            Model model = SMO.svmTrain(X,Y,kernel,C,gamma);
 
-                long full_training_end = System.currentTimeMillis();
+            long full_training_end = System.currentTimeMillis();
 
-                TRAINING_TIME+= (full_training_end - full_training_start)/1000.0;
+            TRAINING_TIME+= (full_training_end - full_training_start)/1000.0;
 
-                TRAINING_MODEL_PATH = MODEL_PATH+"/model_"+trainX;
-                model.saveModel(TRAINING_MODEL_PATH);
-                long train_end = System.currentTimeMillis();
-                double train_time = (train_end-train_start)/1000.0;
+            TRAINING_MODEL_PATH = MODEL_PATH+"/model_"+trainX;
+            model.saveModel(TRAINING_MODEL_PATH);
+            long train_end = System.currentTimeMillis();
+            double train_time = (train_end-train_start)/1000.0;
 
 
-                String logdata = "";
-                logdata += "Training (X) File : "+trainFilePathX+" \n";
-                logdata += "Training (Y) File : "+trainFilePathY+" \n";
-                logdata += "Testing (X) File : "+testFilePathX+" \n";
-                logdata += "Testing (Y) File : "+testFilePathY+" \n";
-                logdata += "I/O Time : " + read_time_d + " s\n";
-                logdata += "Training Time : " + train_time + " s\n";
+            String logdata = "";
+            logdata += "Training (X) File : "+trainFilePathX+" \n";
+            logdata += "Training (Y) File : "+trainFilePathY+" \n";
+            logdata += "Testing (X) File : "+testFilePathX+" \n";
+            logdata += "Testing (Y) File : "+testFilePathY+" \n";
+            logdata += "I/O Time : " + read_time_d + " s\n";
+            logdata += "Training Time : " + train_time + " s\n";
 
-                UtilDynamicSingle.mkdir("logs/"+MODEL_DATANAME+"/"+MODEL_VERSION);
+            UtilDynamicSingle.mkdir("logs/"+MODEL_DATANAME+"/"+MODEL_VERSION);
 
-                if(KERNEL.equals(Constant.LINEAR)){
-                    TRAINING_LOGS_PATH = "logs/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/log_"+trainX+"__C="+C;
+            if(KERNEL.equals(Constant.LINEAR)){
+                TRAINING_LOGS_PATH = "logs/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/log_"+trainX+"__C="+C;
+            }
+
+            if(KERNEL.equals(Constant.GAUSSIAN)){
+                TRAINING_LOGS_PATH = "logs/"+MODEL_DATANAME+"/"+MODEL_VERSION+"/log_"+trainX+"__C="+C + "_gamma="+gamma;
+            }
+
+
+            UtilDynamicSingle.createLog(TRAINING_LOGS_PATH, logdata, Constant.DYNAMIC_TRAINING);
+
+            //COVALIDATION TEST
+            long covalidation_test_start = System.currentTimeMillis();
+
+            long read_start1 = System.currentTimeMillis();
+            double covalidation_aggregate_accuracy = 0.0;
+            for (int i = 1; i < DATA_PARTITIONS+1; i++) {
+
+                baseX = args[0];
+                baseY = baseX;
+                testX = args[3];
+                testY = args[4];
+                testX = testX.split("\\.")[0] + "." + String.valueOf(i);
+                testY = testY.split(".bin")[0].split("\\.")[0] + "." + String.valueOf(i)+".bin";
+                String argv1 [] = new String[3];
+                argv1[0] = baseX;
+                argv1[1] = testX;
+                argv1[2] = testY;
+                ArrayList<ReadCSV> data = getDataPrediction(argv1);
+                ReadCSV testReadCSVX1 = data.get(0);
+                ReadCSV testReadCSVY1 = data.get(1);
+                MODEL_PATH = args[5];
+                String [] model_path_attrb1 = MODEL_PATH.split("/");
+                MODEL_BASE = model_path_attrb[0];
+                MODEL_DATANAME = model_path_attrb[2];
+                MODEL_VERSION = model_path_attrb[3];
+                MODEL_SINGLE = model_path_attrb[1];
+
+                ArrayList<Model> models = loadModels();
+
+                LOG.info("Model Size :"+models.size());
+
+                long read_end1 = System.currentTimeMillis();
+                long read_time1 = read_end1 - read_start1;
+                double read_time_d1 = (read_time1/1000.0);
+                logdata += "I/O Time : " + read_time_d1 + " s\n";
+                info += "I/O Time : " + read_time1 + "\n";
+
+                // generates the TestMatrix
+                Matrix testData = generateTestMatrix(testReadCSVX1, testReadCSVY1);
+                // generate the testArr in the Double format
+                Double testArrRes [] = getTestArray(testReadCSVX1, testReadCSVY1);
+                // get the accuracy array for each model
+                expName =  trainX;//UtilSingle.optArgs(args, Constant.TESTING)[1];
+
+                accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes, expName);
+
+                double totalAccuracies = 0.0;
+                for (int j = 0; j < accuracyPerModel.length; j++) {
+                    //LOG.info("Model "+i+" Accuracy : " + accuracyPerModel[i]);
+                    totalAccuracies+= accuracyPerModel[j];
                 }
-
-                if(KERNEL.equals(Constant.GAUSSIAN)){
-                    TRAINING_LOGS_PATH = TRAINING_LOGS_PATH + "_gamma="+gamma;
-                }
+                covalidation_aggregate_accuracy += totalAccuracies / accuracyPerModel.length;
 
 
-                UtilDynamicSingle.createLog(TRAINING_LOGS_PATH, logdata, Constant.DYNAMIC_TRAINING);
-
-                //COVALIDATION TEST
-                long covalidation_test_start = System.currentTimeMillis();
-
-                long read_start1 = System.currentTimeMillis();
-                double covalidation_aggregate_accuracy = 0.0;
-                for (int i = 1; i < DATA_PARTITIONS+1; i++) {
-
-                    baseX = args[0];
-                    baseY = baseX;
-                    testX = args[3];
-                    testY = args[4];
-                    testX = testX.split("\\.")[0] + "." + String.valueOf(i);
-                    testY = testY.split(".bin")[0].split("\\.")[0] + "." + String.valueOf(i)+".bin";
-                    String argv1 [] = new String[3];
-                    argv1[0] = baseX;
-                    argv1[1] = testX;
-                    argv1[2] = testY;
-                    ArrayList<ReadCSV> data = getDataPrediction(argv1);
-                    ReadCSV testReadCSVX1 = data.get(0);
-                    ReadCSV testReadCSVY1 = data.get(1);
-                    MODEL_PATH = args[5];
-                    String [] model_path_attrb1 = MODEL_PATH.split("/");
-                    MODEL_BASE = model_path_attrb[0];
-                    MODEL_DATANAME = model_path_attrb[2];
-                    MODEL_VERSION = model_path_attrb[3];
-                    MODEL_SINGLE = model_path_attrb[1];
-
-                    ArrayList<Model> models = loadModels();
-
-                    LOG.info("Model Size :"+models.size());
-
-                    long read_end1 = System.currentTimeMillis();
-                    long read_time1 = read_end1 - read_start1;
-                    double read_time_d1 = (read_time1/1000.0);
-                    logdata += "I/O Time : " + read_time_d1 + " s\n";
-                    info += "I/O Time : " + read_time1 + "\n";
-
-                    // generates the TestMatrix
-                    Matrix testData = generateTestMatrix(testReadCSVX1, testReadCSVY1);
-                    // generate the testArr in the Double format
-                    Double testArrRes [] = getTestArray(testReadCSVX1, testReadCSVY1);
-                    // get the accuracy array for each model
-                    expName =  trainX;//UtilSingle.optArgs(args, Constant.TESTING)[1];
-
-                    accuracyPerModel = getModelTrainingAccuracies(models, testData, testArrRes, expName);
-
-                    double totalAccuracies = 0.0;
-                    for (int j = 0; j < accuracyPerModel.length; j++) {
-                        //LOG.info("Model "+i+" Accuracy : " + accuracyPerModel[i]);
-                        totalAccuracies+= accuracyPerModel[j];
-                    }
-                    covalidation_aggregate_accuracy += totalAccuracies / accuracyPerModel.length;
-
-
-                }
-                avg_acc = covalidation_aggregate_accuracy/ DATA_PARTITIONS;
+            }
+            avg_acc = covalidation_aggregate_accuracy/ DATA_PARTITIONS;
 
             long covalidation_test_end = System.currentTimeMillis();
             LOG.info("Iteration :"+iteration+", Average Accuracy : " + avg_acc);
             COVALIDATION_TESTING_TIME+= (covalidation_test_end - covalidation_test_start)/1000.0;
 
             File file = new File(TRAINING_MODEL_PATH);
-            if(avg_acc<base_accuracy){
+            if(avg_acc<BASE_ACCURACY){
 
                 if(file.delete())
                 {
@@ -420,7 +426,7 @@ public class BulkMDMMTraining {
         UtilDynamicSingle.modelAccuracySaveCSV(allDataSetAccuracies, MODEL_ACCURACY_PATH);
         double total_test_acc = 0.0;
         for (int i = 0; i < allDataSetAccuracies.length; i++) {
-           // LOG.info("Accuracy "+i+" : "+ allDataSetAccuracies[i]);
+            // LOG.info("Accuracy "+i+" : "+ allDataSetAccuracies[i]);
             total_test_acc += allDataSetAccuracies[i];
         }
         double final_pred_acc = total_test_acc / allDataSetAccuracies.length;
@@ -441,19 +447,22 @@ public class BulkMDMMTraining {
         log_info+=COVALIDATION_TESTING_TIME+",";
         LOG.info("Kernel : " + KERNEL);
         log_info+=KERNEL+",";
-        LOG.info("C: "+C);
         if(KERNEL.equals(Constant.LINEAR)){
             LOG.info("gamma: N/A");
             log_info+="N/A"+",";
         }
-        if(KERNEL.equals(Constant.LINEAR)){
+        if(KERNEL.equals(Constant.GAUSSIAN)){
             LOG.info("gamma: " + gamma);
             log_info+=gamma+",";
         }
+        LOG.info("C: "+C);
+        log_info+=C+",";
         LOG.info("Prediction Time : " + PREDICTION_TESTING_TIME+ " s");
         log_info+=PREDICTION_TESTING_TIME+",";
+
         LOG.info("Final Prediction Accuracy : "+ PREDICTION_ACCURACY);
-        log_info+=PREDICTION_ACCURACY+"\n";
+        log_info+=PREDICTION_ACCURACY+",";
+        log_info+= new Date().toString()+"\n";
         LOG.info("=================================================");
         //System.out.println(log_info);
         UtilDynamicSingle.appendLogs(final_log_path, log_info);
@@ -725,7 +734,7 @@ public class BulkMDMMTraining {
         info += "Testing (Y) File : "+testFilePathY+" \n";
         logdata += "Testing (X) File : "+testFilePathX+" \n";
         logdata += "Testing (Y) File : "+testFilePathY+" \n";
-        LOG.info(info);
+        //LOG.info(info);
         readCSVS.add(testReadCSVX);
         readCSVS.add(testReadCSVY);
 

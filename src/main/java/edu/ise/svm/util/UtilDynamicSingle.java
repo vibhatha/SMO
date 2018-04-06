@@ -60,6 +60,27 @@ public class UtilDynamicSingle {
             System.exit(0);
 
         }else{
+            if(type.equals(Constant.SDSM_SVM)){
+                if(args!=null && args.length==11){
+                    LOG.info("Source Folder : "+args[0]);
+                    LOG.info("Train X: "+args[1]);
+                    LOG.info("Train Y : "+args[2]);
+                    LOG.info("Test X : "+args[3]);
+                    LOG.info("Test Y : "+args[4]);
+                    //"model/single/heart/1"
+                    LOG.info("Model path : "+args[5]);
+                    LOG.info("Data Paritions: " + args[6]);
+                    LOG.info("C: " + args[7]);
+                    LOG.info("Gamma: " + args[8]);
+                    LOG.info("Kernel : " + args[9]);
+                    LOG.info("Base Accuracy : " + args[10]);
+
+                }else{
+                    LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
+                            " <train-X> <train-Y> <test-X> <test-Y> <model-path> <data-partitions> <C> <gamma> <kernel>");
+                    System.exit(0);
+                }
+            }
             if(type.equals(Constant.DYNAMIC_TRAINING)){
                 if(args!=null && args.length==10){
                     LOG.info("Source Folder : "+args[0]);
@@ -191,5 +212,83 @@ public class UtilDynamicSingle {
         weights =  weightList.stream().mapToDouble(d -> d).toArray();
 
         return weights;
+    }
+
+    public static boolean mkdir(String folderpath){
+        boolean status = true;
+
+        File file = new File(folderpath);
+
+        if(file.exists()){
+            status = false;
+        }else{
+            file.mkdir();
+        }
+
+        return status;
+    }
+
+    public static long datacount(String filepath) throws IOException {
+        long count = -1;
+        Path path = Paths.get(filepath);
+        try (Stream<String> stream = Files.lines(path)) {
+            long lineCount = stream.count();
+            count = lineCount;
+        }
+
+        return count;
+    }
+
+    public static void writeFinalLog(String logfile, String log) throws IOException {
+        Writer output;
+        output = new BufferedWriter(new FileWriter(logfile));  //clears file every time
+        output.append(log);
+        output.close();
+    }
+
+    public static void appendLogs(String filename, String log){
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+
+        try {
+
+            String data = log;
+
+            File file = new File(filename);
+
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            // true = append file
+            fw = new FileWriter(file.getAbsoluteFile(), true);
+            bw = new BufferedWriter(fw);
+
+            bw.write(data);
+
+            LOG.info("Log Written : "+filename);
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (bw != null)
+                    bw.close();
+
+                if (fw != null)
+                    fw.close();
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+
+            }
+        }
+
     }
 }
