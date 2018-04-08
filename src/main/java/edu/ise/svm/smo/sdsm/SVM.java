@@ -83,6 +83,7 @@ public class SVM {
     private static double COVALIDATION_ACCURACY=0.0;
     private static long TESTING_DATA_COUNT=0;
     private static double BASE_ACCURACY=80.0;
+    private static int NUM_FULL_PARTIOTIONS=100;
 
 
     private enum DATATYPE {
@@ -128,10 +129,10 @@ public class SVM {
         MODEL_VERSION = model_path_attrb[3];
         MODEL_SINGLE = model_path_attrb[1];
 
-        LOG.info(trainX);
-        LOG.info(trainY);
-        LOG.info(testX);
-        LOG.info(testY);
+        //LOG.info(trainX);
+        //LOG.info(trainY);
+        //LOG.info(testX);
+        //LOG.info(testY);
         int start = new Random().nextInt(2);
         double avg_acc = 0.0;
         double [] accuracyPerModel = new double[0];
@@ -139,17 +140,18 @@ public class SVM {
         int k = start;
         int iteration = 1;
         double base_accuracy = 80.0;
+        NUM_FULL_PARTIOTIONS = 100;
         ArrayList<Integer> listOfUsedPartitions = new ArrayList<>();
-
-        while (avg_acc < BASE_ACCURACY) {
+        double cummulative_avg_accuracy = 0.0;
+        while(avg_acc < BASE_ACCURACY){
             long full_training_start = System.currentTimeMillis();
-            k = new Random().nextInt(200);
+            k = new Random().nextInt(NUM_FULL_PARTIOTIONS);
             listOfUsedPartitions.add(k);
             if(k==0 || listOfUsedPartitions.contains(k)){
                 k++;
                 listOfUsedPartitions.add(k);
             }
-            LOG.info("Selected Data Set : "+k);
+            //LOG.info("Selected Data Set : "+k);
             trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
             testX = testX.split("\\.")[0] + "." + String.valueOf(k);
             trainY = trainY.split(".bin")[0].split("\\.")[0] + "."  + String.valueOf(k)+".bin";
@@ -312,7 +314,7 @@ public class SVM {
 
                 ArrayList<Model> models = loadModels();
 
-                LOG.info("Model Size :"+models.size());
+                //LOG.info("Model Size :"+models.size());
 
                 long read_end1 = System.currentTimeMillis();
                 long read_time1 = read_end1 - read_start1;
@@ -339,26 +341,40 @@ public class SVM {
 
             }
             avg_acc = covalidation_aggregate_accuracy/ DATA_PARTITIONS;
+            cummulative_avg_accuracy += avg_acc;
+            double cummulative_avg_accuracy_cur = cummulative_avg_accuracy/iteration;
 
             long covalidation_test_end = System.currentTimeMillis();
-            LOG.info("Iteration :"+iteration+", Average Accuracy : " + avg_acc);
+            LOG.info("C : "+C+", Gamma : "+gamma+",Iteration :"+iteration+"/"+NUM_FULL_PARTIOTIONS+", Average Accuracy : " + avg_acc+", Cumulative Avg Accuracy : " + cummulative_avg_accuracy_cur+", Expected Accuracy :" +
+                    "" + BASE_ACCURACY);
             COVALIDATION_TESTING_TIME+= (covalidation_test_end - covalidation_test_start)/1000.0;
 
             File file = new File(TRAINING_MODEL_PATH);
-            if(avg_acc<BASE_ACCURACY){
+
+
+
+
+            if(cummulative_avg_accuracy_cur > BASE_ACCURACY || NUM_FULL_PARTIOTIONS/10 < iteration){
+                break;
+            }
+
+            if(avg_acc<BASE_ACCURACY ){
 
                 if(file.delete())
                 {
-                    LOG.info("Model deleted successfully");
+                    //LOG.info("Model deleted successfully");
                 }
                 else
                 {
-                    LOG.info("Failed to delete the file");
+                    //LOG.info("Failed to delete the file");
                 }
             }
 
             iteration++;
+
         }
+
+        LOG.info("Training Completed");
 
 
         CO_VALIDATION_ACCURACY_LOG_PATH = "stats/SDMMTestAccuracies/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION;
@@ -638,10 +654,10 @@ public class SVM {
         for (int i = 0; i < weights.length; i++) {
             weights[i] = accuracies[i]/total;
             totalWeights += weights[i];
-            LOG.info("Weights "+i+" :  " + weights[i]);
+           // LOG.info("Weights "+i+" :  " + weights[i]);
         }
 
-        LOG.info("Total Weights : " + totalWeights);
+       // LOG.info("Total Weights : " + totalWeights);
         return weights;
     }
 
@@ -653,9 +669,9 @@ public class SVM {
         ReadCSV testReadCSVY = data.get(1);
 
         double [] modelWeights = UtilDynamicSingle.loadModelWeights(WEIGHETD_MODEL_PATH);
-        for (int i = 0; i < modelWeights.length; i++) {
+        /*for (int i = 0; i < modelWeights.length; i++) {
             LOG.info("Model Id :  "+i+ " : weight value : " + modelWeights[i]);
-        }
+        }*/
 
         double [] getAllPredictionArray = getPredictions(testData, models, modelWeights);
         /*for (int i = 0; i < getAllPredictionArray.length; i++) {
@@ -668,7 +684,7 @@ public class SVM {
         Double [] testArrRes = testYValues.toArray(testRes);
 
         double accuracy = Predict.getAccuracy(testArrRes, getAllPredictionArray);
-        LOG.info("Accuracy : " + accuracy);
+        //LOG.info("Accuracy : " + accuracy);
         return accuracy;
     }
 

@@ -10,7 +10,7 @@ public class Constant {
     public static final String GAUSSIAN = "gaussian";
     public static final String POLYNOMIAL = "polynomial";
     public static final String LOG_TYPE="java.util.logging.SimpleFormatter.format";
-    public static final String LOG_FORMAT = "[%1$tF %1$tT] [%4$-7s] %5$s %n";
+    public static final String LOG_FORMAT = "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$-6s %2$s %5$s%6$s%n";//"[%1$tF %1$tT] [%4$-7s] %5$s %n";
     public static final String TESTING = "TESTING";
     public static final String TRAINING = "TRAINING";
     public static final String PREDICTING = "PREDICTING";

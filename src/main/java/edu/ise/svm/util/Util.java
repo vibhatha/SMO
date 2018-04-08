@@ -150,14 +150,14 @@ public class Util {
         ArrayList<String> pathList  = null;
         File directory = new File(path);
         File[] fList = directory.listFiles();
-        LOG.info("List Size : " + fList.length);
+        //LOG.info("List Size : " + fList.length);
         if(fList.length>0){
             pathList = new ArrayList<>();
             for (File file: fList) {
                 pathList.add(file.getPath());
             }
         }
-        LOG.info("Loading Paths : ");
+        //LOG.info("Loading Paths : ");
         pathList.iterator().forEachRemaining(s -> LOG.info(s));
         return pathList;
     }

@@ -159,7 +159,7 @@ public class Model {
                 writer.newLine();
                 writer.write("</info>");
                 writer.newLine();
-                LOG.info("Model saved : " + filepath);
+                //LOG.info("Model saved : " + filepath);
             }
 
             if (this.getKernel().equals(Constant.GAUSSIAN)) {
@@ -205,7 +205,7 @@ public class Model {
                 writer.newLine();
                 writer.write("</info>");
                 writer.newLine();
-                LOG.info("Model saved : " + filepath);
+               // LOG.info("Model saved : " + filepath);
             }
 
             if (this.getKernel().equals(Constant.POLYNOMIAL)) {
@@ -251,7 +251,7 @@ public class Model {
                 writer.newLine();
                 writer.write("</info>");
                 writer.newLine();
-                LOG.info("Model saved : " + filepath);
+               // LOG.info("Model saved : " + filepath);
             }
         }
     }
@@ -327,7 +327,6 @@ public class Model {
                 }
                 model.setInfo(info);
             }
-
         }
         //model.saveModel("model/dummy");
         return model;
