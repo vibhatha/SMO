@@ -435,6 +435,9 @@ public class SVM {
         long prediction_time_end = System.currentTimeMillis();
         PREDICTION_TESTING_TIME = (prediction_time_end - prediction_time_start) / 1000.0 ;
         PREDICTION_STATS_PATH = "stats/accuracyPerDataSet/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION ;
+        UtilDynamicSingle.mkdir("stats/accuracyPerDataSet/");
+        UtilDynamicSingle.mkdir("stats/accuracyPerDataSet/"+MODEL_SINGLE);
+        UtilDynamicSingle.mkdir("stats/accuracyPerDataSet/"+MODEL_SINGLE+"/"+MODEL_DATANAME);
         UtilDynamicSingle.mkdir(PREDICTION_STATS_PATH);
         MODEL_ACCURACY_PATH = PREDICTION_STATS_PATH+"/"+"accuracy_"+expName+"_"+"_C="+C+"_gamma="+gamma;
 
