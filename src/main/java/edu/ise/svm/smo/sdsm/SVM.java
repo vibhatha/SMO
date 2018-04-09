@@ -387,6 +387,9 @@ public class SVM {
 
         double [] weightedModels = generateWeightedModels(accuracyPerModel);
         WEIGHETED_MODEL_WEIGHT_PATH = "stats/weightedmodels/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION;
+        UtilDynamicSingle.mkdir("stats/weightedmodels/");
+        UtilDynamicSingle.mkdir("stats/weightedmodels/"+MODEL_SINGLE);
+        UtilDynamicSingle.mkdir("stats/weightedmodels/"+MODEL_SINGLE+"/"+MODEL_DATANAME);
         UtilDynamicSingle.mkdir(WEIGHETED_MODEL_WEIGHT_PATH);
         UtilSingle.modelAccuracySaveCSV(weightedModels,WEIGHETED_MODEL_WEIGHT_PATH+"/"+"weighted_acc_"+expName+"_"+MODEL_VERSION);
 
