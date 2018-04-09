@@ -378,6 +378,10 @@ public class SVM {
 
 
         CO_VALIDATION_ACCURACY_LOG_PATH = "stats/SDMMTestAccuracies/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION;
+        UtilDynamicSingle.mkdir("stats");
+        UtilDynamicSingle.mkdir("stats/SDMMTestAccuracies/");
+        UtilDynamicSingle.mkdir("stats/SDMMTestAccuracies/"+MODEL_SINGLE);
+        UtilDynamicSingle.mkdir("stats/SDMMTestAccuracies/"+MODEL_SINGLE+"/"+MODEL_DATANAME);
         UtilDynamicSingle.mkdir(CO_VALIDATION_ACCURACY_LOG_PATH);
         UtilSingle.modelAccuracySaveCSV(accuracyPerModel,CO_VALIDATION_ACCURACY_LOG_PATH+"/"+"stats_"+expName+"_"+MODEL_VERSION);
 
