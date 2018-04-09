@@ -223,6 +223,7 @@ public class UtilDynamicSingle {
             status = false;
         }else{
             file.mkdir();
+            LOG.info("Mkdir: "+folderpath);
         }
 
         return status;
