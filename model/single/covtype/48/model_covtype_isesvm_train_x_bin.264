@@ -1,0 +1,115 @@
+<model>
+gaussian
+</model>
+<W>
+-0.06262668622226208
+0.04085158408315892
+7.886407047554833E-4
+-0.025532842454923377
+0.0011897573430378339
+-0.14053849762061432
+0.012447058376745646
+0.01470871290832998
+0.0035923009726650523
+0.009186451204927115
+1.554312234475219E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-0.04840754195105834
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-0.03322205628480779
+0.20947587390735034
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-0.06421495035695746
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+-0.06363132531452909
+-1.1546319456101628E-14
+-1.1546319456101628E-14
+</W>
+<b>
+1.1460587240418505
+</b>
+<info>
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.52 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.52.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.52 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.52.bin 
+I/O Time : 105
+I/O Time : 979
+I/O Time : 1582
+I/O Time : 2140
+I/O Time : 2661
+I/O Time : 3311
+I/O Time : 3546
+I/O Time : 3767
+I/O Time : 3990
+I/O Time : 4155
+I/O Time : 4316
+I/O Time : 4473
+I/O Time : 4626
+I/O Time : 4783
+I/O Time : 4945
+I/O Time : 5097
+I/O Time : 5244
+I/O Time : 5391
+I/O Time : 5539
+I/O Time : 5693
+I/O Time : 5898
+I/O Time : 6115
+I/O Time : 6305
+I/O Time : 6530
+I/O Time : 6750
+I/O Time : 6977
+I/O Time : 7141
+I/O Time : 7303
+I/O Time : 7458
+I/O Time : 7613
+I/O Time : 7770
+I/O Time : 7928
+I/O Time : 8079
+I/O Time : 8229
+I/O Time : 8375
+I/O Time : 8524
+I/O Time : 8674
+I/O Time : 8831
+I/O Time : 9015
+I/O Time : 9214
+I/O Time : 9419
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.264 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.264.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.264 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.264.bin 
+I/O Time : 13785
+Kernel Matrix Calculation : 0.0 s
+</info>

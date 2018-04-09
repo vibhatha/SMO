@@ -1,0 +1,385 @@
+<model>
+gaussian
+</model>
+<W>
+-1.5811684967359518E-4
+-2.8080984196376946E-5
+-7.799662595120438E-6
+-3.973664024571333E-4
+-9.104215385002945E-5
+0.0011387104868393338
+-6.02494255213526E-4
+4.669331487164863E-4
+7.576166669185369E-4
+-6.29958926530283E-4
+5.551115123125783E-15
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+-3.499912501467861E-4
+0.0
+-0.0013499662505864762
+-0.0013499662505740417
+0.0013499662505580545
+0.0
+0.0
+0.0
+0.0
+0.0017898918306991085
+0.001360029420659714
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+-0.0011999700004992064
+0.0
+-2.499937501028171E-4
+</W>
+<b>
+-1.0003937907272515
+</b>
+<info>
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.353 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.353.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.353 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.353.bin 
+I/O Time : 84
+I/O Time : 513
+I/O Time : 1025
+I/O Time : 1505
+I/O Time : 2366
+I/O Time : 2905
+I/O Time : 3085
+I/O Time : 3271
+I/O Time : 3418
+I/O Time : 3561
+I/O Time : 3704
+I/O Time : 3849
+I/O Time : 3989
+I/O Time : 4130
+I/O Time : 4270
+I/O Time : 4415
+I/O Time : 4555
+I/O Time : 4696
+I/O Time : 4838
+I/O Time : 4979
+I/O Time : 5118
+I/O Time : 5257
+I/O Time : 5399
+I/O Time : 5538
+I/O Time : 5682
+I/O Time : 5826
+I/O Time : 5965
+I/O Time : 6104
+I/O Time : 6244
+I/O Time : 6385
+I/O Time : 6527
+I/O Time : 6669
+I/O Time : 6815
+I/O Time : 6951
+I/O Time : 7092
+I/O Time : 7233
+I/O Time : 7374
+I/O Time : 7514
+I/O Time : 7656
+I/O Time : 7801
+I/O Time : 7938
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.35 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.35.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.35 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.35.bin 
+I/O Time : 26455
+I/O Time : 140
+I/O Time : 279
+I/O Time : 413
+I/O Time : 548
+I/O Time : 682
+I/O Time : 823
+I/O Time : 961
+I/O Time : 1099
+I/O Time : 1239
+I/O Time : 1381
+I/O Time : 1520
+I/O Time : 1662
+I/O Time : 1802
+I/O Time : 1942
+I/O Time : 2081
+I/O Time : 2222
+I/O Time : 2363
+I/O Time : 2503
+I/O Time : 2643
+I/O Time : 2782
+I/O Time : 2922
+I/O Time : 3065
+I/O Time : 3213
+I/O Time : 3353
+I/O Time : 3494
+I/O Time : 3633
+I/O Time : 3772
+I/O Time : 3910
+I/O Time : 4048
+I/O Time : 4192
+I/O Time : 4331
+I/O Time : 4470
+I/O Time : 4611
+I/O Time : 4753
+I/O Time : 4894
+I/O Time : 5041
+I/O Time : 5200
+I/O Time : 5349
+I/O Time : 5495
+I/O Time : 5656
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.254 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.254.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.254 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.254.bin 
+I/O Time : 35824
+I/O Time : 156
+I/O Time : 308
+I/O Time : 459
+I/O Time : 635
+I/O Time : 799
+I/O Time : 967
+I/O Time : 1137
+I/O Time : 1300
+I/O Time : 1454
+I/O Time : 1634
+I/O Time : 1797
+I/O Time : 1972
+I/O Time : 2137
+I/O Time : 2306
+I/O Time : 2465
+I/O Time : 2624
+I/O Time : 2798
+I/O Time : 2990
+I/O Time : 3152
+I/O Time : 3317
+I/O Time : 3486
+I/O Time : 3655
+I/O Time : 3821
+I/O Time : 3999
+I/O Time : 4162
+I/O Time : 4326
+I/O Time : 4488
+I/O Time : 4652
+I/O Time : 4831
+I/O Time : 5013
+I/O Time : 5189
+I/O Time : 5363
+I/O Time : 5529
+I/O Time : 5692
+I/O Time : 5860
+I/O Time : 6028
+I/O Time : 6205
+I/O Time : 6389
+I/O Time : 6560
+I/O Time : 6725
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.217 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.217.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.217 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.217.bin 
+I/O Time : 49066
+I/O Time : 140
+I/O Time : 280
+I/O Time : 417
+I/O Time : 563
+I/O Time : 709
+I/O Time : 846
+I/O Time : 985
+I/O Time : 1132
+I/O Time : 1273
+I/O Time : 1415
+I/O Time : 1556
+I/O Time : 1702
+I/O Time : 1861
+I/O Time : 1999
+I/O Time : 2143
+I/O Time : 2307
+I/O Time : 2464
+I/O Time : 2614
+I/O Time : 2763
+I/O Time : 2926
+I/O Time : 3086
+I/O Time : 3247
+I/O Time : 3388
+I/O Time : 3527
+I/O Time : 3672
+I/O Time : 3815
+I/O Time : 3954
+I/O Time : 4099
+I/O Time : 4241
+I/O Time : 4382
+I/O Time : 4526
+I/O Time : 4672
+I/O Time : 4823
+I/O Time : 4972
+I/O Time : 5116
+I/O Time : 5255
+I/O Time : 5398
+I/O Time : 5555
+I/O Time : 5702
+I/O Time : 5850
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.73 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.73.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.73 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.73.bin 
+I/O Time : 63458
+I/O Time : 133
+I/O Time : 267
+I/O Time : 400
+I/O Time : 534
+I/O Time : 675
+I/O Time : 817
+I/O Time : 957
+I/O Time : 1098
+I/O Time : 1251
+I/O Time : 1405
+I/O Time : 1546
+I/O Time : 1689
+I/O Time : 1825
+I/O Time : 1959
+I/O Time : 2093
+I/O Time : 2228
+I/O Time : 2363
+I/O Time : 2501
+I/O Time : 2644
+I/O Time : 2789
+I/O Time : 2929
+I/O Time : 3070
+I/O Time : 3213
+I/O Time : 3356
+I/O Time : 3497
+I/O Time : 3650
+I/O Time : 3805
+I/O Time : 3944
+I/O Time : 4083
+I/O Time : 4227
+I/O Time : 4390
+I/O Time : 4537
+I/O Time : 4679
+I/O Time : 4824
+I/O Time : 4964
+I/O Time : 5106
+I/O Time : 5248
+I/O Time : 5391
+I/O Time : 5534
+I/O Time : 5677
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.108 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.108.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.108 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.108.bin 
+I/O Time : 72214
+I/O Time : 138
+I/O Time : 280
+I/O Time : 420
+I/O Time : 560
+I/O Time : 699
+I/O Time : 837
+I/O Time : 979
+I/O Time : 1120
+I/O Time : 1263
+I/O Time : 1406
+I/O Time : 1549
+I/O Time : 1692
+I/O Time : 1834
+I/O Time : 1976
+I/O Time : 2117
+I/O Time : 2256
+I/O Time : 2402
+I/O Time : 2540
+I/O Time : 2678
+I/O Time : 2826
+I/O Time : 2970
+I/O Time : 3103
+I/O Time : 3236
+I/O Time : 3375
+I/O Time : 3521
+I/O Time : 3671
+I/O Time : 3805
+I/O Time : 3942
+I/O Time : 4078
+I/O Time : 4216
+I/O Time : 4368
+I/O Time : 4521
+I/O Time : 4662
+I/O Time : 4800
+I/O Time : 4939
+I/O Time : 5080
+I/O Time : 5221
+I/O Time : 5367
+I/O Time : 5507
+I/O Time : 5648
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.10 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.10.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.10 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.10.bin 
+I/O Time : 81645
+I/O Time : 149
+I/O Time : 310
+I/O Time : 461
+I/O Time : 613
+I/O Time : 768
+I/O Time : 924
+I/O Time : 1084
+I/O Time : 1230
+I/O Time : 1374
+I/O Time : 1515
+I/O Time : 1656
+I/O Time : 1802
+I/O Time : 1942
+I/O Time : 2084
+I/O Time : 2226
+I/O Time : 2368
+I/O Time : 2508
+I/O Time : 2649
+I/O Time : 2793
+I/O Time : 2932
+I/O Time : 3075
+I/O Time : 3226
+I/O Time : 3372
+I/O Time : 3513
+I/O Time : 3652
+I/O Time : 3796
+I/O Time : 3936
+I/O Time : 4079
+I/O Time : 4226
+I/O Time : 4369
+I/O Time : 4509
+I/O Time : 4650
+I/O Time : 4796
+I/O Time : 4937
+I/O Time : 5079
+I/O Time : 5222
+I/O Time : 5366
+I/O Time : 5507
+I/O Time : 5648
+I/O Time : 5792
+Training (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_x_bin.240 
+Training (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_train_y.240.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_x_bin.240 
+Testing (Y) File : /home/vibhatha/data/libsvm/covtype/covtype_isesvm_test_y.240.bin 
+I/O Time : 90308
+Kernel Matrix Calculation : 0.0 s
+</info>

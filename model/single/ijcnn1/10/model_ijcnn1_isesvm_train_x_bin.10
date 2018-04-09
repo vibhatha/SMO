@@ -1,0 +1,73 @@
+<model>
+linear
+</model>
+<W>
+-0.25764999320608495
+0.07783187270583367
+0.07402680209265897
+0.34590967312615895
+-0.7377957576037615
+0.0032156817604717487
+-1.4448753599806945
+-2.707225387824608
+-0.31612737403611363
+-0.08334365532079771
+0.27604985972637475
+0.715581179235016
+</W>
+<b>
+-1.1693526016758327
+</b>
+<info>
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.1 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.1.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.1 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.1.bin 
+I/O Time : 38
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.2 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.2.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.2 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.2.bin 
+I/O Time : 25139
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.3 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.3.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.3 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.3.bin 
+I/O Time : 63982
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.4 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.4.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.4 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.4.bin 
+I/O Time : 92398
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.5 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.5.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.5 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.5.bin 
+I/O Time : 124016
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.6 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.6.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.6 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.6.bin 
+I/O Time : 160875
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.7 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.7.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.7 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.7.bin 
+I/O Time : 190416
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.8 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.8.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.8 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.8.bin 
+I/O Time : 236981
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.9 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.9.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.9 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.9.bin 
+I/O Time : 275835
+Training (X) File : data/ijcnn1/ijcnn1_isesvm_train_x_bin.10 
+Training (Y) File : data/ijcnn1/ijcnn1_isesvm_train_y.10.bin 
+Testing (X) File : data/ijcnn1/ijcnn1_isesvm_test_x_bin.10 
+Testing (Y) File : data/ijcnn1/ijcnn1_isesvm_test_y.10.bin 
+I/O Time : 318507
+Kernel Matrix Calculation : 0.011 s
+</info>

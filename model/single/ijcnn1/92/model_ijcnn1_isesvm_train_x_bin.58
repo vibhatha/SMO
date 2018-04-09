@@ -1,0 +1,38 @@
+<model>
+linear
+</model>
+<W>
+0.08563432512468072
+0.2837167357995047
+-0.16770324219836344
+0.1492945411507216
+0.21402107763907552
+-0.13847907660915126
+-0.3593825458174891
+-0.13442426430045096
+0.3705153680278788
+-0.3031929188163822
+-1.8174127778599571
+0.2114354721537347
+-1.761328070487083
+1.3977792383490146
+-0.9827691667272341
+0.11065953807003943
+1.7324296104288148
+-19.4613291870702
+3.170870374193245
+3.2520817398093436
+-0.8133786133689028
+2.200017351340277
+</W>
+<b>
+-2.067610670723029
+</b>
+<info>
+Training (X) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_train_x_bin.58 
+Training (Y) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_train_y.58.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_test_x_bin.58 
+Testing (Y) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_test_y.58.bin 
+I/O Time : 85
+Kernel Matrix Calculation : 0.106 s
+</info>

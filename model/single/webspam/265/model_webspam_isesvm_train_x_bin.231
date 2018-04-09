@@ -1,0 +1,450 @@
+<model>
+linear
+</model>
+<W>
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+-1.643344580211469
+3.697445750416766
+0.0
+0.0
+-2.9475198385334513
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.7289272936342328
+0.0
+0.0
+0.0
+0.0
+0.0
+-1.5414202666701051
+-0.21533658613685647
+1.0761051638816017
+3.5587479191806812
+-0.6012335993471811
+-0.7771441242291931
+-5.782718508818161
+-6.8213542725682
+4.906670529926008
+4.94803243260786
+1.6943564127313888
+0.2941430662049387
+-6.923308325248392
+4.25612893554196
+-6.184791121132615
+9.932446093840595
+-0.6503783122024318
+-2.0206699984295664
+3.6644847484762453
+-1.6473455815739393
+2.375595289105907
+-2.777105887621525
+6.150566427182803
+3.122606758033902
+4.959509689080491
+0.8310377174859851
+2.2185640803625626
+-1.0930492554712683
+-1.9936594290593224
+-5.888272029897438
+-1.4976405341761279
+-6.544518854913168
+0.33417639663393184
+4.603518089637921
+-0.37262514682912545
+-1.7302997701248426
+-0.7268224490391623
+-6.331657108961961
+-9.104906008406843
+-1.7212173118325285
+-4.487647832856518
+2.819008679578359
+-2.2265083140017734
+-0.734631883498166
+-2.8357783487918673
+-0.9367644074957675
+4.243280886083325
+0.7709088082718908
+-4.158985212551656
+-0.32892047629837395
+0.039679716946307564
+-0.9863686657596429
+0.7492355222419468
+0.37741511242831993
+0.7676144264399911
+4.111369289181465
+1.1703212503991032
+-3.2299011374858138
+-0.7078920187557391
+1.1903264868824257
+-2.7892757103155876
+1.1903264868824257
+-0.10218839919118866
+7.2033116150428445
+0.051545588
+0.07342003288763177
+-0.47304285011186087
+-1.2561173831722323
+-0.47415366585352015
+-4.9184231535215766
+4.09825847509749
+-8.151410467892237
+-4.0754522978283685
+11.235912007110663
+0.03875580858574794
+2.921666878384701
+1.9375813428339157
+-7.910277162070719
+4.591193879547056
+-3.2526862060229673
+-1.2035880744231768
+-2.5623222929608063
+-3.4389634870329555
+9.089834120733427
+-1.6110069056479084
+-0.09677420427248085
+13.181387049515497
+-0.09566372911425747
+-0.7096585430660647
+1.2895242200123729
+-0.4429827144163021
+-2.036190524109247
+0.8802612583617878
+-2.036190524109247
+0.046938299899999994
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+</W>
+<b>
+-0.1266784354975823
+</b>
+<info>
+Training (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_x_bin.23 
+Training (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_y.23.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_x_bin.23 
+Testing (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_y.23.bin 
+I/O Time : 115
+I/O Time : 23
+I/O Time : 56
+I/O Time : 66
+I/O Time : 75
+I/O Time : 84
+I/O Time : 93
+I/O Time : 102
+I/O Time : 110
+I/O Time : 116
+I/O Time : 122
+I/O Time : 128
+I/O Time : 134
+I/O Time : 140
+I/O Time : 146
+I/O Time : 152
+I/O Time : 160
+I/O Time : 167
+I/O Time : 174
+I/O Time : 180
+I/O Time : 185
+I/O Time : 192
+I/O Time : 198
+I/O Time : 205
+I/O Time : 211
+I/O Time : 217
+I/O Time : 222
+I/O Time : 229
+I/O Time : 235
+I/O Time : 241
+I/O Time : 247
+I/O Time : 253
+I/O Time : 260
+I/O Time : 266
+I/O Time : 271
+I/O Time : 278
+I/O Time : 284
+I/O Time : 290
+I/O Time : 296
+I/O Time : 302
+I/O Time : 308
+Training (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_x_bin.395 
+Training (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_y.395.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_x_bin.395 
+Testing (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_y.395.bin 
+I/O Time : 72914
+I/O Time : 5
+I/O Time : 12
+I/O Time : 18
+I/O Time : 24
+I/O Time : 30
+I/O Time : 36
+I/O Time : 43
+I/O Time : 49
+I/O Time : 55
+I/O Time : 61
+I/O Time : 67
+I/O Time : 73
+I/O Time : 80
+I/O Time : 86
+I/O Time : 92
+I/O Time : 98
+I/O Time : 104
+I/O Time : 110
+I/O Time : 116
+I/O Time : 122
+I/O Time : 129
+I/O Time : 134
+I/O Time : 140
+I/O Time : 146
+I/O Time : 152
+I/O Time : 158
+I/O Time : 165
+I/O Time : 171
+I/O Time : 177
+I/O Time : 183
+I/O Time : 188
+I/O Time : 194
+I/O Time : 200
+I/O Time : 205
+I/O Time : 212
+I/O Time : 218
+I/O Time : 224
+I/O Time : 231
+I/O Time : 236
+I/O Time : 243
+Training (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_x_bin.343 
+Training (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_y.343.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_x_bin.343 
+Testing (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_y.343.bin 
+I/O Time : 163102
+I/O Time : 6
+I/O Time : 15
+I/O Time : 21
+I/O Time : 27
+I/O Time : 35
+I/O Time : 41
+I/O Time : 47
+I/O Time : 54
+I/O Time : 59
+I/O Time : 66
+I/O Time : 71
+I/O Time : 77
+I/O Time : 84
+I/O Time : 89
+I/O Time : 95
+I/O Time : 101
+I/O Time : 107
+I/O Time : 112
+I/O Time : 119
+I/O Time : 125
+I/O Time : 131
+I/O Time : 136
+I/O Time : 142
+I/O Time : 148
+I/O Time : 154
+I/O Time : 160
+I/O Time : 166
+I/O Time : 172
+I/O Time : 178
+I/O Time : 184
+I/O Time : 190
+I/O Time : 196
+I/O Time : 202
+I/O Time : 208
+I/O Time : 214
+I/O Time : 220
+I/O Time : 226
+I/O Time : 232
+I/O Time : 238
+I/O Time : 244
+Training (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_x_bin.287 
+Training (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_y.287.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_x_bin.287 
+Testing (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_y.287.bin 
+I/O Time : 281255
+I/O Time : 5
+I/O Time : 11
+I/O Time : 17
+I/O Time : 23
+I/O Time : 29
+I/O Time : 35
+I/O Time : 41
+I/O Time : 48
+I/O Time : 54
+I/O Time : 60
+I/O Time : 66
+I/O Time : 72
+I/O Time : 79
+I/O Time : 85
+I/O Time : 92
+I/O Time : 98
+I/O Time : 104
+I/O Time : 110
+I/O Time : 116
+I/O Time : 122
+I/O Time : 129
+I/O Time : 135
+I/O Time : 140
+I/O Time : 146
+I/O Time : 152
+I/O Time : 158
+I/O Time : 165
+I/O Time : 170
+I/O Time : 177
+I/O Time : 182
+I/O Time : 188
+I/O Time : 194
+I/O Time : 200
+I/O Time : 206
+I/O Time : 213
+I/O Time : 219
+I/O Time : 225
+I/O Time : 231
+I/O Time : 236
+I/O Time : 242
+Training (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_x_bin.231 
+Training (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_train_y.231.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_x_bin.231 
+Testing (Y) File : /home/vibhatha/data/libsvm/webspam/webspam_isesvm_test_y.231.bin 
+I/O Time : 353950
+Kernel Matrix Calculation : 0.124 s
+</info>

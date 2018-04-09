@@ -1,0 +1,83 @@
+<model>
+linear
+</model>
+<W>
+-0.8127039562184792
+-1.2490376407678807
+-2.084446742578709
+1.5548123892857921
+3.3361564676536197
+-1.2132413946050296
+-3.660767554729997
+0.6983856388815098
+2.523430750588341
+0.9074120424908321
+1.080504751178797
+-0.17164282739277362
+-0.14112554522937054
+0.5689066057480765
+1.3623827260291506
+2.3603980251483128
+-2.831774316906246
+-7.894506622366901
+-2.217922547584815
+4.558393810516348
+3.00179932766034
+0.25732236638633743
+</W>
+<b>
+-2.198530045481373
+</b>
+<info>
+Training (X) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_train_x_bin.83 
+Training (Y) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_train_y.83.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_test_x_bin.83 
+Testing (Y) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_test_y.83.bin 
+I/O Time : 81
+I/O Time : 13
+I/O Time : 31
+I/O Time : 47
+I/O Time : 54
+I/O Time : 60
+I/O Time : 67
+I/O Time : 74
+I/O Time : 80
+I/O Time : 86
+I/O Time : 91
+I/O Time : 97
+I/O Time : 102
+I/O Time : 107
+I/O Time : 110
+I/O Time : 113
+I/O Time : 118
+I/O Time : 122
+I/O Time : 125
+I/O Time : 128
+I/O Time : 131
+I/O Time : 134
+I/O Time : 137
+I/O Time : 140
+I/O Time : 143
+I/O Time : 146
+I/O Time : 150
+I/O Time : 153
+I/O Time : 155
+I/O Time : 159
+I/O Time : 162
+I/O Time : 164
+I/O Time : 167
+I/O Time : 170
+I/O Time : 173
+I/O Time : 175
+I/O Time : 178
+I/O Time : 181
+I/O Time : 184
+I/O Time : 187
+I/O Time : 190
+Training (X) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_train_x_bin.47 
+Training (Y) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_train_y.47.bin 
+Testing (X) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_test_x_bin.47 
+Testing (Y) File : /home/vibhatha/data/libsvm/ijcnn1/ijcnn1_isesvm_test_y.47.bin 
+I/O Time : 302172
+Kernel Matrix Calculation : 0.085 s
+</info>

@@ -183,7 +183,7 @@ public class SVM {
             ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
             testReadCSVY.readY();
 
-            TRAINING_DATA_COUNT = UtilDynamicSingle.datacount(trainFilePathY);
+            TRAINING_DATA_COUNT += UtilDynamicSingle.datacount(trainFilePathY);
 
 
 
