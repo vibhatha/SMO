@@ -15,13 +15,13 @@ expid=52
 #   done  
 #done
 
-for c in `seq 1 2 50`;
+for c in `seq 8 2 50`;
 do
     for gamma in `seq 0.1 0.1 0.1`;
     do
 	for acc in `seq 75 5 90`;
 	do
-	    sh run-full-ddmsvm.sh $expid 40 $c $gamma linear $acc ijcnn1
+	    sh run-full-ddmsvm.sh $expid 40 $c $gamma linear $acc a9a
 	    #echo $expid 40 $c $gamma $acc
 	    expid=$((expid+1))	    	 
 	done	
