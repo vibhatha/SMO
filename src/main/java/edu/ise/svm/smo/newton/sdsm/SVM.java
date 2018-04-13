@@ -19,10 +19,7 @@ import edu.ise.svm.util.UtilSingle;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -88,7 +85,7 @@ public class SVM {
     private static double ERROR=0.0;
     private static double PREVIOUS_ERROR=0.0;
     private static int ERROR_VIOLATE_COUNT=0;
-    private static ArrayList<Integer> VIOLATION_ITERATIONS = new ArrayList<Integer>();
+    private static Stack<Integer> VIOLATION_ITERATIONS = new Stack<Integer>();
     private static String EXPERIMENT_NAME = "";
     private static String MINIBATCH_LOG_PATH="stats/minibatch/";
     private static long MINIBATCH_SIZE = 0;
@@ -392,9 +389,13 @@ public class SVM {
                 }
 
                 if(iteration>10){
-                    Stack<Integer> stack = new Stack<>();
+                    Stack<Integer> stack = new Stack<Integer>();
                     int size = VIOLATION_ITERATIONS.size();
-                    stack = (Stack<Integer>) VIOLATION_ITERATIONS.subList(size-6, size-1);
+                    List<Integer> sequence = VIOLATION_ITERATIONS.subList(size-6, size-1);
+                    for (Integer d :
+                            sequence) {
+                        stack.add(d);
+                    }
                     boolean status = UtilDynamicSingle.isConsecutive(stack);
                     if(status){
                         break;
