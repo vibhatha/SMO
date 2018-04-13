@@ -1,4 +1,4 @@
-package edu.ise.svm.smo.sdsm;
+package edu.ise.svm.smo.newton.sdsm;
 
 /**
  * Created by vibhatha on 4/6/18.
@@ -143,7 +143,13 @@ public class SVM {
         NUM_FULL_PARTIOTIONS = 100;
         ArrayList<Integer> listOfUsedPartitions = new ArrayList<>();
         double cummulative_avg_accuracy = 0.0;
+        Model continousModel = new Model();
         while(avg_acc < BASE_ACCURACY){
+            info ="";
+            if(iteration>1){
+                LOG.info("Loading Old Model");
+                continousModel = continousModel.loadModel(TRAINING_MODEL_PATH);
+            }
             long full_training_start = System.currentTimeMillis();
             k = new Random().nextInt(NUM_FULL_PARTIOTIONS);
             listOfUsedPartitions.add(k);
@@ -240,13 +246,28 @@ public class SVM {
             Matrix alpha = new Matrix(1, X.getColumns(), "DOUBLE");
             Matrix lpd = new Matrix(1, X.getColumns(), "DOUBLE");
 
-            for(int i=0; i < w.getRows();i++){
-                for(int j=0; j < w.getColumns(); j++){
-                    w.getMatDouble()[i][j]= new Random().nextDouble();
-                    b.getMatDouble()[i][j]= new Random().nextDouble();
-                    alpha.getMatDouble()[i][j]= new Random().nextDouble();
+            if(iteration==1){
+                for(int i=0; i < w.getRows();i++){
+                    for(int j=0; j < w.getColumns(); j++){
+                        w.getMatDouble()[i][j]= new Random().nextDouble();
+                        b.getMatDouble()[i][j]= new Random().nextDouble();
+                        alpha.getMatDouble()[i][j]= new Random().nextDouble();
+                    }
                 }
+            }else{
+                w = continousModel.getW();
+                w = new MatrixOperator().transpose(w);
+
+                for(int i=0; i < w.getRows();i++){
+                    for(int j=0; j < w.getColumns(); j++){
+                        b.getMatDouble()[i][j]= continousModel.getB();
+                    }
+                }
+
+                alpha = continousModel.getAlphas();
             }
+
+
 
             SMO SMO = new SMO(alpha,b,w,X,Y,lpd,info);
             //SMO.lagrangeCalculation(alpha,matX,matY,b,w);
@@ -258,7 +279,7 @@ public class SVM {
 
             TRAINING_TIME+= (full_training_end - full_training_start)/1000.0;
 
-            TRAINING_MODEL_PATH = MODEL_PATH+"/model_"+trainX;
+            TRAINING_MODEL_PATH = MODEL_PATH+"/model_1";
             model.saveModel(TRAINING_MODEL_PATH);
             long train_end = System.currentTimeMillis();
             double train_time = (train_end-train_start)/1000.0;
@@ -349,26 +370,7 @@ public class SVM {
                     "" + BASE_ACCURACY);
             COVALIDATION_TESTING_TIME+= (covalidation_test_end - covalidation_test_start)/1000.0;
 
-            File file = new File(TRAINING_MODEL_PATH);
-
-
-
-
-            if(cummulative_avg_accuracy_cur > BASE_ACCURACY || NUM_FULL_PARTIOTIONS/10 < iteration){
-                break;
-            }
-
-            if(avg_acc<BASE_ACCURACY ){
-
-                if(file.delete())
-                {
-                    //LOG.info("Model deleted successfully");
-                }
-                else
-                {
-                    //LOG.info("Failed to delete the file");
-                }
-            }
+            //File file = new File(TRAINING_MODEL_PATH);
 
             iteration++;
 
