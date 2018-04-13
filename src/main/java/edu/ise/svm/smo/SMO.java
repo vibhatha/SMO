@@ -172,11 +172,11 @@ public class SMO {
             Matrix x_dash = matrixOperator.transpose(x);
 
             k = matrixOperator.product(x, x_dash, "CROSS");//linear kernel value
-            try {
+            /*try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/linear.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
         long time_kernel_end = System.currentTimeMillis();
 
@@ -194,11 +194,11 @@ public class SMO {
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//8
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//9
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//10
-            try {
+            /*try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/polynomial.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
 
         double sigma = 4.0;
@@ -210,11 +210,11 @@ public class SMO {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            try {
+            /*try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/gaussian-1.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
         LOG.info(kernel+" Kernel Matrix Dimension : " + k.getRows() + "," + k.getColumns());
 
@@ -439,11 +439,11 @@ public class SMO {
             Matrix x_dash = matrixOperator.transpose(x);
 
             k = matrixOperator.product(x, x_dash, "CROSS");//linear kernel value
-            try {
+            /*try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/linear.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
         long time_kernel_end = System.currentTimeMillis();
 
@@ -461,11 +461,11 @@ public class SMO {
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//8
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//9
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//10
-            try {
+            /*try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/polynomial.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
 
         double sigma = 1.0/gamma;
@@ -477,11 +477,11 @@ public class SMO {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            try {
+            /*try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/gaussian-1.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
         //LOG.info(kernel+" Kernel Matrix Dimension : " + k.getRows() + "," + k.getColumns());
 
@@ -935,11 +935,11 @@ public class SMO {
             Matrix x_dash = matrixOperator.transpose(x);
 
             k = matrixOperator.product(x, x_dash, "CROSS");//linear kernel value
-            try {
+            /*try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/linear.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
         long time_kernel_end = System.currentTimeMillis();
 
@@ -957,11 +957,11 @@ public class SMO {
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//8
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//9
             //k = matrixOperator.product(k,k,"DOT");//webspam highest accuracy//10
-            try {
+           /* try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/polynomial.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
 
         double sigma = 1.0/gamma;
@@ -973,11 +973,11 @@ public class SMO {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            try {
+           /* try {
                 matrixOperator.saveMatrix(k,"/home/vibhatha/Sandbox/msvm/gaussian-1.mat");
             } catch (IOException e1) {
                 e1.printStackTrace();
-            }
+            }*/
         }
         LOG.info(kernel+" Kernel Matrix Dimension : " + k.getRows() + "," + k.getColumns());
 
