@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -74,6 +75,28 @@ public class UtilDynamicSingle {
                     LOG.info("Gamma: " + args[8]);
                     LOG.info("Kernel : " + args[9]);
                     LOG.info("Base Accuracy : " + args[10]);
+
+                }else{
+                    LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
+                            " <train-X> <train-Y> <test-X> <test-Y> <model-path> <data-partitions> <C> <gamma> <kernel>");
+                    System.exit(0);
+                }
+            }
+            if(type.equals(Constant.MINIBATCH_SDSM_SVM)){
+                if(args!=null && args.length==12){
+                    LOG.info("Source Folder : "+args[0]);
+                    LOG.info("Train X: "+args[1]);
+                    LOG.info("Train Y : "+args[2]);
+                    LOG.info("Test X : "+args[3]);
+                    LOG.info("Test Y : "+args[4]);
+                    //"model/single/heart/1"
+                    LOG.info("Model path : "+args[5]);
+                    LOG.info("Data Paritions: " + args[6]);
+                    LOG.info("C: " + args[7]);
+                    LOG.info("Gamma: " + args[8]);
+                    LOG.info("Kernel : " + args[9]);
+                    LOG.info("Base Accuracy : " + args[10]);
+                    LOG.info("Experiment Name : " + args[11]);
 
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
@@ -291,5 +314,28 @@ public class UtilDynamicSingle {
             }
         }
 
+    }
+
+    public static boolean isConsecutive(Stack<Integer> stack) {
+        if (stack.size() <= 1) {
+            return true;
+        }
+
+        Stack<Integer> aux = new Stack<>();
+
+        aux.push(stack.pop());
+
+        while (!stack.isEmpty() && stack.peek() == aux.peek() - 1) {
+            aux.push(stack.pop());
+        }
+
+        boolean consecutive = stack.isEmpty();
+
+        // Restore the input stack:
+        while (!aux.isEmpty()) {
+            stack.push(aux.pop());
+        }
+
+        return consecutive;
     }
 }

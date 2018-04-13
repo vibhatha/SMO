@@ -5,6 +5,7 @@ package edu.ise.svm.Constants;
  */
 public class Constant {
 
+    public static final String MINIBATCH_SDSM_SVM = "minibatch_sdsm_svm";
     public static final String LINEAR = "linear";
     public static final String RBF = "rbf";
     public static final String GAUSSIAN = "gaussian";

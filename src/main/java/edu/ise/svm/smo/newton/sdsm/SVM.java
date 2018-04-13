@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -84,7 +85,13 @@ public class SVM {
     private static long TESTING_DATA_COUNT=0;
     private static double BASE_ACCURACY=80.0;
     private static int NUM_FULL_PARTIOTIONS=100;
-
+    private static double ERROR=0.0;
+    private static double PREVIOUS_ERROR=0.0;
+    private static int ERROR_VIOLATE_COUNT=0;
+    private static ArrayList<Integer> VIOLATION_ITERATIONS = new ArrayList<Integer>();
+    private static String EXPERIMENT_NAME = "";
+    private static String MINIBATCH_LOG_PATH="stats/minibatch/";
+    private static long MINIBATCH_SIZE = 0;
 
     private enum DATATYPE {
         DOUBLE, INT
@@ -97,7 +104,7 @@ public class SVM {
         String info="";
 
         long read_start = System.currentTimeMillis();
-        String [] argv = UtilDynamicSingle.optArgs(args, Constant.SDSM_SVM);
+        String [] argv = UtilDynamicSingle.optArgs(args, Constant.MINIBATCH_SDSM_SVM);
 
         /**
          * Training (X) File : data/covtype/covtype_libsvm_ise_train_x.1
@@ -121,6 +128,7 @@ public class SVM {
         gamma = Double.parseDouble(argv[8]);
         KERNEL = argv[9];
         BASE_ACCURACY = Double.parseDouble(argv[10]);
+        EXPERIMENT_NAME = argv[11];
 
 
         String [] model_path_attrb = MODEL_PATH.split("/");
@@ -145,10 +153,11 @@ public class SVM {
         double cummulative_avg_accuracy = 0.0;
         Model continousModel = new Model();
         while(avg_acc < BASE_ACCURACY){
+            double current_error = 0;
             info ="";
             if(iteration>1){
                 LOG.info("Loading Old Model");
-                continousModel = continousModel.loadModel(TRAINING_MODEL_PATH);
+                continousModel = continousModel;
             }
             long full_training_start = System.currentTimeMillis();
             k = new Random().nextInt(NUM_FULL_PARTIOTIONS);
@@ -189,8 +198,8 @@ public class SVM {
             ReadCSV testReadCSVY = new ReadCSV(testCsvFileY);
             testReadCSVY.readY();
 
-            TRAINING_DATA_COUNT += UtilDynamicSingle.datacount(trainFilePathY);
-
+            MINIBATCH_SIZE = UtilDynamicSingle.datacount(trainFilePathY);
+            TRAINING_DATA_COUNT += MINIBATCH_SIZE;
 
 
             info += "Training (X) File : "+trainFilePathX+" \n";
@@ -280,7 +289,8 @@ public class SVM {
             TRAINING_TIME+= (full_training_end - full_training_start)/1000.0;
 
             TRAINING_MODEL_PATH = MODEL_PATH+"/model_1";
-            model.saveModel(TRAINING_MODEL_PATH);
+            //model.saveModel(TRAINING_MODEL_PATH);
+            continousModel = model;
             long train_end = System.currentTimeMillis();
             double train_time = (train_end-train_start)/1000.0;
 
@@ -333,8 +343,8 @@ public class SVM {
                 MODEL_VERSION = model_path_attrb[3];
                 MODEL_SINGLE = model_path_attrb[1];
 
-                ArrayList<Model> models = loadModels();
-
+                ArrayList<Model> models = new ArrayList<Model>();//loadModels();
+                models.add(continousModel);
                 //LOG.info("Model Size :"+models.size());
 
                 long read_end1 = System.currentTimeMillis();
@@ -370,13 +380,39 @@ public class SVM {
                     "" + BASE_ACCURACY);
             COVALIDATION_TESTING_TIME+= (covalidation_test_end - covalidation_test_start)/1000.0;
 
-            //File file = new File(TRAINING_MODEL_PATH);
+            current_error = 100- avg_acc;
 
+            if(iteration==1){
+                PREVIOUS_ERROR = 100.0 - avg_acc;
+            }else{
+                if(PREVIOUS_ERROR > current_error){
+                    ERROR_VIOLATE_COUNT++;
+                }else{
+                    VIOLATION_ITERATIONS.add(iteration);
+                }
+
+                if(iteration>10){
+                    Stack<Integer> stack = new Stack<>();
+                    int size = VIOLATION_ITERATIONS.size();
+                    stack = (Stack<Integer>) VIOLATION_ITERATIONS.subList(size-6, size-1);
+                    boolean status = UtilDynamicSingle.isConsecutive(stack);
+                    if(status){
+                        break;
+                    }
+                }
+
+            }
             iteration++;
-
+            String minibatchRecord = "";
+            minibatchRecord = EXPERIMENT_NAME+","+MINIBATCH_SIZE+","+iteration+","+current_error+"\n";
+            MINIBATCH_LOG_PATH = MINIBATCH_LOG_PATH+EXPERIMENT_NAME;
+            LOG.info("Minibatch Log : "+MINIBATCH_LOG_PATH);
+            UtilDynamicSingle.appendLogs(MINIBATCH_LOG_PATH, minibatchRecord);
         }
 
         LOG.info("Training Completed");
+
+        continousModel.saveModel(TRAINING_MODEL_PATH);
 
 
         CO_VALIDATION_ACCURACY_LOG_PATH = "stats/SDMMTestAccuracies/"+MODEL_SINGLE+"/"+MODEL_DATANAME+"/"+MODEL_VERSION;
@@ -465,6 +501,8 @@ public class SVM {
         String log_info="";
         LOG.info("Experiment Results");
         LOG.info("=================================================");
+        LOG.info("Experiment Name : " + EXPERIMENT_NAME);
+        log_info+=EXPERIMENT_NAME+",";
         LOG.info("Training Data Count : " + TRAINING_DATA_COUNT);
         log_info+=TRAINING_DATA_COUNT+",";
         LOG.info("Testing Data Count : " + TESTING_DATA_COUNT);
