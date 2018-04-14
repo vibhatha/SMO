@@ -8,10 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -291,7 +288,7 @@ public class UtilDynamicSingle {
 
             bw.write(data);
 
-            LOG.info("Log Written : "+filename);
+            //LOG.info("Log Written : "+filename);
 
         } catch (IOException e) {
 
@@ -337,5 +334,27 @@ public class UtilDynamicSingle {
         }
 
         return consecutive;
+    }
+
+    public static ArrayList<Integer> generateUniqueSequence(int start, int end , int size){
+        ArrayList<Integer> sequence = new ArrayList<>();
+        while (sequence.size() != size) {
+            int num =  new Random().nextInt((end - start) + 1) + start;
+            if(!sequence.contains(num)){
+                sequence.add(num);
+            }
+        }
+
+
+        return sequence;
+    }
+
+    public static double checkErrorChangeRate(ArrayList<Double> errorList){
+        double rate = 0.0;
+        int size = errorList.size();
+        double init = errorList.get(0);
+        double last = errorList.get(size-1);
+        rate = Math.abs((last - init)/(double)size);
+        return rate;
     }
 }

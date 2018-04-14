@@ -89,6 +89,7 @@ public class SVM {
     private static String EXPERIMENT_NAME = "";
     private static String MINIBATCH_LOG_PATH="stats/minibatch/";
     private static long MINIBATCH_SIZE = 0;
+    private static ArrayList<Double> ERROR_LIST = new ArrayList<>();
 
     private enum DATATYPE {
         DOUBLE, INT
@@ -153,7 +154,7 @@ public class SVM {
             double current_error = 0;
             info ="";
             if(iteration>1){
-                LOG.info("Loading Old Model");
+               // LOG.info("Loading Old Model");
                 continousModel = continousModel;
             }
             long full_training_start = System.currentTimeMillis();
@@ -163,6 +164,7 @@ public class SVM {
                 k++;
                 listOfUsedPartitions.add(k);
             }
+            //LOG.info("Random Data Partition Id : "+k);
             //LOG.info("Selected Data Set : "+k);
             trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
             testX = testX.split("\\.")[0] + "." + String.valueOf(k);
@@ -315,11 +317,13 @@ public class SVM {
 
             //COVALIDATION TEST
             long covalidation_test_start = System.currentTimeMillis();
-
+            int covalidationRangeStart = 1;
+            int covalidationRangeEnd = covalidationRangeStart + DATA_PARTITION_SIZE;
             long read_start1 = System.currentTimeMillis();
             double covalidation_aggregate_accuracy = 0.0;
-            for (int i = 1; i < DATA_PARTITIONS+1; i++) {
-
+            ArrayList<Integer> covalidationParitions = UtilDynamicSingle.generateUniqueSequence(1,50,40);
+            //LOG.info(covalidationParitions.toString());
+            for (int i : covalidationParitions) {
                 baseX = args[0];
                 baseY = baseX;
                 testX = args[3];
@@ -381,25 +385,33 @@ public class SVM {
 
             if(iteration==1){
                 PREVIOUS_ERROR = 100.0 - avg_acc;
+                ERROR_LIST.add(100.0 - avg_acc);
             }else{
-                if(PREVIOUS_ERROR > current_error){
+                ERROR_LIST.add(100.0 - avg_acc);
+                if(ERROR_LIST.get(ERROR_LIST.size()-1) < current_error){
                     ERROR_VIOLATE_COUNT++;
-                }else{
                     VIOLATION_ITERATIONS.add(iteration);
                 }
-
-                if(iteration>10){
+                double errorChangeRate = UtilDynamicSingle.checkErrorChangeRate(ERROR_LIST);
+                LOG.info("Error Change Rate: " + errorChangeRate);
+                int gradientCheckGap = 10;
+                if(iteration>gradientCheckGap && VIOLATION_ITERATIONS.size()>gradientCheckGap){
                     Stack<Integer> stack = new Stack<Integer>();
                     int size = VIOLATION_ITERATIONS.size();
-                    List<Integer> sequence = VIOLATION_ITERATIONS.subList(size-6, size-1);
+                    List<Integer> sequence = VIOLATION_ITERATIONS.subList(size-gradientCheckGap, size-1);
                     for (Integer d :
                             sequence) {
                         stack.add(d);
                     }
                     boolean status = UtilDynamicSingle.isConsecutive(stack);
+
                     if(status){
                         break;
                     }
+                }
+
+                if( errorChangeRate<0.001){
+                    break;
                 }
 
             }
@@ -440,7 +452,9 @@ public class SVM {
 
         double [] allDataSetAccuracies = new double[DATA_PARTITION_SIZE];
         long prediction_time_start = System.currentTimeMillis();
-        for (int i = 1; i < DATA_PARTITION_SIZE+1; i++) {
+        int counter = 1;
+        ArrayList<Integer> predictionPartitions = UtilDynamicSingle.generateUniqueSequence(51,100,40);
+        for (int i : predictionPartitions) {
             double accuracyPerDataSet = 0.0;
             baseX = args[0];
             baseY = baseX;
@@ -469,7 +483,8 @@ public class SVM {
             // generates the TestMatrix
             Matrix testData = generateTestMatrix(testReadCSVX, testReadCSVY);
             accuracyPerDataSet = perDataSetPrediction(testData, models, data);
-            allDataSetAccuracies[i-1] = accuracyPerDataSet;
+            allDataSetAccuracies[counter-1] = accuracyPerDataSet;
+            counter++;
         }
         long prediction_time_end = System.currentTimeMillis();
         PREDICTION_TESTING_TIME = (prediction_time_end - prediction_time_start) / 1000.0 ;
