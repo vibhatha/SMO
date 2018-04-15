@@ -128,7 +128,7 @@ public class SVM {
         KERNEL = argv[9];
         BASE_ACCURACY = Double.parseDouble(argv[10]);
         EXPERIMENT_NAME = argv[11];
-        OVERALL_LOGS = "stats/overallresults/"+EXPERIMENT_NAME+"";
+        OVERALL_LOGS = "stats/overallresults/"+EXPERIMENT_NAME+"_"+KERNEL;
 
 
         String [] model_path_attrb = MODEL_PATH.split("/");
