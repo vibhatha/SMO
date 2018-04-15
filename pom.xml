@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ise.svm</groupId>
-    <artifactId>svm</artifactId>
-    <version>ise</version>
+    <artifactId>ddmsvm-ise</artifactId>
+    <version>0.1</version>
 
 
     <properties>
