@@ -88,6 +88,7 @@ public class SVM {
     private static Stack<Integer> VIOLATION_ITERATIONS = new Stack<Integer>();
     private static String EXPERIMENT_NAME = "";
     private static String MINIBATCH_LOG_PATH="stats/minibatch/";
+    private static String OVERALL_LOGS = "stats/overallresults/logs.csv";
     private static long MINIBATCH_SIZE = 0;
     private static ArrayList<Double> ERROR_LIST = new ArrayList<>();
 
@@ -127,6 +128,7 @@ public class SVM {
         KERNEL = argv[9];
         BASE_ACCURACY = Double.parseDouble(argv[10]);
         EXPERIMENT_NAME = argv[11];
+        OVERALL_LOGS = "stats/overallresults/"+EXPERIMENT_NAME+"";
 
 
         String [] model_path_attrb = MODEL_PATH.split("/");
@@ -513,7 +515,7 @@ public class SVM {
         PREDICTION_ACCURACY = final_pred_acc;
 
         String final_log_info = "";
-        String final_log_path = "stats/overallresults/logs.csv";
+        String final_log_path = OVERALL_LOGS;
         String log_info="";
         LOG.info("Experiment Results");
         LOG.info("=================================================");

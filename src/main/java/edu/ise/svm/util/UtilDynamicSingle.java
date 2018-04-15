@@ -94,7 +94,6 @@ public class UtilDynamicSingle {
                     LOG.info("Kernel : " + args[9]);
                     LOG.info("Base Accuracy : " + args[10]);
                     LOG.info("Experiment Name : " + args[11]);
-
                 }else{
                     LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
                             " <train-X> <train-Y> <test-X> <test-Y> <model-path> <data-partitions> <C> <gamma> <kernel>");
