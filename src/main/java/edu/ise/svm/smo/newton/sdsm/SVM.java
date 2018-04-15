@@ -420,7 +420,7 @@ public class SVM {
             iteration++;
             String minibatchRecord = "";
             minibatchRecord = EXPERIMENT_NAME+","+MINIBATCH_SIZE+","+iteration+","+current_error+","+gamma+","+C+","+KERNEL+"\n";
-            MINIBATCH_LOG_PATH = "stats/minibatch/"+EXPERIMENT_NAME;
+            MINIBATCH_LOG_PATH = "stats/minibatch/"+EXPERIMENT_NAME+"_"+KERNEL;
             LOG.info("Minibatch Log : "+MINIBATCH_LOG_PATH);
             UtilDynamicSingle.appendLogs(MINIBATCH_LOG_PATH, minibatchRecord);
         }
