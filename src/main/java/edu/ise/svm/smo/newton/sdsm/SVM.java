@@ -162,10 +162,19 @@ public class SVM {
             long full_training_start = System.currentTimeMillis();
             k = new Random().nextInt(NUM_FULL_PARTIOTIONS);
             listOfUsedPartitions.add(k);
-            if(k==0 || listOfUsedPartitions.contains(k)){
+            if(k==0){
                 k++;
                 listOfUsedPartitions.add(k);
             }
+
+            while(listOfUsedPartitions.contains(k)){
+                k = new Random().nextInt(NUM_FULL_PARTIOTIONS);
+            }
+
+            if(listOfUsedPartitions.size()==NUM_FULL_PARTIOTIONS){
+                break;
+            }
+
             //LOG.info("Random Data Partition Id : "+k);
             //LOG.info("Selected Data Set : "+k);
             trainX = trainX.split("\\.")[0]+ "." + String.valueOf(k);
@@ -415,6 +424,7 @@ public class SVM {
                 if( errorChangeRate<0.001){
                     break;
                 }
+
 
             }
             iteration++;
