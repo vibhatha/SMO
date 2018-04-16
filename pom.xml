@@ -6,7 +6,7 @@
 
     <groupId>com.ise.svm</groupId>
     <artifactId>ddmsvm-ise</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 
 
     <properties>
@@ -16,7 +16,6 @@
 
 
  <build>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -28,7 +27,6 @@
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
 
 
