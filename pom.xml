@@ -6,7 +6,7 @@
 
     <groupId>com.ise.svm</groupId>
     <artifactId>ddmsvm-ise</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 
 
     <properties>
@@ -27,7 +27,7 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+ </build>
 
 
 </project>
