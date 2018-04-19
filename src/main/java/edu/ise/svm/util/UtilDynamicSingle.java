@@ -353,7 +353,7 @@ public class UtilDynamicSingle {
         int size = errorList.size();
         double init = errorList.get(0);
         double last = errorList.get(size-1);
-        rate = Math.abs((last - init)/(double)size);
+        rate = ((last - init)/(double)size);
         return rate;
     }
 }

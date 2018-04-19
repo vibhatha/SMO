@@ -167,8 +167,9 @@ public class SVM {
                 listOfUsedPartitions.add(k);
             }
 
-            while(listOfUsedPartitions.contains(k)){
+            while(listOfUsedPartitions.contains(k) && k ==0){
                 k = new Random().nextInt(NUM_FULL_PARTIOTIONS);
+
             }
 
             if(listOfUsedPartitions.size()==NUM_FULL_PARTIOTIONS){
@@ -299,6 +300,8 @@ public class SVM {
             TRAINING_TIME+= (full_training_end - full_training_start)/1000.0;
 
             TRAINING_MODEL_PATH = MODEL_PATH+"/model_1";
+            LOG.warning("MODEL SAVE PATH : " + TRAINING_MODEL_PATH);
+            LOG.warning("MODEL PATH : " + MODEL_PATH);
             //model.saveModel(TRAINING_MODEL_PATH);
             continousModel = model;
             long train_end = System.currentTimeMillis();
@@ -417,11 +420,11 @@ public class SVM {
                     boolean status = UtilDynamicSingle.isConsecutive(stack);
 
                     if(status){
-                        break;
+                       // break;
                     }
                 }
 
-                if( errorChangeRate<0.001){
+                if( errorChangeRate>0.02){
                     break;
                 }
 
