@@ -100,6 +100,30 @@ public class UtilDynamicSingle {
                     System.exit(0);
                 }
             }
+
+            if(type.equals(Constant.DYNAMIC_MINIBATCH_SDSM_SVM)){
+                if(args!=null && args.length==13){
+                    LOG.info("Source Folder : "+args[0]);
+                    LOG.info("Train X: "+args[1]);
+                    LOG.info("Train Y : "+args[2]);
+                    LOG.info("Test X : "+args[3]);
+                    LOG.info("Test Y : "+args[4]);
+                    //"model/single/heart/1"
+                    LOG.info("Model path : "+args[5]);
+                    LOG.info("Data Paritions: " + args[6]);
+                    LOG.info("C: " + args[7]);
+                    LOG.info("Gamma: " + args[8]);
+                    LOG.info("Kernel : " + args[9]);
+                    LOG.info("Base Accuracy : " + args[10]);
+                    LOG.info("Experiment Name : " + args[11]);
+                    LOG.info("Minibatch Times : " + args[12]);
+                }else{
+                    LOG.info("Usage java -Xms30072m -cp target/svm-ise.jar edu.ise.svm.Main <source-folder> " +
+                            " <train-X> <train-Y> <test-X> <test-Y> <model-path> <data-partitions> <C> <gamma> <kernel>");
+                    System.exit(0);
+                }
+            }
+
             if(type.equals(Constant.DYNAMIC_TRAINING)){
                 if(args!=null && args.length==10){
                     LOG.info("Source Folder : "+args[0]);

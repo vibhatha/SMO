@@ -22,4 +22,5 @@ public class Constant {
     public static final String MODEL_TYPE_NEGATIVE="negative";
     public static final String MODEL_TYPE_ZERO="zero";
     public static final String SDSM_SVM="sdsm_svm";
+    public static final String DYNAMIC_MINIBATCH_SDSM_SVM = "dynamic_minibatch_sdsm_svm";
 }
